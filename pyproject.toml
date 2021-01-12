@@ -1,0 +1,43 @@
+[tool]
+[tool.poetry]
+name = "planty"
+description = "This is the backend for the project cooperation with HS Geisenheim."
+authors = ["Christian Grossmüller",]
+version = "0.0.1"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "*"
+django-cleanup = "*"
+django-cors-headers = "*"
+django-environ = "*"
+django-mptt = "*"
+djangorestframework = "*"
+drf-yasg = "*"
+gevent = "*"
+gunicorn = "*"
+markupsafe = "==1.1.1"
+pillow = "*"
+psycopg2-binary = "*"
+raven = "*"
+solid-backend = "*"
+whitenoise = "*"
+
+[tool.poetry.dev-dependencies]
+black = "19.10b0"
+codecov = "*"
+coverage = "*"
+django-coverage-plugin = "*"
+django-debug-toolbar = "*"
+django-extensions = "*"
+ipdb = "*"
+pytest = "==5.3.5"
+pytest-cov = "*"
+pytest-django = "*"
+pytest-isort = "*"
+pytest-sugar = "*"
+werkzeug = "*"
+
+[build-system]
+# Should be the same as `$POETRY_VERSION`:
+requires = ["poetry>=1.0.5"]

@@ -1,0 +1,26 @@
+sudo: false
+
+services:
+  - postgresql
+
+language: python
+python:
+  - "3.7"
+
+env:
+  - TRAVIS_CI=True PATH="$PATH:$HOME/.poetry/bin" POETRY_VIRTUALENVS_CREATE=false PROFILES_SERIALIZER="dive_content.serializers.PlantSerializer"
+
+cache:
+  directories:
+    - $HOME/.cache/pip
+
+install:
+  - make
+before_script:
+  - psql -c "CREATE DATABASE test_db_app;" -U postgres
+  - psql -c "CREATE USER db_user WITH PASSWORD 'db_pass';" -U postgres
+
+script:
+  - black . --check
+after_success:
+  - codecov
