@@ -8,7 +8,7 @@ python:
   - "3.7"
 
 env:
-  - TRAVIS_CI=True PATH="$PATH:$HOME/.poetry/bin" POETRY_VIRTUALENVS_CREATE=false PROFILES_SERIALIZER="dive_content.serializers.PlantSerializer"
+  - TRAVIS_CI=True PATH="$PATH:$HOME/.poetry/bin" POETRY_VIRTUALENVS_CREATE=false PROFILES_SERIALIZER="planty_content.serializers.WineSerializer"
 
 cache:
   directories:
