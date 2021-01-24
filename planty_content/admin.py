@@ -1,7 +1,17 @@
 from django.contrib import admin
 
-from .models import (Berry, Disease, Grape, GrownLeaf, Phenology, Properties,
-                     Sprout, Twine, Wine, YoungLeaf)
+from .models import (
+    Berry,
+    Disease,
+    Grape,
+    GrownLeaf,
+    Phenology,
+    Properties,
+    Sprout,
+    Twine,
+    Wine,
+    YoungLeaf,
+)
 
 # Register your models here.
 

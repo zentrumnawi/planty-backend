@@ -1,7 +1,17 @@
 from rest_framework import serializers
 
-from .models import (Berry, Disease, Grape, GrownLeaf, Phenology, Properties,
-                     Sprout, Twine, Wine, YoungLeaf)
+from .models import (
+    Berry,
+    Disease,
+    Grape,
+    GrownLeaf,
+    Phenology,
+    Properties,
+    Sprout,
+    Twine,
+    Wine,
+    YoungLeaf,
+)
 
 
 class DisplayNameModelSerializer(serializers.ModelSerializer):
