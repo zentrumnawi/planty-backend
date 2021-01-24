@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class PlantyContentConfig(AppConfig):
-    name = "planty_content"
+    name = 'planty_content'
