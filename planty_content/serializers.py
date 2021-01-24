@@ -1,10 +1,10 @@
 from rest_framework import serializers
-from .models import Wine, Sprout, YoungLeaf, GrownLeaf, Grape, Berry, Twine, Properties, Phenology, Disease
 
+from .models import (Berry, Disease, Grape, GrownLeaf, Phenology, Properties,
+                     Sprout, Twine, Wine, YoungLeaf)
 
 
 class DisplayNameModelSerializer(serializers.ModelSerializer):
-
     def to_representation(self, instance):
         ret = super(DisplayNameModelSerializer, self).to_representation(instance)
 
@@ -12,7 +12,6 @@ class DisplayNameModelSerializer(serializers.ModelSerializer):
 
 
 class SproutSerializer(DisplayNameModelSerializer):
-
     class Meta:
         model = Sprout
         exclude = ["wine"]

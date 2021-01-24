@@ -1,4 +1,3 @@
-
 YES_NO_CHOICES = (
     ("ja", "ja"),
     ("nein", "nein"),
@@ -31,7 +30,7 @@ LAP_CHOICES = (
     ("3-lappig", "3-lappig"),
     ("5-", "5-"),
     ("5-lappig", "5-lappig"),
-    ("7-lappig", "7-lappig")
+    ("7-lappig", "7-lappig"),
 )
 
 
