@@ -28,7 +28,7 @@ def populate_systematics_with_tree_node(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0011_add_find_tree_node'),
+        ("planty_content", "0011_add_find_tree_node"),
     ]
 
     operations = [

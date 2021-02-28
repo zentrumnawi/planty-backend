@@ -6,12 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0012_tree_node_data_migration'),
+        ("planty_content", "0012_tree_node_data_migration"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='wine',
-            name='systematics',
-        ),
+        migrations.RemoveField(model_name="wine", name="systematics",),
     ]
