@@ -8,14 +8,20 @@ from .choices import *
 
 class Wine(BaseProfile):
     name = models.CharField(max_length=200, verbose_name=_("Sorte"))
-    ger_name = models.CharField(max_length=200, verbose_name=_("Sorte"))
+    ger_name = models.CharField(max_length=200, verbose_name=_("Deutscher Name"))
     synonyms = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
     )
     blossom = models.CharField(
-        max_length=8, choices=BLOSSOM_CHOICES, verbose_name=_("Blüte")
+        max_length=8,
+        choices=BLOSSOM_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Blüte"),
     )
-    cross_parents = models.CharField(max_length=200, verbose_name=_("Kreuzungseltern"))
+    cross_parents = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name=_("Kreuzungseltern")
+    )
     origin = models.CharField(
         max_length=200,
         verbose_name=_("Herkunft"),
@@ -65,7 +71,9 @@ class Sprout(models.Model):
 
 class YoungLeaf(models.Model):
 
-    color = models.CharField(max_length=200, verbose_name=_("Farbe"))
+    color = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name=_("Farbe")
+    )
     lappung = FromToConcatField(
         max_length=100,
         default="",
@@ -91,7 +99,9 @@ class YoungLeaf(models.Model):
 
 
 class GrownLeaf(models.Model):
-    color = models.CharField(max_length=200, verbose_name=_("Farbe"))
+    color = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name=_("Farbe")
+    )
     lappung = FromToConcatField(
         max_length=100,
         default="",
@@ -101,14 +111,24 @@ class GrownLeaf(models.Model):
         verbose_name=_("Lappung"),
     )
     edge_form = models.CharField(
-        max_length=7, choices=EDGE_FORM_CHOICES, verbose_name=_("Randform")
+        max_length=7,
+        blank=True,
+        null=True,
+        choices=EDGE_FORM_CHOICES,
+        verbose_name=_("Randform"),
     )
     structure = models.CharField(
-        max_length=7, choices=STRUCTURE_CHOICES, verbose_name=_("Struktur")
+        max_length=7,
+        choices=STRUCTURE_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Struktur"),
     )
     form_spreite = models.CharField(
         max_length=12,
         choices=FORM_SPREITE_CHOICES,
+        blank=True,
+        null=True,
         verbose_name=_("Form der Blattspreite"),
     )
 
@@ -121,7 +141,11 @@ class GrownLeaf(models.Model):
         verbose_name=_("Stielbuchtform"),
     )
     shaft_open = models.CharField(
-        max_length=16, choices=SHAFT_OPEN_CHOICES, verbose_name=_("Stielbuchtöffnungen")
+        max_length=16,
+        choices=SHAFT_OPEN_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Stielbuchtöffnungen"),
     )
     shaft_notes = models.CharField(
         max_length=200,
@@ -144,7 +168,11 @@ class GrownLeaf(models.Model):
     )
 
     ant_color = models.CharField(
-        max_length=7, choices=ANT_COLOR_CHOICES, verbose_name=_("Anthocyanfärbung")
+        max_length=7,
+        choices=ANT_COLOR_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Anthocyanfärbung"),
     )
 
     bristle_hairy = models.CharField(
