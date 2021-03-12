@@ -25,6 +25,7 @@ TIP_TYPE_CHOICES = (
 )
 
 LAP_CHOICES = (
+    (None, "---------"),
     ("ganzrandig", "ganzrandig"),
     ("3-", "3-"),
     ("3-lappig", "3-lappig"),
@@ -51,6 +52,7 @@ FORM_SPREITE_CHOICES = (
     ("nierenförmig", "nierenförmig"),
 )
 SHAFT_FORM_CHOICES = (
+    (None, "---------"),
     ("U-", "U-"),
     ("U-förmig", "U-förmig"),
     ("V-", "V-"),
@@ -143,6 +145,7 @@ SERIES_CHOICES = (
 )
 
 GOOD_BAD_CHOICES = (
+    (None, "---------"),
     ("gering", "gering"),
     ("mittel", "mittel"),
     ("gut", "gut"),
@@ -150,6 +153,7 @@ GOOD_BAD_CHOICES = (
 )
 
 WEAK_STRONG_CHOICES = (
+    (None, "---------"),
     ("sehr schwach", "sehr schwach"),
     ("schwach", "schwach"),
     ("mittel", "mittel"),
@@ -158,6 +162,7 @@ WEAK_STRONG_CHOICES = (
 )
 
 EARLY_LATE_CHOICES = (
+    (None, "---------"),
     ("sehr früh", "sehr früh"),
     ("früh", "früh"),
     ("mittel", "mittel"),
