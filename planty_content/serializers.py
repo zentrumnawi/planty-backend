@@ -91,7 +91,7 @@ class WineSerializer(DisplayNameModelSerializer):
     grown_leaf = GrownLeafSerializer()
     grape = GrapeSerializer()
     berry = BerrySerializer()
-    twine = TwineSerializer()
+    twine = TwineSerializer(required=False)
     properties = PropertiesSerializer()
     phenology = PhenologySerializer()
     disease = DiseaseSerializer()
