@@ -231,7 +231,7 @@ class Grape(models.Model):
         verbose_name_plural = _("Trauben")
 
 
-# migrations.RenameField(model_name="berry", old_name="armoa", new_name="aroma")
+
 class Berry(models.Model):
 
     form = models.CharField(
@@ -251,7 +251,7 @@ class Berry(models.Model):
         choices=BERRY_FLESH_COLOR_CHOICES,
         verbose_name=_("Farbe des Fruchtfleischs"),
     )
-    armoa = models.CharField(
+    aroma = models.CharField(
         max_length=16, choices=BERRY_ARMOA_CHOICES, verbose_name=_("Aroma")
     )
 
