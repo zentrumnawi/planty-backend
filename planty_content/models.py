@@ -8,7 +8,6 @@ from .choices import *
 
 class Wine(BaseProfile):
     name = models.CharField(max_length=200, verbose_name=_("Sorte"))
-    ger_name = models.CharField(max_length=200, verbose_name=_("Deutscher Name"))
     synonyms = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
     )
@@ -43,19 +42,27 @@ class Sprout(models.Model):
         choices=TIP_HAIRY_CHOICES,
         blank=True,
         null=True,
-        verbose_name=_("Behaarung der Triebspitze"),
+        verbose_name=_("Beharrung der Triebspitze"),
     )
     tip_type = models.CharField(
-        max_length=20, choices=TIP_TYPE_CHOICES, verbose_name=_("Typ der Triebspitze")
+        max_length=25,
+        null=True,
+        choices=TIP_TYPE_CHOICES,
+        verbose_name=_("Typ der Triebspitze"),
     )
     tip_color = models.CharField(
         max_length=200, verbose_name=_("Farbe der Triebspitze")
     )
 
     hairy = models.CharField(
-        max_length=4, choices=YES_NO_CHOICES, verbose_name=_("Beharrung des Triebs")
+        max_length=4,
+        null=True,
+        choices=YES_NO_CHOICES,
+        verbose_name=_("Beharrung des Triebs"),
     )
-    color = models.CharField(max_length=200, verbose_name=_("Farbe des Triebs"))
+    color = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name=_("Farbe des Triebs")
+    )
     notes = models.TextField(
         max_length=400, blank=True, null=True, verbose_name=_("Besonderheiten")
     )
@@ -208,7 +215,9 @@ class Grape(models.Model):
         max_length=10, choices=SIZE_CHOICES, verbose_name=_("Größe ohne Stiel")
     )
     form = models.CharField(max_length=24, choices=FORM_CHOICES, verbose_name=_("Form"))
-
+    shouldered = models.CharField(
+        max_length=9, choices=SHOULDERED_CHOICES, verbose_name=_("Geschultert")
+    )
     notes = models.TextField(
         max_length=400, blank=True, null=True, verbose_name=_("Besonderheiten")
     )
@@ -222,6 +231,7 @@ class Grape(models.Model):
         verbose_name_plural = _("Trauben")
 
 
+# migrations.RenameField(model_name="berry", old_name="armoa", new_name="aroma")
 class Berry(models.Model):
 
     form = models.CharField(
@@ -234,7 +244,7 @@ class Berry(models.Model):
         max_length=9, choices=BERRY_SURFACE_CHOICES, verbose_name=_("Oberfläche")
     )
     color = models.CharField(
-        max_length=11, choices=BERRY_COLOR_CHOICES, verbose_name=_("Farbe")
+        max_length=15, choices=BERRY_COLOR_CHOICES, verbose_name=_("Farbe")
     )
     flesh_color = models.CharField(
         max_length=9,
@@ -242,7 +252,7 @@ class Berry(models.Model):
         verbose_name=_("Farbe des Fruchtfleischs"),
     )
     armoa = models.CharField(
-        max_length=16, choices=BERRY_ARMOA_CHOICES, verbose_name=_("Armoa")
+        max_length=16, choices=BERRY_ARMOA_CHOICES, verbose_name=_("Aroma")
     )
 
     notes = models.TextField(
@@ -261,10 +271,10 @@ class Berry(models.Model):
 class Twine(models.Model):
 
     fork = models.CharField(
-        max_length=23, choices=FORK_CHOICES, verbose_name=_("Gabelung")
+        max_length=23, null=True, choices=FORK_CHOICES, verbose_name=_("Gabelung")
     )
     series = models.CharField(
-        max_length=17, choices=SERIES_CHOICES, verbose_name=_("Rankenfolge")
+        max_length=17, null=True, choices=SERIES_CHOICES, verbose_name=_("Rankenfolge")
     )
     color = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Farbe")
@@ -305,7 +315,7 @@ class Properties(models.Model):
         to_choices=GOOD_BAD_CHOICES,
         default="",
         blank=True,
-        verbose_name=_("Chlorosegestigkeit"),
+        verbose_name=_("Chlorosefestigkeit"),
     )
     aktive_chalk = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Aktivkalktoleranz")
@@ -398,16 +408,21 @@ class Phenology(models.Model):
 class Disease(models.Model):
 
     oidium = models.CharField(
-        max_length=4, choices=YES_NO_CHOICES, verbose_name=_("Anfälligkeite für Oidium")
+        max_length=4,
+        null=True,
+        choices=YES_NO_CHOICES,
+        verbose_name=_("Anfälligkeite für Oidium"),
     )
     peronospora = models.CharField(
         max_length=4,
         choices=YES_NO_CHOICES,
+        null=True,
         verbose_name=_("Anfälligkeit for Peronospora"),
     )
     botrytis = models.CharField(
         max_length=4,
         choices=YES_NO_CHOICES,
+        null=True,
         verbose_name=_("Anfälligkeit für Botrytis"),
     )
 

@@ -54,7 +54,7 @@ class DiseaseInline(admin.StackedInline):
 
 
 class WineModelAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "ger_name", "synonyms"]
+    list_display = ["id", "name", "synonyms"]
     inlines = [
         SproutInline,
         YoungLeafInline,
