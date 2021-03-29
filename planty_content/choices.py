@@ -21,6 +21,7 @@ TIP_TYPE_CHOICES = (
     ("offen", "offen"),
     ("halb offen bis offen", "halb offen bis offen"),
     ("halb offen", "halb offen"),
+    ("geschlossen bis halboffen", "geschlossen bis halboffen"),
     ("geschlossen", "geschlossen"),
 )
 
@@ -75,6 +76,7 @@ ANT_COLOR_CHOICES = (
 
 DENSITY_CHOICES = (
     ("lockerbeerig", "lockerbeerig"),
+    ("mitteldicht", "mitteldicht"),
     ("kompakt", "kompakt"),
 )
 SIZE_CHOICES = (
@@ -86,10 +88,11 @@ SIZE_CHOICES = (
 )
 FORM_CHOICES = (
     ("zylindrisch", "zylindrisch"),
-    ("zylindrisch geschultert", "zylindrisch geschultert"),
     ("konisch", "konisch"),
-    ("konisch geschultert", "konisch geschultert"),
+    ("kegelförmig", "kegelförmig"),
+    ("walzenförmig", "walzenförmig"),
 )
+SHOULDERED_CHOICES = (("ja", "ja"), ("nein", "nein"), ("teilweise", "teilweise"))
 
 BERRY_FORM_CHOICES = (
     ("flach", "flach"),
@@ -117,6 +120,7 @@ BERRY_SURFACE_CHOICES = (
 BERRY_COLOR_CHOICES = (
     ("weiß", "weiß"),
     ("rot", "rot"),
+    ("gelb", "gelb"),
     ("blau", "blau"),
     ("grüngelb", "grüngelb"),
     ("rosa", "rosa"),
@@ -124,6 +128,7 @@ BERRY_COLOR_CHOICES = (
     ("rot-grau", "rot-grau"),
     ("blauschwarz", "blauschwarz"),
     ("rotschwarz", "rotschwarz"),
+    ("bernsteinfarben", "bernsteinfarben"),
 )
 BERRY_FLESH_COLOR_CHOICES = (
     ("ungefärbt", "ungefärbt"),
