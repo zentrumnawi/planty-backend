@@ -271,10 +271,10 @@ class Berry(models.Model):
 class Twine(models.Model):
 
     fork = models.CharField(
-        max_length=23, null=True, choices=FORK_CHOICES, verbose_name=_("Gabelung")
+        max_length=23, null=True, blank=True, choices=FORK_CHOICES, verbose_name=_("Gabelung")
     )
     series = models.CharField(
-        max_length=17, null=True, choices=SERIES_CHOICES, verbose_name=_("Rankenfolge")
+        max_length=17, null=True, blank=True, choices=SERIES_CHOICES, verbose_name=_("Rankenfolge")
     )
     color = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Farbe")
