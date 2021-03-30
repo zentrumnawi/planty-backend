@@ -46,6 +46,7 @@ class Sprout(models.Model):
     )
     tip_type = models.CharField(
         max_length=25,
+        blank=True,
         null=True,
         choices=TIP_TYPE_CHOICES,
         verbose_name=_("Typ der Triebspitze"),
@@ -56,6 +57,7 @@ class Sprout(models.Model):
 
     hairy = models.CharField(
         max_length=4,
+        blank=True,
         null=True,
         choices=YES_NO_CHOICES,
         verbose_name=_("Behaarung des Triebs"),
@@ -229,7 +231,6 @@ class Grape(models.Model):
     class Meta:
         verbose_name = _("Traube")
         verbose_name_plural = _("Trauben")
-
 
 
 class Berry(models.Model):
