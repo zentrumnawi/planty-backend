@@ -241,7 +241,7 @@ class Berry(models.Model):
         max_length=10, choices=BERRY_SIZE_CHOICES, verbose_name=_("Größe")
     )
     surface = models.CharField(
-        max_length=9, choices=BERRY_SURFACE_CHOICES, verbose_name=_("Oberfläche")
+        max_length=9, null=True, choices=BERRY_SURFACE_CHOICES, verbose_name=_("Oberfläche")
     )
     color = models.CharField(
         max_length=15, choices=BERRY_COLOR_CHOICES, verbose_name=_("Farbe")
@@ -252,7 +252,7 @@ class Berry(models.Model):
         verbose_name=_("Farbe des Fruchtfleischs"),
     )
     aroma = models.CharField(
-        max_length=16, choices=BERRY_ARMOA_CHOICES, verbose_name=_("Aroma")
+        max_length=16, null=True, choices=BERRY_ARMOA_CHOICES, verbose_name=_("Aroma")
     )
 
     notes = models.TextField(
