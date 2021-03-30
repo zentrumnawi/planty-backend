@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='berry',
             name='aroma',
-            field=models.CharField(choices=[('Muskatgeschmack', 'Muskatgeschmack'), ('Foxgeschmack', 'Foxgeschmack'), ('Spezielgeschmack', 'Spezielgeschmack')], max_length=16, null=True, verbose_name='Aroma'),
+            field=models.CharField(choices=[('Muskatgeschmack', 'Muskatgeschmack'), ('Foxgeschmack', 'Foxgeschmack'), ('Spezielgeschmack', 'Spezielgeschmack')], max_length=16, null=True, blank=True, verbose_name='Aroma'),
         ),
         migrations.AlterField(
             model_name='berry',
             name='surface',
-            field=models.CharField(choices=[('bepunktet', 'bepunktet'), ('beduftet', 'beduftet')], max_length=9, null=True, verbose_name='Oberfläche'),
+            field=models.CharField(choices=[('bepunktet', 'bepunktet'), ('beduftet', 'beduftet')], max_length=9, null=True, blank=True, verbose_name='Oberfläche'),
         ),
     ]
