@@ -410,25 +410,30 @@ class Disease(models.Model):
     oidium = models.CharField(
         max_length=4,
         null=True,
+        blank=True,
         choices=YES_NO_CHOICES,
-        verbose_name=_("Anfälligkeite für Oidium"),
+        verbose_name=_("Anfälligkeit für Oidium"),
     )
     peronospora = models.CharField(
         max_length=4,
         choices=YES_NO_CHOICES,
         null=True,
-        verbose_name=_("Anfälligkeit for Peronospora"),
+        blank=True,
+        verbose_name=_("Anfälligkeit für Peronospora"),
     )
     botrytis = models.CharField(
         max_length=4,
         choices=YES_NO_CHOICES,
         null=True,
+        blank=True,
         verbose_name=_("Anfälligkeit für Botrytis"),
     )
 
     reblaus = models.CharField(
         max_length=9,
         choices=REBLAUS_CHOICES,
+        null=True,
+        blank=True,
         verbose_name=_("Verhalten gegenüber Reblaus"),
     )
 
