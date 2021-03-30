@@ -42,7 +42,7 @@ class Sprout(models.Model):
         choices=TIP_HAIRY_CHOICES,
         blank=True,
         null=True,
-        verbose_name=_("Beharrung der Triebspitze"),
+        verbose_name=_("Behaarung der Triebspitze"),
     )
     tip_type = models.CharField(
         max_length=25,
@@ -51,14 +51,14 @@ class Sprout(models.Model):
         verbose_name=_("Typ der Triebspitze"),
     )
     tip_color = models.CharField(
-        max_length=200, verbose_name=_("Farbe der Triebspitze")
+        max_length=200, blank=True, null=True, verbose_name=_("Farbe der Triebspitze")
     )
 
     hairy = models.CharField(
         max_length=4,
         null=True,
         choices=YES_NO_CHOICES,
-        verbose_name=_("Beharrung des Triebs"),
+        verbose_name=_("Behaarung des Triebs"),
     )
     color = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Farbe des Triebs")
