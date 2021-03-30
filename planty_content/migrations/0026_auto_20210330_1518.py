@@ -6,18 +6,36 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0025_auto_20210330_1508'),
+        ("planty_content", "0025_auto_20210330_1508"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='twine',
-            name='fork',
-            field=models.CharField(blank=True, choices=[('überwiegend zweigabelig', 'überwiegend zweigabelig'), ('überwiegend dreigabelig', 'überwiegend dreigabelig')], max_length=23, null=True, verbose_name='Gabelung'),
+            model_name="twine",
+            name="fork",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("überwiegend zweigabelig", "überwiegend zweigabelig"),
+                    ("überwiegend dreigabelig", "überwiegend dreigabelig"),
+                ],
+                max_length=23,
+                null=True,
+                verbose_name="Gabelung",
+            ),
         ),
         migrations.AlterField(
-            model_name='twine',
-            name='series',
-            field=models.CharField(blank=True, choices=[('kontinuierlich', 'kontinuierlich'), ('diskontinuierlich', 'diskontinuierlich')], max_length=17, null=True, verbose_name='Rankenfolge'),
+            model_name="twine",
+            name="series",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("kontinuierlich", "kontinuierlich"),
+                    ("diskontinuierlich", "diskontinuierlich"),
+                ],
+                max_length=17,
+                null=True,
+                verbose_name="Rankenfolge",
+            ),
         ),
     ]

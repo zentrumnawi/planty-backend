@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0021_auto_20210329_1454'),
+        ("planty_content", "0021_auto_20210329_1454"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='sprout',
-            name='tip_color',
-            field=models.CharField(blank=True, max_length=200, null=True, verbose_name='Farbe der Triebspitze'),
+            model_name="sprout",
+            name="tip_color",
+            field=models.CharField(
+                blank=True,
+                max_length=200,
+                null=True,
+                verbose_name="Farbe der Triebspitze",
+            ),
         ),
     ]

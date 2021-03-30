@@ -242,7 +242,11 @@ class Berry(models.Model):
         max_length=10, choices=BERRY_SIZE_CHOICES, verbose_name=_("Größe")
     )
     surface = models.CharField(
-        max_length=9, null=True, blank=True, choices=BERRY_SURFACE_CHOICES, verbose_name=_("Oberfläche")
+        max_length=9,
+        null=True,
+        blank=True,
+        choices=BERRY_SURFACE_CHOICES,
+        verbose_name=_("Oberfläche"),
     )
     color = models.CharField(
         max_length=15, choices=BERRY_COLOR_CHOICES, verbose_name=_("Farbe")
@@ -253,7 +257,11 @@ class Berry(models.Model):
         verbose_name=_("Farbe des Fruchtfleischs"),
     )
     aroma = models.CharField(
-        max_length=16, null=True, blank=True, choices=BERRY_ARMOA_CHOICES, verbose_name=_("Aroma")
+        max_length=16,
+        null=True,
+        blank=True,
+        choices=BERRY_ARMOA_CHOICES,
+        verbose_name=_("Aroma"),
     )
 
     notes = models.TextField(
@@ -272,10 +280,18 @@ class Berry(models.Model):
 class Twine(models.Model):
 
     fork = models.CharField(
-        max_length=23, null=True, blank=True, choices=FORK_CHOICES, verbose_name=_("Gabelung")
+        max_length=23,
+        null=True,
+        blank=True,
+        choices=FORK_CHOICES,
+        verbose_name=_("Gabelung"),
     )
     series = models.CharField(
-        max_length=17, null=True, blank=True, choices=SERIES_CHOICES, verbose_name=_("Rankenfolge")
+        max_length=17,
+        null=True,
+        blank=True,
+        choices=SERIES_CHOICES,
+        verbose_name=_("Rankenfolge"),
     )
     color = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Farbe")

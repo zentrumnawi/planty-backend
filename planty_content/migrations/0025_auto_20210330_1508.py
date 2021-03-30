@@ -6,28 +6,56 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0024_auto_20210330_1453'),
+        ("planty_content", "0024_auto_20210330_1453"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='disease',
-            name='botrytis',
-            field=models.CharField(blank=True, choices=[('ja', 'ja'), ('nein', 'nein')], max_length=4, null=True, verbose_name='Anfälligkeit für Botrytis'),
+            model_name="disease",
+            name="botrytis",
+            field=models.CharField(
+                blank=True,
+                choices=[("ja", "ja"), ("nein", "nein")],
+                max_length=4,
+                null=True,
+                verbose_name="Anfälligkeit für Botrytis",
+            ),
         ),
         migrations.AlterField(
-            model_name='disease',
-            name='oidium',
-            field=models.CharField(blank=True, choices=[('ja', 'ja'), ('nein', 'nein')], max_length=4, null=True, verbose_name='Anfälligkeit für Oidium'),
+            model_name="disease",
+            name="oidium",
+            field=models.CharField(
+                blank=True,
+                choices=[("ja", "ja"), ("nein", "nein")],
+                max_length=4,
+                null=True,
+                verbose_name="Anfälligkeit für Oidium",
+            ),
         ),
         migrations.AlterField(
-            model_name='disease',
-            name='peronospora',
-            field=models.CharField(blank=True, choices=[('ja', 'ja'), ('nein', 'nein')], max_length=4, null=True, verbose_name='Anfälligkeit für Peronospora'),
+            model_name="disease",
+            name="peronospora",
+            field=models.CharField(
+                blank=True,
+                choices=[("ja", "ja"), ("nein", "nein")],
+                max_length=4,
+                null=True,
+                verbose_name="Anfälligkeit für Peronospora",
+            ),
         ),
         migrations.AlterField(
-            model_name='disease',
-            name='reblaus',
-            field=models.CharField(blank=True, choices=[('tolerant', 'tolerant'), ('resistent', 'resistent'), ('anfällig', 'anfällig')], max_length=9, null=True, verbose_name='Verhalten gegenüber Reblaus'),
+            model_name="disease",
+            name="reblaus",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("tolerant", "tolerant"),
+                    ("resistent", "resistent"),
+                    ("anfällig", "anfällig"),
+                ],
+                max_length=9,
+                null=True,
+                verbose_name="Verhalten gegenüber Reblaus",
+            ),
         ),
     ]
