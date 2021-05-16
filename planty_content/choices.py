@@ -110,6 +110,7 @@ BERRY_FORM_CHOICES = (
     ("gebogen", "gebogen"),
 )
 BERRY_SIZE_CHOICES = (
+    (None, "---------"),
     ("sehr klein", "sehr klein"),
     ("klein", "klein"),
     ("mittel", "mittel"),

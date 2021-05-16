@@ -240,10 +240,15 @@ class Grape(models.Model):
 class Berry(models.Model):
 
     form = models.CharField(
-        max_length=22, choices=BERRY_FORM_CHOICES, verbose_name=_("Form")
+        max_length=22, choices=BERRY_FORM_CHOICES,  blank=True, null=True, verbose_name=_("Form")
     )
-    size = models.CharField(
-        max_length=10, choices=BERRY_SIZE_CHOICES, verbose_name=_("Größe")
+    size = FromToConcatField(
+        max_length=25,
+        from_choices=BERRY_SIZE_CHOICES,
+        to_choices=BERRY_SIZE_CHOICES,
+        default="",
+        blank=True,
+        verbose_name=_("Größe")
     )
     surface = models.CharField(
         max_length=9,
@@ -253,11 +258,13 @@ class Berry(models.Model):
         verbose_name=_("Oberfläche"),
     )
     color = models.CharField(
-        max_length=15, choices=BERRY_COLOR_CHOICES, verbose_name=_("Farbe")
+        max_length=15, choices=BERRY_COLOR_CHOICES,  blank=True, null=True, verbose_name=_("Farbe")
     )
     flesh_color = models.CharField(
         max_length=9,
         choices=BERRY_FLESH_COLOR_CHOICES,
+        blank=True,
+        null=True,
         verbose_name=_("Farbe des Fruchtfleischs"),
     )
     aroma = models.CharField(
