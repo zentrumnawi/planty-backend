@@ -39,6 +39,7 @@ LAP_CHOICES = (
 EDGE_FORM_CHOICES = (
     ("gesägt", "gesägt"),
     ("gezähnt", "gezähnt"),
+    ("wechselnd gezähnt und gesägt", "wechselnd gezähnt und gesägt"),
 )
 STRUCTURE_CHOICES = (
     ("glatt", "glatt"),
@@ -75,6 +76,7 @@ ANT_COLOR_CHOICES = (
 )
 
 DENSITY_CHOICES = (
+    (None, "---------"),
     ("lockerbeerig", "lockerbeerig"),
     ("mitteldicht", "mitteldicht"),
     ("kompakt", "kompakt"),
@@ -87,6 +89,7 @@ SIZE_CHOICES = (
     ("sehr groß", "sehr groß"),
 )
 FORM_CHOICES = (
+    (None, "---------"),
     ("zylindrisch", "zylindrisch"),
     ("konisch", "konisch"),
     ("kegelförmig", "kegelförmig"),
@@ -107,6 +110,7 @@ BERRY_FORM_CHOICES = (
     ("gebogen", "gebogen"),
 )
 BERRY_SIZE_CHOICES = (
+    (None, "---------"),
     ("sehr klein", "sehr klein"),
     ("klein", "klein"),
     ("mittel", "mittel"),
