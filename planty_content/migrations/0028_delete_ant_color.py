@@ -6,17 +6,24 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0027_auto_20210330_1523'),
+        ("planty_content", "0027_auto_20210330_1523"),
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='grownleaf',
-            name='ant_color',
-        ),
+        migrations.RemoveField(model_name="grownleaf", name="ant_color",),
         migrations.AlterField(
-            model_name='grownleaf',
-            name='edge_form',
-            field=models.CharField(blank=True, choices=[('gesägt', 'gesägt'), ('gezähnt', 'gezähnt'), ('wechselnd gezähnt und gesägt', 'wechselnd gezähnt und gesägt')], max_length=28, null=True, verbose_name='Randform'),
+            model_name="grownleaf",
+            name="edge_form",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("gesägt", "gesägt"),
+                    ("gezähnt", "gezähnt"),
+                    ("wechselnd gezähnt und gesägt", "wechselnd gezähnt und gesägt"),
+                ],
+                max_length=28,
+                null=True,
+                verbose_name="Randform",
+            ),
         ),
     ]

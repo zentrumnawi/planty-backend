@@ -208,10 +208,14 @@ class Grape(models.Model):
         to_choices=DENSITY_CHOICES,
         default="",
         blank=True,
-        verbose_name=_("Dichte")
+        verbose_name=_("Dichte"),
     )
     size = models.CharField(
-        max_length=10, choices=SIZE_CHOICES, blank=True, null=True, verbose_name=_("Größe ohne Stiel")
+        max_length=10,
+        choices=SIZE_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Größe ohne Stiel"),
     )
     form = FromToConcatField(
         max_length=55,
@@ -219,10 +223,14 @@ class Grape(models.Model):
         to_choices=FORM_CHOICES,
         default="",
         blank=True,
-        verbose_name=_("Form")
+        verbose_name=_("Form"),
     )
     shouldered = models.CharField(
-        max_length=9, choices=SHOULDERED_CHOICES, blank=True, null=True, verbose_name=_("Geschultert")
+        max_length=9,
+        choices=SHOULDERED_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Geschultert"),
     )
     notes = models.TextField(
         max_length=400, blank=True, null=True, verbose_name=_("Besonderheiten")
@@ -240,7 +248,11 @@ class Grape(models.Model):
 class Berry(models.Model):
 
     form = models.CharField(
-        max_length=22, choices=BERRY_FORM_CHOICES,  blank=True, null=True, verbose_name=_("Form")
+        max_length=22,
+        choices=BERRY_FORM_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Form"),
     )
     size = FromToConcatField(
         max_length=25,
@@ -248,7 +260,7 @@ class Berry(models.Model):
         to_choices=BERRY_SIZE_CHOICES,
         default="",
         blank=True,
-        verbose_name=_("Größe")
+        verbose_name=_("Größe"),
     )
     surface = models.CharField(
         max_length=9,
@@ -258,7 +270,11 @@ class Berry(models.Model):
         verbose_name=_("Oberfläche"),
     )
     color = models.CharField(
-        max_length=15, choices=BERRY_COLOR_CHOICES,  blank=True, null=True, verbose_name=_("Farbe")
+        max_length=15,
+        choices=BERRY_COLOR_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Farbe"),
     )
     flesh_color = models.CharField(
         max_length=9,
