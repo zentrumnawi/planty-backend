@@ -120,7 +120,7 @@ class GrownLeaf(models.Model):
         verbose_name=_("Lappung"),
     )
     edge_form = models.CharField(
-        max_length=7,
+        max_length=28,
         blank=True,
         null=True,
         choices=EDGE_FORM_CHOICES,
@@ -174,14 +174,6 @@ class GrownLeaf(models.Model):
         blank=True,
         null=True,
         verbose_name=_("Behaarung Nervenunterseite"),
-    )
-
-    ant_color = models.CharField(
-        max_length=7,
-        choices=ANT_COLOR_CHOICES,
-        blank=True,
-        null=True,
-        verbose_name=_("Anthocyanfärbung"),
     )
 
     bristle_hairy = models.CharField(

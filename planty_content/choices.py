@@ -39,6 +39,7 @@ LAP_CHOICES = (
 EDGE_FORM_CHOICES = (
     ("gesägt", "gesägt"),
     ("gezähnt", "gezähnt"),
+    ("wechselnd gezähnt und gesägt", "wechselnd gezähnt und gesägt"),
 )
 STRUCTURE_CHOICES = (
     ("glatt", "glatt"),
