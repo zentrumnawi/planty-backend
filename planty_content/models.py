@@ -202,15 +202,27 @@ class GrownLeaf(models.Model):
 
 class Grape(models.Model):
 
-    density = models.CharField(
-        max_length=12, choices=DENSITY_CHOICES, verbose_name=_("Dichte")
+    density = FromToConcatField(
+        max_length=30,
+        from_choices=DENSITY_CHOICES,
+        to_choices=DENSITY_CHOICES,
+        default="",
+        blank=True,
+        verbose_name=_("Dichte")
     )
     size = models.CharField(
-        max_length=10, choices=SIZE_CHOICES, verbose_name=_("Größe ohne Stiel")
+        max_length=10, choices=SIZE_CHOICES, blank=True, null=True, verbose_name=_("Größe ohne Stiel")
     )
-    form = models.CharField(max_length=24, choices=FORM_CHOICES, verbose_name=_("Form"))
+    form = FromToConcatField(
+        max_length=55,
+        from_choices=FORM_CHOICES,
+        to_choices=FORM_CHOICES,
+        default="",
+        blank=True,
+        verbose_name=_("Form")
+    )
     shouldered = models.CharField(
-        max_length=9, choices=SHOULDERED_CHOICES, verbose_name=_("Geschultert")
+        max_length=9, choices=SHOULDERED_CHOICES, blank=True, null=True, verbose_name=_("Geschultert")
     )
     notes = models.TextField(
         max_length=400, blank=True, null=True, verbose_name=_("Besonderheiten")

@@ -76,6 +76,7 @@ ANT_COLOR_CHOICES = (
 )
 
 DENSITY_CHOICES = (
+    (None, "---------"),
     ("lockerbeerig", "lockerbeerig"),
     ("mitteldicht", "mitteldicht"),
     ("kompakt", "kompakt"),
@@ -88,6 +89,7 @@ SIZE_CHOICES = (
     ("sehr groß", "sehr groß"),
 )
 FORM_CHOICES = (
+    (None, "---------"),
     ("zylindrisch", "zylindrisch"),
     ("konisch", "konisch"),
     ("kegelförmig", "kegelförmig"),
