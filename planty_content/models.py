@@ -34,6 +34,7 @@ class Wine(BaseProfile):
     class Meta:
         verbose_name = _("Rebe")
         verbose_name_plural = _("Reben")
+        ordering = ("name",)
 
 
 class Sprout(models.Model):
