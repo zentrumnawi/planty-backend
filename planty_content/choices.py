@@ -7,6 +7,8 @@ BLOSSOM_CHOICES = (
     ("männlich", "männlich"),
     ("weiblich", "weiblich"),
     ("zwittrig", "zwittrig"),
+    ('einhäusig', 'einhäusig'),
+    ("zweihäusig", "zweihäusig"),
 )
 
 TIP_HAIRY_CHOICES = (

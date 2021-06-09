@@ -12,7 +12,7 @@ class Wine(BaseProfile):
         max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
     )
     blossom = models.CharField(
-        max_length=8,
+        max_length=10,
         choices=BLOSSOM_CHOICES,
         blank=True,
         null=True,
