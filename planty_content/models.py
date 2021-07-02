@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
-from solid_backend.content.models import BaseProfile, TreeNode, SolidBaseProfile
+from solid_backend.content.models import BaseProfile, TreeNode
 
 from .choices import *
 
 
-class Wine(BaseProfile, SolidBaseProfile):
+class Wine(BaseProfile):
     name = models.CharField(max_length=200, verbose_name=_("Sorte"))
     synonyms = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
