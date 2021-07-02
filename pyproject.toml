@@ -22,6 +22,7 @@ psycopg2-binary = "*"
 raven = "*"
 whitenoise = "*"
 solid-backend = {version = "^0.1.19", allow-prereleases = true}
+django-anymail = "^8.4"
 
 [tool.poetry.dev-dependencies]
 black = "19.10b0"
