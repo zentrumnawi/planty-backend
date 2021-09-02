@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from solid_backend.photograph.serializers import PhotographSerializer
+from solid_backend.media_object.serializers import MediaObjectSerializer
 
 from .models import (
     Berry,
@@ -96,7 +97,8 @@ class WineSerializer(DisplayNameModelSerializer):
     phenology = PhenologySerializer(required=False)
     disease = DiseaseSerializer()
     photographs = PhotographSerializer(many=True)
-
+    media_objects = MediaObjectSerializer(many=True)
+    
     class Meta:
         model = Wine
         fields = "__all__"
