@@ -28,6 +28,7 @@ def migrate_Photograph_to_MediaObject(apps, schema_editor):
                 profile_position=photo.profile_position,
                 media_format="image",
                 file=_file,
+                dzi_option=photo.dzi_option,
                 img_original_width=photo.img_original_width,
                 img_original_height=photo.img_original_height,
                 img_original_scale=photo.img_original_scale,
