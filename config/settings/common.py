@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "mptt",
     "stdimage",
     "corsheaders",
+    "taggit",
     "planty_content.apps.PlantyContentConfig",
     "solid_backend.content",
     "solid_backend.contact",
