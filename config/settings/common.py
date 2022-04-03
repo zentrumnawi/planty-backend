@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "taggit",
     "planty_content.apps.PlantyContentConfig",
+    "planty_plant_content.apps.PlantyPlantContentConfig",
     "solid_backend.content",
     "solid_backend.contact",
     "solid_backend.glossary",
