@@ -804,3 +804,15 @@ class Diseases(models.Model):
     class Meta:
         verbose_name = _("Krankheiten / Schädlinge / Resistenzen")
         verbose_name_plural = _("Krankheiten / Schädlinge / Resistenzen")
+
+
+class GeneralInformation(models.Model):
+
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="general_information", verbose_name=_("Pflanze"))
+    info = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Informatives"))
+    literature = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Literatur"))
+    geo_data = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Verortung am Hochschulstandort"))
+
+    class Meta:
+        verbose_name = _("Informatives")
+        verbose_name_plural = _("Informatives")
