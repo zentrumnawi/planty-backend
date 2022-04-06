@@ -617,3 +617,37 @@ class Application(models.Model):
     class Meta:
         verbose_name = _("Verwendung")
         verbose_name_plural = _("Verwendungen")
+
+
+class PlantationAndCare(models.Model):
+    ERUPTION_CHOICES = ChoiceEnum(
+        "EruptionChoices",
+        (
+            "frostfrei", "kühl", "warm", "Kalthaus", "Warmhaus", "hell", "dunkel", "Freiland", "Winterschutz", "beheizter"
+            "Winterschutz", "Nässeschutz"
+        )
+    ).choices()
+
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="plantation_and_creation", verbose_name=_("Pflanze"))
+    plantation_time = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Empfohlener Pflanzzeitpunkt "))
+    eruption = models.CharField(
+        max_length=4,
+        choices=YES_NO_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name=_("Stockausschlagsfähigkeit"),
+    )
+    cutting = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Schnitt"), help_text=_("Verträglichkeit, Zeitpunkt"))
+    preservation = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Verjüngung/Erhaltung "))
+    fertilization = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Düngung/Wachstumsförderung "), help_text=_("in Verwendung"))
+    soil_treatment = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Bodenbearbeitung"))
+    hibernation = ChoiceArrayField(
+        models.CharField(choices=ERUPTION_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Überwinterung")
+    )
+    extra = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weiteres zur Pflanzung und Pflege"))
+
+    class Meta:
+        verbose_name = _("Pflanzung und Pflege")
+        verbose_name_plural = _("Pflanzungen und Pflege")

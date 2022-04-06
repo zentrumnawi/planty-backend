@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import (
     Plant, Taxonomy, Living, NatBehavior, NatOccurence, ZeigerValues, EcologyAndNatLocation, Habitus, Sprout, Leaf,
-    Blossom, Fruit, Bark, Root, Appearance, Habitat, HabitatFactors, Function, Application
+    Blossom, Fruit, Bark, Root, Appearance, Habitat, HabitatFactors, Function, Application, PlantationAndCare
                      )
 # Register your models here.
 
@@ -23,8 +23,12 @@ class ApplicationInline(admin.StackedInline):
     model = Application
 
 
+class PlantationAndCareInline(admin.StackedInline):
+    model = PlantationAndCare
+
+
 class PlantAdmin(admin.ModelAdmin):
-    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline]
+    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline, PlantationAndCareInline]
 
     class Meta:
         model = Plant
@@ -48,6 +52,7 @@ admin.site.register(Habitat, admin.ModelAdmin)
 admin.site.register(HabitatFactors, admin.ModelAdmin)
 admin.site.register(Function, admin.ModelAdmin)
 admin.site.register(Application, admin.ModelAdmin)
+admin.site.register(PlantationAndCare, admin.ModelAdmin)
 
 admin.site.register(Plant, PlantAdmin)
 
