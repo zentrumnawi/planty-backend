@@ -2,7 +2,8 @@ from django.contrib import admin
 
 from .models import (
     Plant, Taxonomy, Living, NatBehavior, NatOccurence, ZeigerValues, EcologyAndNatLocation, Habitus, Sprout, Leaf,
-    Blossom, Fruit, Bark, Root, Appearance, Habitat, HabitatFactors, Function, Application, PlantationAndCare
+    Blossom, Fruit, Bark, Root, Appearance, Habitat, HabitatFactors, Function, Application, PlantationAndCare,
+    ReproductionAndProduction, Toxicity, FaunaUsability, HumanUsability, Usability
                      )
 # Register your models here.
 
@@ -27,8 +28,16 @@ class PlantationAndCareInline(admin.StackedInline):
     model = PlantationAndCare
 
 
+class ReproductionAndProductionInline(admin.StackedInline):
+    model = ReproductionAndProduction
+
+
+class UsabilityInline(admin.StackedInline):
+    model = Usability
+
+
 class PlantAdmin(admin.ModelAdmin):
-    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline, PlantationAndCareInline]
+    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline, PlantationAndCareInline, ReproductionAndProductionInline, UsabilityInline]
 
     class Meta:
         model = Plant
@@ -53,6 +62,11 @@ admin.site.register(HabitatFactors, admin.ModelAdmin)
 admin.site.register(Function, admin.ModelAdmin)
 admin.site.register(Application, admin.ModelAdmin)
 admin.site.register(PlantationAndCare, admin.ModelAdmin)
+admin.site.register(ReproductionAndProduction, admin.ModelAdmin)
+admin.site.register(Toxicity, admin.ModelAdmin)
+admin.site.register(FaunaUsability, admin.ModelAdmin)
+admin.site.register(HumanUsability, admin.ModelAdmin)
+admin.site.register(Usability, admin.ModelAdmin)
 
 admin.site.register(Plant, PlantAdmin)
 

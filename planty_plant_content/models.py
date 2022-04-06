@@ -386,7 +386,7 @@ class Blossom(models.Model):
     size = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Größe"), help_text=("Einzelblüte/Blütenbestandteile/Blütenstand in mm bis cm, Eingabe der Einheit"))
     color = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Farbe"), help_text=_("Grundfarbe und besondere Farbnuancen"))
     pollination = models.CharField(max_length=2, choices=POLLINATION_CHOICES, null=True, blank=True, verbose_name=_("Bestäubungsfaktoren "), help_text=_("für generative Vermehrung"))
-    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale "), help_text=_(""))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale "))
     main_blooming_period = FromToConcatField(
         max_length=100,
         default="",
@@ -398,7 +398,7 @@ class Blossom(models.Model):
     after_blooming_period = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Nachblüte, Nebenblüte"))
     phenology_blooming_period = models.CharField(max_length=2, choices=Leaf.BUDDING_CHOICES, null=True, blank=True, verbose_name=_("Phänologische Blühphasen "))
     age_at_frist_bloom = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Alter bei erster Blüte"))
-    note_to_bloom = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Blütezeit"), help_text=_(""))
+    note_to_bloom = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Blütezeit"))
     odor = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Geruch"), help_text=_("Intensität, Aroma"))
 
     class Meta:
@@ -651,3 +651,148 @@ class PlantationAndCare(models.Model):
     class Meta:
         verbose_name = _("Pflanzung und Pflege")
         verbose_name_plural = _("Pflanzungen und Pflege")
+
+
+class ReproductionAndProduction(models.Model):
+    REPRODUCTION_CHOICES = ChoiceEnum(
+        "ReproductionChoices",
+        (
+            "Aussat", "Stecklingsvermehrung", "Brutknöllchen", "Ableger"
+        )
+    ).choices()
+    SPROUT_BEHAVIOR_CHOICES = ChoiceEnum(
+        "SproutBehaviorChoices",
+        (
+            "Kaltkeimer", "Warmkeimer", "Lichtkeimer", "Normalkeimer"
+        )
+    ).choices()
+
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="reproduction_and_production", verbose_name=_("Pflanze"))
+    reproduction_type = ChoiceArrayField(
+        models.CharField(choices=REPRODUCTION_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Art der Vermehrung")
+    )
+    sprout_behavior = ChoiceArrayField(
+        models.CharField(choices=SPROUT_BEHAVIOR_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Keimverhalten")
+    )
+    refinement = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Veredelungsfaktoren"))
+    extra_reproducttion = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weiteres zur Vermehrung "))
+    cultivation_req = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Anzuchtbedingungen "), help_text=_("Saattiefe, Keimtemperatur, Substrate, Wundverschluss, etc."))
+    culture_req = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Kulturbedingungen (Outdoor)"), help_text=_("nur bei dauerhafter Kultur, z.B. Baumschule"))
+    lighting_criteria = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Beleuchtungskriterien"))
+    tempertaure_criteria = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Temperaturkriterien"))
+    cilture_substrates = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Kultursubstrate"))
+    fertilization = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Düngung/Wachstumsförderung "), help_text=_("in Kultur"))
+    extra_culture = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Kulturbedingungen (Indoor)"), help_text=_("nur bei dauerhafter Kultur, z.B. Gewächshaus"))
+    extra_production = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weiteres zu Produktion"))
+
+    class Meta:
+        verbose_name = _("Vermehrung / Produktion")
+        verbose_name_plural = _("Vermehrungen / Produktionen")
+
+
+class Toxicity(models.Model):
+    TOXICITY_CHOICES = ChoiceEnum(
+        "ToxicityChoices",
+        (
+            "ungiftig", "Laub", "leicht giftig", "Blüte leicht giftig", "Frucht leicht giftig", "Wurzel leicht giftig", "Laub giftig", "Blüte giftig", "Frucht giftig", "Wurzel giftig", "Laub stark giftig", "Blüte stark giftig", "Frucht stark giftig", "Wurzel stark giftig", "gesamte  Pflanze leicht giftig", "gesamte Pflanze giftig", "gesamte pflanze stark giftig", "phototoxisch", "kontaktgiftig"
+        )
+    ).choices()
+
+    toxicity = ChoiceArrayField(
+        models.CharField(choices=TOXICITY_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Giftigkeit")
+    )
+    extra_toxicity = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Giftigkeit"))
+
+    class Meta:
+        verbose_name = _("Giftigkeit")
+        verbose_name_plural = _("Giftigkeiten")
+
+
+class FaunaUsability(models.Model):
+
+    BEE_CHOICES = ChoiceEnum(
+        "BeeChoices",
+        (
+            "Nektar", "Pollen", "Aufenthalt", "Nistmaterial"
+        )
+    ).choices()
+
+    MOTH_CHOICES = ChoiceEnum(
+        "MothChoices",
+        (
+            "Raupenfutterpflanze(Schmetterling)",
+            "Raupenfutterpflanze (Nachtfalter)",
+            "Nektarpflanze(Schmetterling)",
+            "Nektarpflanze(Nachtfalter)",
+            "Nutzung von Schmetterlingen",
+            "Nutzung von Nachtfaltern"
+        )
+    ).choices()
+
+    BIRD_CHOICES = ChoiceEnum(
+        "BirdChoices",
+        (
+            "Futter", "Nistplatz", "Nistmaterial"
+        )
+    ).choices()
+
+    bee_plant = ChoiceArrayField(
+        models.CharField(choices=BEE_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Bienenpflanze")
+    )
+    extra_bee = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Bienenpflanze"))
+    moth_plant = ChoiceArrayField(
+        models.CharField(choices=MOTH_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Falterpflanze")
+    )
+    extra_moth = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Falterpflanze"))
+    bird_plant = ChoiceArrayField(
+        models.CharField(choices=BIRD_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Vogelnutzpflanze")
+    )
+    extra_bird = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Vogelnutzpflanze"))
+    extra_animal = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Nutzungen durch Tiere"))
+
+    class Meta:
+        verbose_name = _("Nutzbarkeit Fauna")
+        verbose_name_plural = _("Nutzbarkeiten Fauna")
+
+
+class HumanUsability(models.Model):
+    medical_use = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Medizinischer Nutzen"))
+    edible = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Essbarkeit der Bestandteile"))
+    use_of_parts = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Nutzung und Verarbeitung der Bestandteile"))
+    wood_use = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Holznutzung"))
+    wood_properties = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Holzeigenschaften "))
+    religious_meaning = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Kulturelle Bedeutung/ Volksglaube"))
+
+    class Meta:
+        verbose_name = _("Nutzbarkeit Mensch ")
+        verbose_name_plural = _("Nutzbarkeiten Mensch ")
+
+
+class Usability(models.Model):
+
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="usability", verbose_name=_("Pflanze"))
+    toxicity = models.OneToOneField(to=Toxicity, on_delete=models.CASCADE, related_name="usability", verbose_name=_("Giftigkeit"))
+    fauna_usability = models.OneToOneField(to=FaunaUsability, on_delete=models.CASCADE, related_name="usability", verbose_name=_("Nutzbarkeit Fauna"))
+    human_usability = models.OneToOneField(to=HumanUsability, on_delete=models.CASCADE, related_name="usability", verbose_name=_("Nutzbarkeit Mensch "))
+
+    class Meta:
+        verbose_name = _("Nutzbarkeit")
+        verbose_name_plural = _("Nutzbarkeiten")
+
+
+models.CharField(max_length=100, null=True, blank=True, verbose_name=_(""))
+models.TextField(max_length=500, null=True, blank=True, verbose_name=_(""))
+
+
