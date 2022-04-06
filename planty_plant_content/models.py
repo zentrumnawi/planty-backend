@@ -1,9 +1,10 @@
-from enum import IntEnum, Enum
+from enum import Enum
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.postgres.fields import ArrayField
 from django.forms import MultipleChoiceField
+from solid_backend.content.fields import FromToConcatField
 
 from planty_content.choices import YES_NO_CHOICES
 
@@ -259,3 +260,214 @@ class EcologyAndNatLocation(models.Model):
     plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="ecology_andd_natlocation", verbose_name=_("Pflanze"))
     nat_occ = models.OneToOneField(to=NatOccurence, on_delete=models.CASCADE, related_name="eco_and_natlocation", verbose_name=_("Natürliches Vorkommen"))
     nat_behavior = models.OneToOneField(to=NatBehavior, on_delete=models.CASCADE, related_name="eco_and_natlocation", verbose_name=_("Natürliche Verhaltensweisen und Fähigkeiten am Standort"))
+
+
+class Habitus(models.Model):
+    height = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Wuchshöhe"), help_text=_("in m, Engabe der Einheut"))
+    width = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Wuchsbreite"), help_text=_("in m, Engabe der Einheut"))
+    grow_style = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Wüchsigkeit"))
+    dimension_extra = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weiteres zur Dimension"), help_text=_("Veränderte Größen bei speziellen Bedingungen"))
+    grow_form = models.CharField(max_length=100, verbose_name=_("Wuchsform"))
+    grow_extra = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weiteres zum Wuchs"))
+    similar_kinds = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Ähnliche Arten / Differenzialmerkmale"), help_text=_("('leicht zu verwechseln mit', Merkmal)"))
+
+    class Meta:
+        verbose_name = _("Habitus")
+        verbose_name_plural = _("Habita")
+
+
+class Sprout(models.Model):
+    branch_form = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Form Äste/ Triebe/ Verzweigung"))
+    buds = models.TextField(max_length=500, verbose_name=_("Knospen"), help_text=_("Form und Farbe"))
+    leaf_scar = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Blattnarbe"))
+    odor = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Geruch"), help_text=_("Intensität, Aroma"))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale "))
+
+    class Meta:
+        verbose_name = _("Trieb")
+        verbose_name_plural = _("Triebe")
+
+
+class Leaf(models.Model):
+
+    ENDURANCE_CHOICES = ChoiceEnum(
+        "EnduranceChoices",
+        (
+            "immergrün",
+            "überwinternd grün / wintergrün",
+            "sommergrün",
+            "vorsommergrün",
+        )
+    ).choices()
+    ANATOMY_CHOICES = ChoiceEnum(
+        "AnatomyChoices",
+        (
+            "hydromorph",
+            "blattsukkulent",
+            "helomorph",
+            "mesomorph",
+            "skleromorph / xeromorph",
+            "hygromorph",
+        )
+    ).choices()
+    BUDDING_CHOICES = ChoiceEnum(
+        "BuddingChoices",
+        (
+            "Vorfrühling", "Beginn Erstfrühling", "Ende Erstfrühling", "Beginn Vollfrühling", "Ende Vollfrühling", "Beginn Frühsommer", "Ende Frühsommer", "Hochsommer", "Frühherbst", "Herbst", "Winter"
+        )
+    ).choices()
+
+    form = models.CharField(max_length=100, verbose_name=_("Form"), help_text=_("Formulierungen entspr. Schmeil-Fitschen"))
+    edge_form = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Randform"), help_text=_("Formulierungen entspr. Schmeil-Fitschen"))
+    size =models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Größe"), help_text=_("in mm/cm, Eingabe der Einheit"))
+    color = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Farbe"))
+    panasch = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Panschierung"))
+    color_winter = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Farbe in Herbst/Winter"))
+    position = models.CharField(max_length=100, verbose_name=_("Stellung"), help_text=_("Formulierungen entspr. Schmeil-Fitschen"))
+    nerves = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Nervatur"), help_text=_("Formulierungen entspr. Schmeil-Fitschen"))
+    endurance = ChoiceArrayField(
+        models.CharField(choices=ENDURANCE_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Ausdauer")
+    )
+    anatomy = ChoiceArrayField(
+        models.CharField(choices=ANATOMY_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Anatomie")
+    )
+    budding = models.CharField(max_length=2, choices=BUDDING_CHOICES, null=True, blank=True, verbose_name=_("Blattaustrieb (phänologisch)"))
+    budding_time = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Zeitpunkt des Austriebs"), help_text=_("Wenn Besonderheit im Zeitpunkt des Neuaustriebs"))
+    odor = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Geruch"), help_text=_("Intensität, Aroma"))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale "))
+
+    class Meta:
+        verbose_name = _("Blatt")
+        verbose_name_plural = _("Blätter")
+
+
+class Blossom(models.Model):
+
+
+    POLLINATION_CHOICES = ChoiceEnum(
+        "PollinationChoices",
+        (
+            "abiotische Bestäubung",
+            "Fledermausbestäubung",
+            "Geitonogamie",
+            "Insektenbestäubung",
+            "Kleistogamie",
+            "Pseudokleistogamie",
+            "Selbstbestäubung",
+            "Schneckenbestäubung",
+            "Vogelbestäubung",
+            "Wasserbestäubung",
+            "Windbestäubung",
+            "Tierbestäubung",
+        )
+    ).choices()
+
+    MAIN_BLOOMING_CHOICES = (
+        ("I", "I"),
+        ("II", "II"),
+        ("III", "III"),
+        ("IV", "IV"),
+        ("V", "V"),
+        ("VI", "VI") ,
+        ("VII", "VII"),
+        ("VIII", "VIII"),
+        ("IX", "IX"),
+        ("X", "X"),
+        ("XI", "XI"),
+        ("XII", "XII")
+    )
+
+    stand = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Blütenstand"), help_text=_("Formulierungen entspr. Schmeil-Fitschen"))
+    form_single_blossom = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Form der Einzelblüte"), help_text=_("Formulierungen entspr. Schmeil-Fitschen"))
+    size = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Größe"), help_text=("Einzelblüte/Blütenbestandteile/Blütenstand in mm bis cm, Eingabe der Einheit"))
+    color = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Farbe"), help_text=_("Grundfarbe und besondere Farbnuancen"))
+    pollination = models.CharField(max_length=2, choices=POLLINATION_CHOICES, null=True, blank=True, verbose_name=_("Bestäubungsfaktoren "), help_text=_("für generative Vermehrung"))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale "), help_text=_(""))
+    main_blooming_period = FromToConcatField(
+        max_length=100,
+        default="",
+        blank=True,
+        from_choices=MAIN_BLOOMING_CHOICES,
+        to_choices=MAIN_BLOOMING_CHOICES,
+        verbose_name=_("Hauptblütezeit"),
+    )
+    after_blooming_period = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Nachblüte, Nebenblüte"))
+    phenology_blooming_period = models.CharField(max_length=2, choices=Leaf.BUDDING_CHOICES, null=True, blank=True, verbose_name=_("Phänologische Blühphasen "))
+    age_at_frist_bloom = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Alter bei erster Blüte"))
+    note_to_bloom = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Blütezeit"), help_text=_(""))
+    odor = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Geruch"), help_text=_("Intensität, Aroma"))
+
+    class Meta:
+        verbose_name = _("Blüte")
+        verbose_name_plural = _("Blüten")
+
+
+class Fruit(models.Model):
+    form = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Form"))
+    size = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Größe"))
+    color = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Farbe"))
+    ripeness = FromToConcatField(
+        max_length=100,
+        default="",
+        blank=True,
+        from_choices=Blossom.MAIN_BLOOMING_CHOICES,
+        to_choices=Blossom.MAIN_BLOOMING_CHOICES,
+        verbose_name=_("Reife")
+    )
+    seed_intensity = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Intensität der Versamung "), help_text=_("generative Vermehrung"))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale "))
+
+    class Meta:
+        verbose_name = _("Frucht")
+        verbose_name_plural = _("Früchte")
+
+
+class Bark(models.Model):
+    color = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Farbe"), help_text=_("Jung- und Altzustand"))
+    surface = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Oberfläche/Struktur"), help_text=_("Jung- und Altzustand"))
+    structure = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Aufbau"))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale"))
+
+    class Meta:
+        verbose_name = _("Rinde")
+        verbose_name_plural = _("Rinden")
+
+
+class Root(models.Model):
+    type = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Typ"))
+    depth =models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Tiefe, konkret"))
+    spread = models.TextField(max_length=500, null=True, blank=True, verbose_name=_(""), help_text=_("Vegetative Ausbreitung und Speicherorgane"))
+    sensitivity = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Empfindlichkeit"), help_text=_("Empfindlichkeiten/Fähigkeiten"))
+    extras = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale"), help_text=_("Besonderes Verhalten"))
+
+    class Meta:
+        verbose_name = _("Wurzel")
+        verbose_name_plural = _("Wurzeln")
+
+
+class Appearance(models.Model):
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="appearance",
+                                 verbose_name=_("Pflanze"))
+
+    habitus = models.OneToOneField(to=Habitus, on_delete=models.CASCADE, related_name="appearance",
+                                   verbose_name=_("Habitus"))
+    sprout = models.OneToOneField(to=Sprout, on_delete=models.CASCADE, related_name="appearance",
+                                        verbose_name=_("Trieb"))
+    leaf = models.OneToOneField(to=Leaf, on_delete=models.CASCADE, related_name="appearance",
+                                 verbose_name=_("Blatt"))
+    blossom = models.OneToOneField(to=Blossom, on_delete=models.CASCADE, related_name="appearance",
+                                   verbose_name=_("Blüte"))
+    fruit = models.OneToOneField(to=Fruit, on_delete=models.CASCADE, related_name="appearance",
+                                        verbose_name=_("Frucht"))
+    bark = models.OneToOneField(to=Bark, on_delete=models.CASCADE, related_name="appearance",
+                                        verbose_name=_("Rinde"))
+    root = models.OneToOneField(to=Root, on_delete=models.CASCADE, related_name="appearance",
+                                        verbose_name=_("Wurzel"))
+
+    class Meta:
+        verbose_name = _("Habitus und Erscheinung")
+        verbose_name_plural = _("Habitus und Erscheinungen")
