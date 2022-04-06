@@ -2,15 +2,35 @@ from enum import IntEnum, Enum
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.postgres.fields import ArrayField
+from django.forms import MultipleChoiceField
 
 from planty_content.choices import YES_NO_CHOICES
+
+
+class ChoiceArrayField(ArrayField):
+    """
+    A field that allows us to store an array of choices.
+
+    Uses Django 1.9's postgres ArrayField
+    and a MultipleChoiceField for its formfield.
+    """
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': MultipleChoiceField,
+            'choices': self.base_field.choices,
+        }
+        defaults.update(kwargs)
+
+        return super(ArrayField, self).formfield(**defaults)
 
 
 class ChoiceEnum(Enum):
 
     @classmethod
     def choices(cls):
-        return ((str(i.value), i.name) for i in cls)
+        return tuple((str(i.value), i.name) for i in cls)
 
 
 class Plant(models.Model):
@@ -125,3 +145,117 @@ class Taxonomy(models.Model):
     class Meta:
         verbose_name = _("Taxonomie und Lebensweise")
         verbose_name_plural = _("Taxonomien und Lebensweisen")
+
+
+class NatOccurence(models.Model):
+    ENDANGERMENT_CHOICES = ChoiceEnum(
+        "EndangermentChoices",
+        (
+            "0: ausgestorben oder verschollen",
+            "1: vom Aussterben bedroht",
+            "2: stark gefährdet",
+            "3: gefährdet",
+            "4: potentiell gefährdet (nur bei Roten Listen der Länder; soll künftig durch R ersetzt werden)",
+            "V: Vorwarnliste, Bestände zurückgehend",
+            "R: extrem selten(entspricht 4 bei den Roten Listen der Länder; s.o.)",
+            "G: Gefährdung anzunehmen",
+            "D: Daten mangelhaft",
+        )
+    ).choices()
+
+    origin = models.TextField(max_length=500, verbose_name=_("Herkunft | Vorkommen"))
+    occurrence = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Vorkommen in Pflanzengesellschaften"), help_text=_("Vegetationsökologische Systeme"))
+    endangerment = models.CharField(
+        max_length=2,
+        choices=ENDANGERMENT_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name=_("Gefährdung "),
+        help_text=_("Gefährdung nach Rote Liste")
+    )
+    de_protected = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Geschützt in Deutschland"), help_text=_("Schutz durch verschiedene Gesetze, Schutz kann in Bundesländern variieren (https://www.wisia.de/prod/index.html)"))
+    de_he_protected = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Gefährdung/Geschützt in Hessen"))
+    neobiota = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Neobiota | Invasivitätsbewertung"))
+
+    class Meta:
+        verbose_name = _("Ökologie und Naturstandort")
+        verbose_name_plural = _("Ökologien und Naturstandorte")
+
+
+class ZeigerValues(models.Model):
+
+    ZEIGER_CHOICES = ChoiceEnum(
+        "ZeigerChoices",
+        (
+            "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "x", "?", "~", "=",
+        )
+    ).choices()
+    DISSEMINATION_CHOCIES = ChoiceEnum(
+        "DisseminationChoices",
+        (
+            "Selbstausbreitung (Autochorie)",
+            "Windausbreitung (Anemochorie)",
+            "Wasserausbreitung (Hydrochorie)",
+            "Klettausbreitung (Epizoochorie)",
+            "Verdauungsausbreitung (Endozoochorie)",
+            "Ameisenausbreitung (Myrmeochorie)",
+            "unspezifische Verschleppung durch Tiere (Zoochorie)",
+            "Menschenausbreitung (Anthropochorie)",
+        )
+    )
+
+    light_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Licht"))
+    temp_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Temperatur"))
+    continent_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Kontinentalität"))
+    humidity_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Feuchte"))
+    reaction_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Reaktion"))
+    nitrogen_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Stickstoff"))
+    salt_value = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Salz"))
+    metal_value = models.CharField(max_length=2, choices=(("b", "b"), ("B", "B")), null=True, blank=True, verbose_name=_("Schwermetallresistenz"))
+    dominance = models.CharField(max_length=2, choices=ZEIGER_CHOICES, null=True, blank=True, verbose_name=_("Dominanz nach Ellenberg"))
+    dissemination = ChoiceArrayField(
+        models.CharField(choices=DISSEMINATION_CHOCIES.choices(), max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Verbreitungsstrategie (großräumig)")
+    )
+    extraord_ability = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Besondere Fähigkeiten am Naturstandort"))
+
+    class Meta:
+        verbose_name = _("Zeigerwerte nach Ellenberg")
+        verbose_name_plural = _("Zeigerwerte nach Ellenberg")
+
+
+class NatBehavior(models.Model):
+    STRATEGY_TYPE_CHOICES = ChoiceEnum(
+        "StrategyTypeChoices",
+        (
+            "C",
+            "S",
+            "R",
+            "CR",
+            "SR",
+            "CS",
+            "CSR"
+        )
+    ).choices()
+
+    strategy_type = models.CharField(
+        max_length=2,
+        choices=STRATEGY_TYPE_CHOICES,
+        null=True,
+        blank=True,
+        verbose_name=_("Strategietypen nach Grime"),
+        help_text=_("Gefährdung nach Rote Liste")
+    )
+    zeiger_value = models.OneToOneField(to=ZeigerValues, on_delete=models.CASCADE, related_name="nat_behavior", verbose_name=_("Zeigerwerte nach Ellenberg"))
+
+    class Meta:
+        verbose_name = _("Natürliche Verhaltensweisen und Fähigkeiten am Standort")
+        verbose_name_plural = _("Natürliche Verhaltensweisen und Fähigkeiten am Standort")
+
+
+class EcologyAndNatLocation(models.Model):
+
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="ecology_andd_natlocation", verbose_name=_("Pflanze"))
+    nat_occ = models.OneToOneField(to=NatOccurence, on_delete=models.CASCADE, related_name="eco_and_natlocation", verbose_name=_("Natürliches Vorkommen"))
+    nat_behavior = models.OneToOneField(to=NatBehavior, on_delete=models.CASCADE, related_name="eco_and_natlocation", verbose_name=_("Natürliche Verhaltensweisen und Fähigkeiten am Standort"))
