@@ -792,7 +792,15 @@ class Usability(models.Model):
         verbose_name_plural = _("Nutzbarkeiten")
 
 
-models.CharField(max_length=100, null=True, blank=True, verbose_name=_(""))
-models.TextField(max_length=500, null=True, blank=True, verbose_name=_(""))
+class Diseases(models.Model):
 
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="disease", verbose_name=_("Pflanze"))
+    diseases = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Krankheiten/Schädlinge"))
+    physiology_damage = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Physiologische Schäden"))
+    resistances = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Resistenzen/ Immunitäten/ Geringe Anfälligkeiten"))
+    culture_protection = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Kulturschutzmaßnahmen"))
+    biological_protection = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Biologische Kulturschutzmaßnahmen"))
 
+    class Meta:
+        verbose_name = _("Krankheiten / Schädlinge / Resistenzen")
+        verbose_name_plural = _("Krankheiten / Schädlinge / Resistenzen")

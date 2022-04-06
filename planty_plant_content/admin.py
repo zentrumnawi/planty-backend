@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import (
     Plant, Taxonomy, Living, NatBehavior, NatOccurence, ZeigerValues, EcologyAndNatLocation, Habitus, Sprout, Leaf,
     Blossom, Fruit, Bark, Root, Appearance, Habitat, HabitatFactors, Function, Application, PlantationAndCare,
-    ReproductionAndProduction, Toxicity, FaunaUsability, HumanUsability, Usability
+    ReproductionAndProduction, Toxicity, FaunaUsability, HumanUsability, Usability, Diseases
                      )
 # Register your models here.
 
@@ -36,8 +36,12 @@ class UsabilityInline(admin.StackedInline):
     model = Usability
 
 
+class DiseasesInline(admin.StackedInline):
+    model = Diseases
+
+
 class PlantAdmin(admin.ModelAdmin):
-    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline, PlantationAndCareInline, ReproductionAndProductionInline, UsabilityInline]
+    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline, PlantationAndCareInline, ReproductionAndProductionInline, UsabilityInline, DiseasesInline]
 
     class Meta:
         model = Plant
@@ -67,6 +71,7 @@ admin.site.register(Toxicity, admin.ModelAdmin)
 admin.site.register(FaunaUsability, admin.ModelAdmin)
 admin.site.register(HumanUsability, admin.ModelAdmin)
 admin.site.register(Usability, admin.ModelAdmin)
+admin.site.register(Diseases, admin.ModelAdmin)
 
 admin.site.register(Plant, PlantAdmin)
 
