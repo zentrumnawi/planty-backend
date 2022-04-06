@@ -471,3 +471,149 @@ class Appearance(models.Model):
     class Meta:
         verbose_name = _("Habitus und Erscheinung")
         verbose_name_plural = _("Habitus und Erscheinungen")
+
+
+class Habitat(models.Model):
+    area_of_life = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Lebensbereiche"), help_text=_("Lebensbereich (ggf. Sekundärlebensbereiche) nach Kiermeier oder Hansen und Stahl (2006)"))
+    extra_areas = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Standorte"))
+    special_abilities = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Besondere Fähigkeiten am Standort"))
+
+    class Meta:
+        verbose_name = _("Standorte")
+        verbose_name_plural = _("Standorte")
+
+
+class HabitatFactors(models.Model):
+    MICROCLIMATE_CHOICES = ChoiceEnum(
+        "MicroClimateChoices",
+        (
+            "bevorzugt Kühle",
+            "hitzeempfindlich",
+            "exponierte Lage",
+            "geschützte Lage",
+            "windgeschützte Lage",
+            "windexponierte Lage",
+            "Laubmull",
+            "empfindlich auf Laubmull",
+            "luftfeuchte Lage",
+            "lufttrockene Lage",
+            "wärmeliebend",
+            "hitzeverträglich",
+            "trockenwarm"
+        )
+    ).choices()
+
+    HARDY_CHOICES = ChoiceEnum(
+        "HardyChoices",
+        (
+            "Z1 unter -45,5",
+            "Z2 -45, 5 bis -40, 1",
+            "Z3 -40, 1 bis -34, 5",
+            "Z4 -34, 5 bis -28, 9",
+            "Z5 -28, 8 bis -23, 4",
+            "Z6 -23, 4 bis -17, 8",
+            "Z7 -17, 8 bis -12, 3",
+            "Z8 -12, 3 bis -6, 7",
+            "Z9 -6, 7 bis -1, 2",
+            "Z10 -1, 2 bis +4, 4",
+            "Z11 über +4, 4"
+        )
+    ).choices()
+
+
+    LIGHT_CHOICES = ChoiceEnum(
+        "LightChoices",
+        (
+            "sonnig", "absonnig", "halbschattig", "schattig", "lichtschattig", "vollsonnig"
+        )
+    ).choices()
+
+    SOIL_CHOCIES = ChoiceEnum(
+        "SoilChoices",
+        (
+            "sauer",
+            "leicht sauer",
+            "neutral",
+            "leicht alkalisch",
+            "alkalisch",
+            "kalkreich",
+            "basenreich",
+            "kalkempfindlich",
+            "kalkmeidend",
+            "kalkfliehend"
+        )
+    ).choices()
+
+    NUTRIENTS_CHOICES = ChoiceEnum(
+        "NutrientsChoices",
+        (
+            "mager",
+            "geringe Nährstoffansprüche",
+            "mittlere Nährstoffansprüche",
+            "hohe Nährstoffansprüche",
+            "regelmäßige Nährstoffeinträge",
+            "nitrophytisch"
+        )
+    ).choices()
+
+    micro_climate = ChoiceArrayField(
+        models.CharField(choices=MICROCLIMATE_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Mikroklima"),
+        help_text=_("Fähigkeiten, Ansprüche")
+    )
+    room_climate = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Raumklimatische Faktoren "), help_text=_("Für Innenräume"))
+    frost_sensitivity = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Frostempfindlichkeit"),)
+    hardy_zone = models.CharField(max_length=100, choices=HARDY_CHOICES, null=True, blank=True, verbose_name=_("Winterhärtezone"))
+    light = ChoiceArrayField(
+        models.CharField(choices=LIGHT_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Licht")
+    )
+    extra_light = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Lichtfaktoren/ Besondere Fähigkeiten"))
+    soil_humidity = models.CharField(max_length=100, null=True, blank=True, verbose_name=_("Bodenfeuchte"))
+    extra_humidity = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Feuchtefaktoren/ Besondere Fähigkeiten"), help_text=_("Beschreibung der Ansprüche an Feuchtigkeit"))
+    soil_reaction = ChoiceArrayField(
+        models.CharField(choices=SOIL_CHOCIES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Bodenreaktion")
+    )
+    nutrients = ChoiceArrayField(
+        models.CharField(choices=NUTRIENTS_CHOICES, max_length=2, blank=True),
+        null=True, blank=True,
+        verbose_name=_("Nährstoffe")
+    )
+    extra_nutrients = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weiteres zu Bodenreaktion und Nährstoffen/ Besondere Fähigkeiten "))
+    soil = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Bodeneigenschaften"))
+    extra_soil = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Bodenfaktoren/ Besondere Fähigkeiten "), help_text=_("Bisher bekannte, geeignete Bodeneigenschaften aus Natur und Kultur"))
+
+    class Meta:
+        verbose_name = _("Standortfaktoren und Ansprüche")
+        verbose_name_plural = _("Standortfaktoren und Ansprüche")
+
+
+class Function(models.Model):
+    sightings = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Sichtungsergebnisse"))
+    eco_net = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Eignung für die ökologische Vernetzung"))
+    roof_plant = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Eignung für Dach- und Kübelbepflanzung"))
+    breeding_prodcution = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Eignung für Zucht und Produktion"))
+    city_tree = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Eignung als Stadtbaum"))
+    city_application = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Eignung für die Verwendung in Städten"), help_text=_("Thema Klimabaum, Forst"))
+    extra_notes = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Verwendungshinweise"))
+    extra_functions = models.TextField(max_length=500, null=True, blank=True, verbose_name=_("Weitere Funktionen"))
+
+    class Meta:
+        verbose_name = _("Funktion")
+        verbose_name_plural = _("Funktionen")
+
+
+class Application(models.Model):
+
+    plant = models.OneToOneField(to=Plant, on_delete=models.CASCADE, related_name="application", verbose_name=_("Pflanze"))
+    habitat = models.OneToOneField(to=Habitat, on_delete=models.CASCADE, related_name="application", verbose_name=_("Habitat"))
+    habitat_factors = models.OneToOneField(to=HabitatFactors, on_delete=models.CASCADE, related_name="application", verbose_name=_("Standortfaktoren und Ansprüche"))
+    appl_function = models.OneToOneField(to=Function, on_delete=models.CASCADE, related_name="application", verbose_name=_("Funktion"))
+
+    class Meta:
+        verbose_name = _("Verwendung")
+        verbose_name_plural = _("Verwendungen")
