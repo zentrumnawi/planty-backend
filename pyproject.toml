@@ -38,6 +38,7 @@ pytest-django = "*"
 pytest-isort = "*"
 pytest-sugar = "*"
 werkzeug = "*"
+flake8 = "^4.0.1"
 
 [build-system]
 # Should be the same as `$POETRY_VERSION`:

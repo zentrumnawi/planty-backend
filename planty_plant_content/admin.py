@@ -1,10 +1,35 @@
 from django.contrib import admin
 
 from .models import (
-    Plant, Taxonomy, Living, NatBehavior, NatOccurence, ZeigerValues, EcologyAndNatLocation, Habitus, Sprout, Leaf,
-    Blossom, Fruit, Bark, Root, Appearance, Habitat, HabitatFactors, Function, Application, PlantationAndCare,
-    ReproductionAndProduction, Toxicity, FaunaUsability, HumanUsability, Usability, Diseases, GeneralInformation
-                     )
+    Appearance,
+    Application,
+    Bark,
+    Blossom,
+    Diseases,
+    EcologyAndNatLocation,
+    FaunaUsability,
+    Fruit,
+    Function,
+    GeneralInformation,
+    Habitat,
+    HabitatFactors,
+    Habitus,
+    HumanUsability,
+    Leaf,
+    Living,
+    NatBehavior,
+    NatOccurence,
+    Plant,
+    PlantationAndCare,
+    ReproductionAndProduction,
+    Root,
+    Sprout,
+    Taxonomy,
+    Toxicity,
+    Usability,
+    ZeigerValues,
+)
+
 # Register your models here.
 
 
@@ -45,7 +70,17 @@ class GeneralInformationInline(admin.StackedInline):
 
 
 class PlantAdmin(admin.ModelAdmin):
-    inlines = [TaxonomyInline, EcologyAndNatLocationInline, AppearanceInline, ApplicationInline, PlantationAndCareInline, ReproductionAndProductionInline, UsabilityInline, DiseasesInline, GeneralInformationInline]
+    inlines = [
+        TaxonomyInline,
+        EcologyAndNatLocationInline,
+        AppearanceInline,
+        ApplicationInline,
+        PlantationAndCareInline,
+        ReproductionAndProductionInline,
+        UsabilityInline,
+        DiseasesInline,
+        GeneralInformationInline,
+    ]
 
     class Meta:
         model = Plant
@@ -79,4 +114,3 @@ admin.site.register(Diseases, admin.ModelAdmin)
 admin.site.register(GeneralInformation, admin.ModelAdmin)
 
 admin.site.register(Plant, PlantAdmin)
-

@@ -80,7 +80,7 @@ def migrate_MediaObject_to_Photograph(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0031_auto_20210604_1954'),
+        ("planty_content", "0031_auto_20210604_1954"),
     ]
 
     operations = [

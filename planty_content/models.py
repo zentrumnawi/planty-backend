@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from solid_backend.content.fields import ConcatCharField, FromToConcatField
-from solid_backend.content.models import BaseProfile, TreeNode, SolidBaseProfile
+from solid_backend.content.models import BaseProfile, SolidBaseProfile, TreeNode
 
 from .choices import *
 
