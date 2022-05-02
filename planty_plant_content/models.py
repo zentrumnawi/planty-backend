@@ -416,6 +416,10 @@ class EcologyAndNatLocation(models.Model):
         verbose_name=_("Natürliche Verhaltensweisen und Fähigkeiten am Standort"),
     )
 
+    class Meta:
+        verbose_name = _("Ökologie und Naturstandort")
+        verbose_name_plural = _("Ökologie und Naturstandort")
+
 
 class Habitus(models.Model):
     height = models.CharField(
@@ -789,7 +793,7 @@ class Root(models.Model):
         max_length=500,
         null=True,
         blank=True,
-        verbose_name=_(""),
+        verbose_name=_("Vegetative Ausbreitung und Speicherorgane"),
         help_text=_("Vegetative Ausbreitung und Speicherorgane"),
     )
     sensitivity = models.CharField(
