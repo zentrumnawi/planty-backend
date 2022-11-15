@@ -1451,7 +1451,7 @@ class HumanUsability(models.Model):
         max_length=500,
         null=True,
         blank=True,
-        verbose_name=_("Kulturelle Bedeutung/ Volksglaube"),
+        verbose_name=_("Etymologie und kulturelle Bedeutung"),
     )
 
     class Meta:
