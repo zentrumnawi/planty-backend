@@ -212,9 +212,11 @@ class NatOccurence(models.Model):
             "3: gefährdet",
             "4: potentiell gefährdet (nur bei Roten Listen der Länder; soll künftig durch R ersetzt werden)",
             "V: Vorwarnliste, Bestände zurückgehend",
-            "R: extrem selten(entspricht 4 bei den Roten Listen der Länder; s.o.)",
+            "R: extrem selten (entspricht 4 bei den Roten Listen der Länder; s.o.)",
             "G: Gefährdung anzunehmen",
             "D: Daten mangelhaft",
+            "n: Neophyt",
+            "*: ungefährdet"
         ),
     ).choices()
 
