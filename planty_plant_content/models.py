@@ -1334,6 +1334,9 @@ class Toxicity(models.Model):
             "gesamte pflanze stark giftig",
             "phototoxisch",
             "kontaktgiftig",
+            "Rinde giftig",
+            "Samen giftig",
+            "Samen leicht giftig"
         ),
     ).choices()
 
