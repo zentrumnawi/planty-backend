@@ -779,8 +779,8 @@ class Bark(models.Model):
         verbose_name=_("Farbe"),
         help_text=_("Jung- und Altzustand"),
     )
-    surface = models.CharField(
-        max_length=100,
+    surface = models.TextField(
+        max_length=500,
         null=True,
         blank=True,
         verbose_name=_("Oberfläche/Struktur"),
