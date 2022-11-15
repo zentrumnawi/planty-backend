@@ -109,7 +109,7 @@ class Taxonomy(models.Model):
             "Amaryllidaceae (Narzissengewächse)",
             "Apiaceae (Doldenblütler)",
             "Aristolochiaceae (Osterluzeigewächse)",
-            "Asteraceae(Korbblütler)",
+            "Asteraceae (Korbblütler)",
             "Berberidaceae (Berberitzengewächse)",
             "Betulaceae (Birkengewächse)",
             "Bignoniaceae (Trompetenbaumgewächse)",
@@ -1364,10 +1364,10 @@ class FaunaUsability(models.Model):
     MOTH_CHOICES = ChoiceEnum(
         "MothChoices",
         (
-            "Raupenfutterpflanze(Schmetterling)",
+            "Raupenfutterpflanze (Schmetterling)",
             "Raupenfutterpflanze (Nachtfalter)",
-            "Nektarpflanze(Schmetterling)",
-            "Nektarpflanze(Nachtfalter)",
+            "Nektarpflanze (Schmetterling)",
+            "Nektarpflanze (Nachtfalter)",
             "Nutzung von Schmetterlingen",
             "Nutzung von Nachtfaltern",
         ),
