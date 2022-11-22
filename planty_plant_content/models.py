@@ -1117,7 +1117,7 @@ class Application(models.Model):
         to=Habitat,
         on_delete=models.CASCADE,
         related_name="application",
-        verbose_name=_("Habitat"),
+        verbose_name=_("Standort"),
     )
     habitat_factors = models.OneToOneField(
         to=HabitatFactors,
