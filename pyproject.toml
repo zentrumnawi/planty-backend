@@ -40,6 +40,14 @@ pytest-sugar = "*"
 werkzeug = "*"
 flake8 = "^4.0.1"
 
+[tool.black]
+exclude = '''
+/(
+    planty_content\/migrations
+  | planty_plant_content\/migrations
+)/
+'''
+
 [build-system]
 # Should be the same as `$POETRY_VERSION`:
 requires = ["poetry>=1.0.5"]

@@ -1090,6 +1090,12 @@ class Function(models.Model):
         verbose_name=_("Eignung für die Verwendung in Städten"),
         help_text=_("Thema Klimabaum, Forst"),
     )
+    climate_suitability = models.TextField(
+        max_length=500,
+        null=True,
+        blank=True,
+        verbose_name=_("Einschätzung Klimawandeltauglichkeit"),
+    )
     extra_notes = models.TextField(
         max_length=500,
         null=True,
@@ -1117,7 +1123,7 @@ class Application(models.Model):
         to=Habitat,
         on_delete=models.CASCADE,
         related_name="application",
-        verbose_name=_("Habitat"),
+        verbose_name=_("Standort"),
     )
     habitat_factors = models.OneToOneField(
         to=HabitatFactors,
