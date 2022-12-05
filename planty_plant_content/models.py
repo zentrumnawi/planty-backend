@@ -1094,7 +1094,7 @@ class Function(models.Model):
         max_length=500,
         null=True,
         blank=True,
-        verbose_name=_("Einschätzung Klimawandeltauglichkeit")
+        verbose_name=_("Einschätzung Klimawandeltauglichkeit"),
     )
     extra_notes = models.TextField(
         max_length=500,
