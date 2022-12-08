@@ -21,7 +21,7 @@ pillow = "*"
 psycopg2-binary = "*"
 raven = "*"
 whitenoise = "*"
-solid-backend = {version = "^0.1.19", allow-prereleases = true}
+solid-backend = {version = "^0.2.0", allow-prereleases = true}
 django-anymail = "^8.4"
 
 [tool.poetry.dev-dependencies]
