@@ -7,7 +7,7 @@ BLOSSOM_CHOICES = (
     ("männlich", "männlich"),
     ("weiblich", "weiblich"),
     ("zwittrig", "zwittrig"),
-    ('einhäusig', 'einhäusig'),
+    ("einhäusig", "einhäusig"),
     ("zweihäusig", "zweihäusig"),
 )
 

@@ -6,13 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('planty_content', '0032_auto_20210608_1200'),
+        ("planty_content", "0032_auto_20210608_1200"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='wine',
-            name='blossom',
-            field=models.CharField(blank=True, choices=[('männlich', 'männlich'), ('weiblich', 'weiblich'), ('zwittrig', 'zwittrig'), ('einhäusig', 'einhäusig'), ('zweihäusig', 'zweihäusig')], max_length=10, null=True, verbose_name='Blüte'),
+            model_name="wine",
+            name="blossom",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("männlich", "männlich"),
+                    ("weiblich", "weiblich"),
+                    ("zwittrig", "zwittrig"),
+                    ("einhäusig", "einhäusig"),
+                    ("zweihäusig", "zweihäusig"),
+                ],
+                max_length=10,
+                null=True,
+                verbose_name="Blüte",
+            ),
         ),
     ]

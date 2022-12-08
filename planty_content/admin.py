@@ -1,6 +1,9 @@
 from django.contrib import admin
+from solid_backend.media_object.admin import (
+    AudioVideoMediaObjectInline,
+    ImageMediaObjectInline,
+)
 from solid_backend.photograph.admin import PhotographInline
-from solid_backend.media_object.admin import ImageMediaObjectInline, AudioVideoMediaObjectInline
 
 from .models import (
     Berry,
@@ -68,7 +71,7 @@ class WineModelAdmin(admin.ModelAdmin):
         DiseaseInline,
         PhotographInline,
         ImageMediaObjectInline,
-        AudioVideoMediaObjectInline
+        AudioVideoMediaObjectInline,
     ]
 
 
