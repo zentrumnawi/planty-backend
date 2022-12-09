@@ -145,7 +145,8 @@ STATIC_URL = "/static/"
 # ).rsplit(".", 1)
 
 PROFILES_SERIALIZERS = {
-    "wine_related": ("planty_content.serializers", "WineSerializer",)
+    "wine_related": ("planty_content.serializers", "WineSerializer",),
+    "plant_related": ("planty_plant_content.serializers", "PlantSerializer")
 }
 
 DATABASE_FIELD_MAPPING = {}
