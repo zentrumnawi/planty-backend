@@ -140,9 +140,13 @@ URI_PREFIX = env("URI_PREFIX", default="")
 STATIC_ROOT = str(ROOT_DIR("staticfiles"))
 STATIC_URL = "/static/"
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
-    "PROFILES_SERIALIZER", default=""
-).rsplit(".", 1)
+# PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
+#     "PROFILES_SERIALIZER", default=""
+# ).rsplit(".", 1)
+
+PROFILES_SERIALIZERS = {
+    "wine_related": ("planty_content.serializers", "WineSerializer",)
+}
 
 DATABASE_FIELD_MAPPING = {}
 

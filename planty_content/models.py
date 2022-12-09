@@ -6,7 +6,7 @@ from solid_backend.content.models import BaseProfile, SolidBaseProfile, TreeNode
 from .choices import *
 
 
-class Wine(BaseProfile, SolidBaseProfile):
+class Wine(SolidBaseProfile):
     name = models.CharField(max_length=200, verbose_name=_("Sorte"))
     synonyms = models.CharField(
         max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
