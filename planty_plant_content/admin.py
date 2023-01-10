@@ -1,4 +1,5 @@
 from django.contrib import admin
+from solid_backend.media_object.admin import AudioVideoMediaObjectInline, ImageMediaObjectInline
 
 from .models import (
     Appearance,
@@ -80,6 +81,8 @@ class PlantAdmin(admin.ModelAdmin):
         UsabilityInline,
         DiseasesInline,
         GeneralInformationInline,
+        ImageMediaObjectInline,
+        AudioVideoMediaObjectInline
     ]
 
     class Meta:

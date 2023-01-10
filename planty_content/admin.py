@@ -69,7 +69,6 @@ class WineModelAdmin(admin.ModelAdmin):
         PropertiesInline,
         PhenologyInline,
         DiseaseInline,
-        PhotographInline,
         ImageMediaObjectInline,
         AudioVideoMediaObjectInline,
     ]
