@@ -86,7 +86,7 @@ class Living(models.Model):
         verbose_name=_("Besonderes zur Lebensweise"),
     )
     life_span = models.CharField(
-        max_length=44, choices=LIFESPAN_CHOICES, verbose_name=_("Lebensdauer")
+        max_length=44, null=True, blank=True, choices=LIFESPAN_CHOICES, verbose_name=_("Lebensdauer")
     )
     extra = models.TextField(
         max_length=500,
@@ -105,32 +105,65 @@ class Taxonomy(models.Model):
     FAMILY_CHOICES = ChoiceEnum(
         "FamilyChoices",
         (
-            "Amaryllidaceae(Narzissengewächse)",
+            "Amaryllidaceae (Narzissengewächse)",
+            "Anacardiaceae (Sumachgewächse)",
             "Apiaceae (Doldenblütler)",
-            "Asteraceae(Korbblütler)",
-            "Boraginaceae(Raublattgewächse)",
-            "Brassicaceae(Kreuzblütengewächse)",
-            "Campanulaceae(Glockenblumengewächse)",
-            "Caryophyllaceae(Nelkengewächse)",
-            "Ericaceae(Heidekrautgewächse)",
-            "Euphorbiaceae(Wolfsmilchgewächse)",
-            "Fabaceae(Hülsenfrüchtler)",
-            "Fagaceae(Buchengewächse)",
-            "Gentianaceae(Enziangewächse)",
-            "Iridaceae(Schwertliliengewächse)",
-            "Lamiaceae(Lippenblütler)",
-            "Liliaceae(Liliengewächse)",
-            "Magnoliaceae(Magnoliengewächse)",
-            "Malvaceae(Malvengewächse)",
-            "Nymphaeaceae(Seerosengewächse)",
-            "Orchidaceae(Orchideengewächse)",
-            "Papaveraceae(Mohngewächse)",
-            "Poaceae(Süssgräser)",
-            "Primulaceae(Primelgewächse)",
-            "Ranunculaceae(Hahnenfussgewächse)",
-            "Rosaceae(Rosengewächse)",
-            "Scrophulariaceae(Rachenblütler)",
-            "Solanaceae(Nachtschattengewächse)",
+            "Aquifoliaceae (Stechpalmengewächse)",
+            "Araliaceae (Efeugewächse)",
+            "Aristolochiaceae (Osterluzeigewächse)",
+            "Asteraceae (Korbblütler)",
+            "Berberidaceae (Berberitzengewächse)",
+            "Betulaceae (Birkengewächse)",
+            "Bignoniaceae (Trompetenbaumgewächse)",
+            "Boraginaceae (Raublattgewächse)",
+            "Brassicaceae (Kreuzblütengewächse)",
+            "Buddlejaceae (Schmetterlingsfliedergewächse)",
+            "Buxaceae (Buchsbaumgewächse)",
+            "Campanulaceae (Glockenblumengewächse)",
+            "Caprifoliaceae (Geißblattgewächse)",
+            "Caryophyllaceae (Nelkengewächse)",
+            "Celastraceae (Spindelbaumgewächse)",
+            "Cercidiphyllaceae (Kuchenbaumgewächse)",
+            "Cornaceae (Hartriegelgewächse)",
+            "Cupressaceae (Zypressengewächse)",
+            "Elaeagnaceae (Ölweidengewächse)",
+            "Ericaceae (Heidekrautgewächse)",
+            "Euphorbiaceae (Wolfsmilchgewächse)",
+            "Fabaceae (Hülsenfrüchtler)",
+            "Fagaceae (Buchengewächse)",
+            "Gentianaceae (Enziangewächse)",
+            "Ginkgoaceae (Ginkgogewächse)",
+            "Hamamelidaceae (Zaubernussgewächse)",
+            "Hydrangeaceae, Hortensiengewächse",
+            "Iridaceae (Schwertliliengewächse)",
+            "Juglandaceae (Walnußgewächse)",
+            "Lamiaceae (Lippenblütler)",
+            "Liliaceae (Liliengewächse)",
+            "Magnoliaceae (Magnoliengewächse)",
+            "Malvaceae (Malvengewächse)",
+            "Moraceae (Maulbeerbaumgewächse)",
+            "Nymphaeaceae (Seerosengewächse)",
+            "Oleaceae (Ölbaumgewächse)",
+            "Orchidaceae (Orchideengewächse)",
+            "Papaveraceae (Mohngewächse)",
+            "Pinaceae (Kieferngewächse)",
+            "Platanaceae (Platanengewächse)",
+            "Poaceae (Süssgräser)",
+            "Polygonaceae (Knöterichgewächse)",
+            "Primulaceae (Primelgewächse)",
+            "Ranunculaceae (Hahnenfussgewächse)",
+            "Rosaceae (Rosengewächse)",
+            "Salicaceae (Weidengewächse)",
+            "Sapindaceae (Seifenbaumgewächse",
+            "Scrophulariaceae (Braunwurzgewächse)",
+            "Scrophulariaceae (Rachenblütler)",
+            "Simaroubaceae (Bittereschengewächse)",
+            "Solanaceae (Nachtschattengewächse)",
+            "Taxaceae (Eibengewächse)",
+            "Taxodiaceae (Sumpfzypressengewächse)",
+            "Thymelaeaceae (Seidelbastgewächse )",
+            "Ulmaceae (Ulmengewächse)",
+            "Vitaceae (Rebengewächse)"
         ),
     ).choices()
 
@@ -198,9 +231,10 @@ class NatOccurence(models.Model):
             "3: gefährdet",
             "4: potentiell gefährdet (nur bei Roten Listen der Länder; soll künftig durch R ersetzt werden)",
             "V: Vorwarnliste, Bestände zurückgehend",
-            "R: extrem selten(entspricht 4 bei den Roten Listen der Länder; s.o.)",
+            "R: extrem selten (entspricht 4 bei den Roten Listen der Länder; s.o.)",
             "G: Gefährdung anzunehmen",
             "D: Daten mangelhaft",
+            "*: ungefährdet"
         ),
     ).choices()
 
@@ -384,6 +418,7 @@ class NatBehavior(models.Model):
     zeiger_value = models.OneToOneField(
         to=ZeigerValues,
         on_delete=models.CASCADE,
+        null=True,
         related_name="nat_behavior",
         verbose_name=_("Zeigerwerte nach Ellenberg"),
     )
@@ -672,6 +707,18 @@ class Blossom(models.Model):
         blank=True,
         verbose_name=_("Farbe"),
         help_text=_("Grundfarbe und besondere Farbnuancen"),
+    )
+    sexus = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name=_("Geschlechtlichkeit"),
+    )
+    housing = models.CharField(
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name=_("Häusigkeit"),
     )
     pollination = models.CharField(
         max_length=2,
@@ -1221,7 +1268,7 @@ class PlantationAndCare(models.Model):
 class ReproductionAndProduction(models.Model):
     REPRODUCTION_CHOICES = ChoiceEnum(
         "ReproductionChoices",
-        ("Aussat", "Stecklingsvermehrung", "Brutknöllchen", "Ableger"),
+        ("Aussaat", "Stecklingsvermehrung", "Brutknöllchen", "Ableger", "Veredelung"),
     ).choices()
     SPROUT_BEHAVIOR_CHOICES = ChoiceEnum(
         "SproutBehaviorChoices",
@@ -1305,25 +1352,28 @@ class Toxicity(models.Model):
     TOXICITY_CHOICES = ChoiceEnum(
         "ToxicityChoices",
         (
-            "ungiftig",
-            "Laub",
-            "leicht giftig",
-            "Blüte leicht giftig",
-            "Frucht leicht giftig",
-            "Wurzel leicht giftig",
-            "Laub giftig",
             "Blüte giftig",
-            "Frucht giftig",
-            "Wurzel giftig",
-            "Laub stark giftig",
+            "Blüte leicht giftig",
             "Blüte stark giftig",
+            "Frucht giftig",
+            "Frucht leicht giftig",
             "Frucht stark giftig",
-            "Wurzel stark giftig",
-            "gesamte  Pflanze leicht giftig",
+            "gesamte Pflanze leicht giftig",
             "gesamte Pflanze giftig",
-            "gesamte pflanze stark giftig",
-            "phototoxisch",
+            "gesamte Pflanze stark giftig",
+            "Laub giftig",
+            "Laub leicht giftig",
+            "Laub stark giftig",
+            "Rinde giftig",
+            "Samen giftig",
+            "Samen leicht giftig",
+            "Samen stark giftig",
+            "Wurzel giftig",
+            "Wurzel leicht giftig",
+            "Wurzel stark giftig",
             "kontaktgiftig",
+            "phototoxisch",
+            "ungiftig"
         ),
     ).choices()
 
@@ -1438,7 +1488,7 @@ class HumanUsability(models.Model):
         max_length=500,
         null=True,
         blank=True,
-        verbose_name=_("Kulturelle Bedeutung/ Volksglaube"),
+        verbose_name=_("Etymologie und kulturelle Bedeutung"),
     )
 
     class Meta:
