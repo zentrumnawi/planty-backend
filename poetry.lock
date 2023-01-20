@@ -16,14 +16,14 @@ python-versions = "*"
 
 [[package]]
 name = "asgiref"
-version = "3.3.1"
+version = "3.6.0"
 description = "ASGI specs, helper code, and adapters"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.7"
 
 [package.extras]
-tests = ["pytest", "pytest-asyncio"]
+tests = ["mypy (>=0.800)", "pytest", "pytest-asyncio"]
 
 [[package]]
 name = "asttokens"
@@ -190,19 +190,19 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 
 [[package]]
 name = "django"
-version = "3.0.11"
+version = "3.2.16"
 description = "A high-level Python Web framework that encourages rapid development and clean, pragmatic design."
 category = "main"
 optional = false
 python-versions = ">=3.6"
 
 [package.dependencies]
-asgiref = ">=3.2,<4.0"
+asgiref = ">=3.3.2,<4"
 pytz = "*"
 sqlparse = ">=0.2.2"
 
 [package.extras]
-argon2 = ["argon2-cffi (>=16.1.0)"]
+argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
@@ -929,14 +929,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "solid-backend"
-version = "0.3.0a4"
+version = "0.3.0a5"
 description = "Clean Django app for e-learning application with..."
 category = "main"
 optional = false
 python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
-django = ">=3.0.7,<3.1.0"
+django = ">=3.0.7,<4.0.0"
 django-cleanup = "4.0.0"
 django-filter = ">=21.1,<22.0"
 django-mptt = "0.11.0"
@@ -1095,7 +1095,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "392a94ec3705efe90b4be18a0412fea3608fead2117d5358ca11b9ff01a97c58"
+content-hash = "0c3f0de86e7c17d8ecffc9bc1e85c48ab001141a81bd261ece40a726a66190db"
 
 [metadata.files]
 appdirs = [
@@ -1107,8 +1107,8 @@ appnope = [
     {file = "appnope-0.1.2.tar.gz", hash = "sha256:dd83cd4b5b460958838f6eb3000c660b1f9caf2a5b1de4264e941512f603258a"},
 ]
 asgiref = [
-    {file = "asgiref-3.3.1-py3-none-any.whl", hash = "sha256:5ee950735509d04eb673bd7f7120f8fa1c9e2df495394992c73234d526907e17"},
-    {file = "asgiref-3.3.1.tar.gz", hash = "sha256:7162a3cb30ab0609f1a4c95938fd73e8604f63bdba516a7f7d64b83ff09478f0"},
+    {file = "asgiref-3.6.0-py3-none-any.whl", hash = "sha256:71e68008da809b957b7ee4b43dbccff33d1b23519fb8344e33f049897077afac"},
+    {file = "asgiref-3.6.0.tar.gz", hash = "sha256:9567dfe7bd8d3c8c892227827c41cce860b368104c3431da67a0c5a65a949506"},
 ]
 asttokens = [
     {file = "asttokens-2.0.5-py2.py3-none-any.whl", hash = "sha256:0844691e88552595a6f4a4281a9f7f79b8dd45ca4ccea82e5e05b4bbdb76705c"},
@@ -1253,8 +1253,8 @@ decorator = [
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
 django = [
-    {file = "Django-3.0.11-py3-none-any.whl", hash = "sha256:8c334df4160f7c89f6a8a359dd4e95c688ec5ac0db5db75fcc6fec8f590dc8cf"},
-    {file = "Django-3.0.11.tar.gz", hash = "sha256:96436d3d2f744d26e193bfb5a1cff3e01b349f835bb0ea16f71743accf9c6fa9"},
+    {file = "Django-3.2.16-py3-none-any.whl", hash = "sha256:18ba8efa36b69cfcd4b670d0fa187c6fe7506596f0ababe580e16909bcdec121"},
+    {file = "Django-3.2.16.tar.gz", hash = "sha256:3adc285124244724a394fa9b9839cc8cd116faf7d159554c43ecdaa8cdf0b94d"},
 ]
 django-anymail = [
     {file = "django-anymail-8.4.tar.gz", hash = "sha256:671a338de43b8e414d48c6d16aac1df54d2f24f916e1073f9f60aef5acffaf89"},
@@ -1715,8 +1715,8 @@ six = [
     {file = "six-1.15.0.tar.gz", hash = "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"},
 ]
 solid-backend = [
-    {file = "solid_backend-0.3.0a4-py3-none-any.whl", hash = "sha256:f3cf81fa7bfae9421c89315f62ce005440c364bf9f086b1f0f9e8830748b589d"},
-    {file = "solid_backend-0.3.0a4.tar.gz", hash = "sha256:3fd58a49bd51e094120dd1a158827e2a5962fbf1301b0f2b2b5f52dcd3e353b0"},
+    {file = "solid_backend-0.3.0a5-py3-none-any.whl", hash = "sha256:329f06ca3986ed3bab74b9c43c919de420b2fea8181a207d2ea55afbaeba4f7a"},
+    {file = "solid_backend-0.3.0a5.tar.gz", hash = "sha256:b209111632da238c88f42340eb50c1e48d104d010c1537edf77362bdf86aa134"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
