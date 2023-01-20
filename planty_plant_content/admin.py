@@ -77,12 +77,12 @@ class PlantAdmin(admin.ModelAdmin):
     def get_bot_name(self, obj):
         return obj.living.bot_name
 
-    get_bot_name.description = "Bot. Name"
+    get_bot_name.short_description = "Bot. Name"
 
     def get_de_name(self, obj):
         return obj.living.de_name
 
-    get_de_name.description = "Name"
+    get_de_name.short_description = "Name"
 
     inlines = [
         TaxonomyInline,
