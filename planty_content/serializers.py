@@ -96,7 +96,6 @@ class WineSerializer(DisplayNameModelSerializer):
     properties = PropertiesSerializer()
     phenology = PhenologySerializer(required=False)
     disease = DiseaseSerializer()
-    photographs = PhotographSerializer(many=True)
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:

@@ -1,4 +1,8 @@
 from django.contrib import admin
+from solid_backend.media_object.admin import (
+    AudioVideoMediaObjectInline,
+    ImageMediaObjectInline,
+)
 
 from .models import (
     Appearance,
@@ -70,6 +74,19 @@ class GeneralInformationInline(admin.StackedInline):
 
 
 class PlantAdmin(admin.ModelAdmin):
+
+    list_display = ["id", "get_bot_name", "get_de_name"]
+
+    def get_bot_name(self, obj):
+        return obj.living.bot_name
+
+    get_bot_name.short_description = "Bot. Name"
+
+    def get_de_name(self, obj):
+        return obj.living.de_name
+
+    get_de_name.short_description = "Name"
+
     inlines = [
         TaxonomyInline,
         EcologyAndNatLocationInline,
@@ -80,6 +97,8 @@ class PlantAdmin(admin.ModelAdmin):
         UsabilityInline,
         DiseasesInline,
         GeneralInformationInline,
+        ImageMediaObjectInline,
+        AudioVideoMediaObjectInline,
     ]
 
     class Meta:
