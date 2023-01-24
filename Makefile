@@ -1,7 +1,7 @@
 .PHONY: init ci build rebuild migrate lang-make lang-compile reformat reformat-check flake8 isort isort-check lint
 
 init:
-	curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+	curl -sSL https://install.python-poetry.org  | python3 -
 	poetry install
 
 ci:
