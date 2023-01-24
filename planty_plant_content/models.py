@@ -86,7 +86,11 @@ class Living(models.Model):
         verbose_name=_("Besonderes zur Lebensweise"),
     )
     life_span = models.CharField(
-        max_length=44, null=True, blank=True, choices=LIFESPAN_CHOICES, verbose_name=_("Lebensdauer")
+        max_length=44,
+        null=True,
+        blank=True,
+        choices=LIFESPAN_CHOICES,
+        verbose_name=_("Lebensdauer"),
     )
     extra = models.TextField(
         max_length=500,
@@ -163,7 +167,7 @@ class Taxonomy(models.Model):
             "Taxodiaceae (Sumpfzypressengewächse)",
             "Thymelaeaceae (Seidelbastgewächse )",
             "Ulmaceae (Ulmengewächse)",
-            "Vitaceae (Rebengewächse)"
+            "Vitaceae (Rebengewächse)",
         ),
     ).choices()
 
@@ -234,7 +238,7 @@ class NatOccurence(models.Model):
             "R: extrem selten (entspricht 4 bei den Roten Listen der Länder; s.o.)",
             "G: Gefährdung anzunehmen",
             "D: Daten mangelhaft",
-            "*: ungefährdet"
+            "*: ungefährdet",
         ),
     ).choices()
 
@@ -709,16 +713,10 @@ class Blossom(models.Model):
         help_text=_("Grundfarbe und besondere Farbnuancen"),
     )
     sexus = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name=_("Geschlechtlichkeit"),
+        max_length=100, null=True, blank=True, verbose_name=_("Geschlechtlichkeit"),
     )
     housing = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name=_("Häusigkeit"),
+        max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
     )
     pollination = models.CharField(
         max_length=2,
@@ -1373,7 +1371,7 @@ class Toxicity(models.Model):
             "Wurzel stark giftig",
             "kontaktgiftig",
             "phototoxisch",
-            "ungiftig"
+            "ungiftig",
         ),
     ).choices()
 
