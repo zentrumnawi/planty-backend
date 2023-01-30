@@ -158,14 +158,14 @@ class Taxonomy(models.Model):
             "Ranunculaceae (Hahnenfussgewächse)",
             "Rosaceae (Rosengewächse)",
             "Salicaceae (Weidengewächse)",
-            "Sapindaceae (Seifenbaumgewächse",
+            "Sapindaceae (Seifenbaumgewächse)",
             "Scrophulariaceae (Braunwurzgewächse)",
             "Scrophulariaceae (Rachenblütler)",
             "Simaroubaceae (Bittereschengewächse)",
             "Solanaceae (Nachtschattengewächse)",
             "Taxaceae (Eibengewächse)",
             "Taxodiaceae (Sumpfzypressengewächse)",
-            "Thymelaeaceae (Seidelbastgewächse )",
+            "Thymelaeaceae (Seidelbastgewächse)",
             "Ulmaceae (Ulmengewächse)",
             "Vitaceae (Rebengewächse)",
         ),
@@ -423,6 +423,7 @@ class NatBehavior(models.Model):
         to=ZeigerValues,
         on_delete=models.CASCADE,
         null=True,
+        blank=True,
         related_name="nat_behavior",
         verbose_name=_("Zeigerwerte nach Ellenberg"),
     )
@@ -718,9 +719,8 @@ class Blossom(models.Model):
     housing = models.CharField(
         max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
     )
-    pollination = models.CharField(
-        max_length=2,
-        choices=POLLINATION_CHOICES,
+    pollination = ChoiceArrayField(
+        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True,),
         null=True,
         blank=True,
         verbose_name=_("Bestäubungsfaktoren "),
@@ -1266,7 +1266,7 @@ class PlantationAndCare(models.Model):
 class ReproductionAndProduction(models.Model):
     REPRODUCTION_CHOICES = ChoiceEnum(
         "ReproductionChoices",
-        ("Aussaat", "Stecklingsvermehrung", "Brutknöllchen", "Ableger", "Veredelung"),
+        ("Aussaat", "Stecklingsvermehrung", "Brutknöllchen", "Ableger", "Veredlung"),
     ).choices()
     SPROUT_BEHAVIOR_CHOICES = ChoiceEnum(
         "SproutBehaviorChoices",
