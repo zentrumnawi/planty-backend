@@ -720,11 +720,7 @@ class Blossom(models.Model):
         max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
     )
     pollination = ChoiceArrayField(
-        models.CharField(
-            max_length=2,
-            choices=POLLINATION_CHOICES,
-            blank=True,
-        ),
+        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True,),
         null=True,
         blank=True,
         verbose_name=_("Bestäubungsfaktoren "),
