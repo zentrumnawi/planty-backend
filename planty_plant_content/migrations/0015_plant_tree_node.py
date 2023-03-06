@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('content', '0005_alter_treenode_name_attributes'),
-        ('planty_plant_content', '0013_auto_20230120_1614'),
+        ('planty_plant_content', '0014_auto_20230130_1140'),
     ]
 
     operations = [
