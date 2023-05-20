@@ -22,7 +22,8 @@ from .models import (
     Function,
     HabitatFactors,
     Habitat,
-    PlantationAndCare
+    PlantationAndCare,
+    ReproductionAndProduction
 )
 
 
@@ -179,6 +180,14 @@ class PlantationAndCareSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
+class ReproductionAndProductionSerializer(DisplayNameModelSerializer):
+
+    class Meta:
+        model = ReproductionAndProduction
+        exclude = ["plant"]
+        depth = 1
+        
+
 class PlantSerializer(DisplayNameModelSerializer):
 
     living = TaxonomyAndLivingSerializer()
@@ -186,7 +195,7 @@ class PlantSerializer(DisplayNameModelSerializer):
     appearance = AppearanceSerializer()
     application = ApplicationSerializer()
     plantation_and_creation = PlantationAndCareSerializer()
-    reproduction_and_production = Serializer()
+    reproduction_and_production = ReproductionAndProductionSerializer()
     usability = Serializer()
     disease = Serializer()
     general_information = Serializer()
