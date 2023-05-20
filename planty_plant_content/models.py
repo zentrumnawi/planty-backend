@@ -5,6 +5,7 @@ from django.db import models
 from django.forms import MultipleChoiceField
 from django.utils.translation import ugettext_lazy as _
 from solid_backend.content.fields import FromToConcatField
+from solid_backend.content.models import SolidBaseProfile
 
 from planty_content.choices import YES_NO_CHOICES
 
@@ -33,7 +34,7 @@ class ChoiceEnum(Enum):
         return tuple((str(i.value), i.name) for i in cls)
 
 
-class Plant(models.Model):
+class Plant(SolidBaseProfile):
     class Meta:
         verbose_name = _("Pflanze")
         verbose_name_plural = _("Pflanzen")

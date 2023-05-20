@@ -36,7 +36,6 @@ from .models import (
 
 # Register your models here.
 
-
 class EcologyAndNatLocationInline(admin.StackedInline):
     model = EcologyAndNatLocation
 
@@ -75,18 +74,6 @@ class GeneralInformationInline(admin.StackedInline):
 
 class PlantAdmin(admin.ModelAdmin):
 
-    list_display = ["id", "get_bot_name", "get_de_name"]
-
-    def get_bot_name(self, obj):
-        return obj.living.bot_name
-
-    get_bot_name.short_description = "Bot. Name"
-
-    def get_de_name(self, obj):
-        return obj.living.de_name
-
-    get_de_name.short_description = "Name"
-
     inlines = [
         TaxonomyInline,
         EcologyAndNatLocationInline,
@@ -100,6 +87,16 @@ class PlantAdmin(admin.ModelAdmin):
         ImageMediaObjectInline,
         AudioVideoMediaObjectInline,
     ]
+
+    list_display = ["id", "get_bot_name", "get_de_name"]
+
+    @admin.decorators.display(description="Bot. Name")
+    def get_bot_name(self, obj):
+        return obj.living.bot_name
+
+    @admin.decorators.display(description="Name")
+    def get_de_name(self, obj):
+        return obj.living.de_name
 
     class Meta:
         model = Plant
