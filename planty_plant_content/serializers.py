@@ -18,6 +18,10 @@ from .models import (
     Sprout,
     Taxonomy,
     ZeigerValues,
+    Application,
+    Function,
+    HabitatFactors,
+    Habitat
 )
 
 
@@ -134,12 +138,44 @@ class AppearanceSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
+class HabitatSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Habitat
+        fields = "__all__"
+        depth = 1
+
+
+class HabitatFactorsSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = HabitatFactors
+        fields = "__all__"
+        depth = 1
+
+
+class FunctionSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Function
+        fields = "__all__"
+        depth = 1
+
+
+class ApplicationSerializer(DisplayNameModelSerializer):
+    habitat = HabitatSerializer()
+    habitat_factors = HabitatFactorsSerializer()
+    appl_function = FunctionSerializer()
+
+    class Meta:
+        model = Application
+        exclude = ["plant"]
+        depth = 1
+
+
 class PlantSerializer(DisplayNameModelSerializer):
 
     living = TaxonomyAndLivingSerializer()
     ecology_and_natlocation = EcologyAndNatLocationSerializer()
     appearance = AppearanceSerializer()
-    application = Serializer()
+    application = ApplicationSerializer()
     plantation_and_creation = Serializer()
     reproduction_and_production = Serializer()
     usability = Serializer()
