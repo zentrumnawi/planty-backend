@@ -26,7 +26,6 @@ django-anymail = "^8.4"
 
 [tool.poetry.dev-dependencies]
 black = "19.10b0"
-codecov = "*"
 coverage = "*"
 django-coverage-plugin = "*"
 django-debug-toolbar = "*"
