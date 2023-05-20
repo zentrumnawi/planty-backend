@@ -23,7 +23,7 @@ class TaxonomyAndLivingSerializer(DisplayNameModelSerializer):
 class PlantSerializer(DisplayNameModelSerializer):
 
     living = TaxonomyAndLivingSerializer()
-    ecology_andd_natlocation = Serializer()
+    ecology_and_natlocation = Serializer()
     appearance = Serializer()
     application = Serializer()
     plantation_and_creation = Serializer()
