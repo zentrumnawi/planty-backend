@@ -146,7 +146,7 @@ STATIC_URL = "/static/"
 
 PROFILES_SERIALIZERS = {
     "wine_related": ("planty_content.serializers", "WineSerializer",),
-    "plant_related": ("planty_plant_content.serializers", "PlantSerializer")
+    "plant_related": ("planty_plant_content.serializers", "PlantSerializer"),
 }
 
 DATABASE_FIELD_MAPPING = {}
