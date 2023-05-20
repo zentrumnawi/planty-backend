@@ -1,7 +1,24 @@
-
-from .models import Plant, Taxonomy, Living, EcologyAndNatLocation, NatOccurence, ZeigerValues, NatBehavior
-from planty_content.serializers import DisplayNameModelSerializer
 from rest_framework.serializers import Serializer
+
+from planty_content.serializers import DisplayNameModelSerializer
+
+from .models import (
+    Appearance,
+    Bark,
+    Blossom,
+    EcologyAndNatLocation,
+    Fruit,
+    Habitus,
+    Leaf,
+    Living,
+    NatBehavior,
+    NatOccurence,
+    Plant,
+    Root,
+    Sprout,
+    Taxonomy,
+    ZeigerValues,
+)
 
 
 class LivingSerializer(DisplayNameModelSerializer):
@@ -21,7 +38,6 @@ class TaxonomyAndLivingSerializer(DisplayNameModelSerializer):
 
 
 class NatOccurenceSerializer(DisplayNameModelSerializer):
-    
     class Meta:
         model = NatOccurence
         fields = "__all__"
@@ -29,7 +45,6 @@ class NatOccurenceSerializer(DisplayNameModelSerializer):
 
 
 class ZeigerValuesSerializer(DisplayNameModelSerializer):
-    
     class Meta:
         model = ZeigerValues
         fields = "__all__"
@@ -55,11 +70,75 @@ class EcologyAndNatLocationSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
+class HabitusSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Habitus
+        fields = "__all__"
+        depth = 1
+
+
+class SproutSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Sprout
+        fields = "__all__"
+        depth = 1
+
+
+class LeafSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Leaf
+        fields = "__all__"
+        depth = 1
+
+
+class BlossomSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Blossom
+        fields = "__all__"
+        depth = 1
+
+
+class FruitSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Fruit
+        fields = "__all__"
+        depth = 1
+
+
+class BarkSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Bark
+        fields = "__all__"
+        depth = 1
+
+
+class RootSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Root
+        fields = "__all__"
+        depth = 1
+
+
+class AppearanceSerializer(DisplayNameModelSerializer):
+    habitus = HabitusSerializer()
+    sprout = SproutSerializer()
+    leaf = LeafSerializer
+    blossom = BlossomSerializer()
+    fruit = FruitSerializer()
+    bark = BarkSerializer()
+    root = RootSerializer()
+
+    class Meta:
+        model = Appearance
+        exclude = ["plant"]
+        depth = 1
+
+
 class PlantSerializer(DisplayNameModelSerializer):
 
     living = TaxonomyAndLivingSerializer()
     ecology_and_natlocation = EcologyAndNatLocationSerializer()
-    appearance = Serializer()
+    appearance = AppearanceSerializer()
     application = Serializer()
     plantation_and_creation = Serializer()
     reproduction_and_production = Serializer()
