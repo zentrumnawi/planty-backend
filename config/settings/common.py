@@ -159,3 +159,16 @@ STATICFILES_FINDERS = (
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Restframework
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'PLANTY API',
+    'DESCRIPTION': "Backend for the e-learning application PLANTY.",
+    'VERSION': '2.0.0',
+    # OTHER SETTINGS
+}
