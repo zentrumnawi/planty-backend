@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "stdimage",
     "corsheaders",
     "taggit",
+    "drf_spectacular",
     "planty_content.apps.PlantyContentConfig",
     "planty_plant_content.apps.PlantyPlantContentConfig",
     "solid_backend.content",
