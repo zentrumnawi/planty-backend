@@ -27,7 +27,8 @@ from .models import (
     Usability,
     Toxicity,
     FaunaUsability,
-    HumanUsability
+    HumanUsability,
+    Diseases
 )
 
 
@@ -222,7 +223,14 @@ class UsabilitySerializer(DisplayNameModelSerializer):
         model = Usability
         exclude = ["plant"]
         depth = 1
-    
+
+
+class DiseasesSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Diseases
+        exclude = ["plant"]
+        depth = 1
+        
 
 class PlantSerializer(DisplayNameModelSerializer):
 
@@ -233,7 +241,7 @@ class PlantSerializer(DisplayNameModelSerializer):
     plantation_and_creation = PlantationAndCareSerializer()
     reproduction_and_production = ReproductionAndProductionSerializer()
     usability = UsabilitySerializer()
-    disease = Serializer()
+    disease = DiseasesSerializer()
     general_information = Serializer()
 
     class Meta:
