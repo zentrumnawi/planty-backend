@@ -1,6 +1,4 @@
-from rest_framework.serializers import Serializer
-
-from planty_content.serializers import DisplayNameModelSerializer
+from solid_backend.utils.serializers import SolidModelSerializer
 
 from .models import (
     Appearance,
@@ -33,14 +31,14 @@ from .models import (
 )
 
 
-class LivingSerializer(DisplayNameModelSerializer):
+class LivingSerializer(SolidModelSerializer):
     class Meta:
         model = Living
         fields = "__all__"
         depth = 1
 
 
-class TaxonomyAndLivingSerializer(DisplayNameModelSerializer):
+class TaxonomyAndLivingSerializer(SolidModelSerializer):
     living = LivingSerializer()
 
     class Meta:
@@ -49,21 +47,21 @@ class TaxonomyAndLivingSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
-class NatOccurenceSerializer(DisplayNameModelSerializer):
+class NatOccurenceSerializer(SolidModelSerializer):
     class Meta:
         model = NatOccurence
         fields = "__all__"
         depth = 1
 
 
-class ZeigerValuesSerializer(DisplayNameModelSerializer):
+class ZeigerValuesSerializer(SolidModelSerializer):
     class Meta:
         model = ZeigerValues
         fields = "__all__"
         depth = 1
 
 
-class NatBehaviorSerializer(DisplayNameModelSerializer):
+class NatBehaviorSerializer(SolidModelSerializer):
     zeiger_value = ZeigerValuesSerializer()
 
     class Meta:
@@ -72,7 +70,7 @@ class NatBehaviorSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
-class EcologyAndNatLocationSerializer(DisplayNameModelSerializer):
+class EcologyAndNatLocationSerializer(SolidModelSerializer):
     nat_occ = NatOccurenceSerializer()
     nat_behavior = NatBehaviorSerializer()
 
@@ -82,59 +80,59 @@ class EcologyAndNatLocationSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
-class HabitusSerializer(DisplayNameModelSerializer):
+class HabitusSerializer(SolidModelSerializer):
     class Meta:
         model = Habitus
         fields = "__all__"
         depth = 1
 
 
-class SproutSerializer(DisplayNameModelSerializer):
+class SproutSerializer(SolidModelSerializer):
     class Meta:
         model = Sprout
         fields = "__all__"
         depth = 1
 
 
-class LeafSerializer(DisplayNameModelSerializer):
+class LeafSerializer(SolidModelSerializer):
     class Meta:
         model = Leaf
         fields = "__all__"
         depth = 1
 
 
-class BlossomSerializer(DisplayNameModelSerializer):
+class BlossomSerializer(SolidModelSerializer):
     class Meta:
         model = Blossom
         fields = "__all__"
         depth = 1
 
 
-class FruitSerializer(DisplayNameModelSerializer):
+class FruitSerializer(SolidModelSerializer):
     class Meta:
         model = Fruit
         fields = "__all__"
         depth = 1
 
 
-class BarkSerializer(DisplayNameModelSerializer):
+class BarkSerializer(SolidModelSerializer):
     class Meta:
         model = Bark
         fields = "__all__"
         depth = 1
 
 
-class RootSerializer(DisplayNameModelSerializer):
+class RootSerializer(SolidModelSerializer):
     class Meta:
         model = Root
         fields = "__all__"
         depth = 1
 
 
-class AppearanceSerializer(DisplayNameModelSerializer):
+class AppearanceSerializer(SolidModelSerializer):
     habitus = HabitusSerializer()
     sprout = SproutSerializer()
-    leaf = LeafSerializer
+    leaf = LeafSerializer()
     blossom = BlossomSerializer()
     fruit = FruitSerializer()
     bark = BarkSerializer()
@@ -146,28 +144,28 @@ class AppearanceSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
-class HabitatSerializer(DisplayNameModelSerializer):
+class HabitatSerializer(SolidModelSerializer):
     class Meta:
         model = Habitat
         fields = "__all__"
         depth = 1
 
 
-class HabitatFactorsSerializer(DisplayNameModelSerializer):
+class HabitatFactorsSerializer(SolidModelSerializer):
     class Meta:
         model = HabitatFactors
         fields = "__all__"
         depth = 1
 
 
-class FunctionSerializer(DisplayNameModelSerializer):
+class FunctionSerializer(SolidModelSerializer):
     class Meta:
         model = Function
         fields = "__all__"
         depth = 1
 
 
-class ApplicationSerializer(DisplayNameModelSerializer):
+class ApplicationSerializer(SolidModelSerializer):
     habitat = HabitatSerializer()
     habitat_factors = HabitatFactorsSerializer()
     appl_function = FunctionSerializer()
@@ -178,42 +176,42 @@ class ApplicationSerializer(DisplayNameModelSerializer):
         depth = 1
 
 
-class PlantationAndCareSerializer(DisplayNameModelSerializer):
+class PlantationAndCareSerializer(SolidModelSerializer):
     class Meta:
         model = PlantationAndCare
         exclude = ["plant"]
         depth = 1
 
 
-class ReproductionAndProductionSerializer(DisplayNameModelSerializer):
+class ReproductionAndProductionSerializer(SolidModelSerializer):
     class Meta:
         model = ReproductionAndProduction
         exclude = ["plant"]
         depth = 1
 
 
-class ToxicitySerializer(DisplayNameModelSerializer):
+class ToxicitySerializer(SolidModelSerializer):
     class Meta:
         model = Toxicity
         fields = "__all__"
         depth = 1
 
 
-class FaunaUsabilitySerializer(DisplayNameModelSerializer):
+class FaunaUsabilitySerializer(SolidModelSerializer):
     class Meta:
         model = FaunaUsability
         fields = "__all__"
         depth = 1
 
 
-class HumanUsabilitySerializer(DisplayNameModelSerializer):
+class HumanUsabilitySerializer(SolidModelSerializer):
     class Meta:
         model = HumanUsability
         fields = "__all__"
         depth = 1
 
 
-class UsabilitySerializer(DisplayNameModelSerializer):
+class UsabilitySerializer(SolidModelSerializer):
     toxicity = ToxicitySerializer()
     fauna_usability = FaunaUsabilitySerializer()
     human_usability = HumanUsabilitySerializer()
@@ -224,21 +222,21 @@ class UsabilitySerializer(DisplayNameModelSerializer):
         depth = 1
 
 
-class DiseasesSerializer(DisplayNameModelSerializer):
+class DiseasesSerializer(SolidModelSerializer):
     class Meta:
         model = Diseases
         exclude = ["plant"]
         depth = 1
 
 
-class GeneralInformationSerializer(DisplayNameModelSerializer):
+class GeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["plant"]
         depth = 1
 
 
-class PlantSerializer(DisplayNameModelSerializer):
+class PlantSerializer(SolidModelSerializer):
 
     living = TaxonomyAndLivingSerializer()
     ecology_and_natlocation = EcologyAndNatLocationSerializer()
