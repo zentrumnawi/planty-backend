@@ -28,7 +28,8 @@ from .models import (
     Toxicity,
     FaunaUsability,
     HumanUsability,
-    Diseases
+    Diseases,
+    GeneralInformation
 )
 
 
@@ -232,6 +233,13 @@ class DiseasesSerializer(DisplayNameModelSerializer):
         depth = 1
         
 
+class GeneralInformationSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = GeneralInformation
+        exclude = ["plant"]
+        depth = 1
+
+
 class PlantSerializer(DisplayNameModelSerializer):
 
     living = TaxonomyAndLivingSerializer()
@@ -242,7 +250,7 @@ class PlantSerializer(DisplayNameModelSerializer):
     reproduction_and_production = ReproductionAndProductionSerializer()
     usability = UsabilitySerializer()
     disease = DiseasesSerializer()
-    general_information = Serializer()
+    general_information = GeneralInformationSerializer()
 
     class Meta:
         model = Plant
