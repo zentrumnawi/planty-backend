@@ -23,7 +23,11 @@ from .models import (
     HabitatFactors,
     Habitat,
     PlantationAndCare,
-    ReproductionAndProduction
+    ReproductionAndProduction,
+    Usability,
+    Toxicity,
+    FaunaUsability,
+    HumanUsability
 )
 
 
@@ -186,7 +190,39 @@ class ReproductionAndProductionSerializer(DisplayNameModelSerializer):
         model = ReproductionAndProduction
         exclude = ["plant"]
         depth = 1
-        
+
+
+class ToxicitySerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = Toxicity
+        fields = "__all__"
+        depth = 1
+
+
+class FaunaUsabilitySerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = FaunaUsability
+        fields = "__all__"
+        depth = 1
+
+
+class HumanUsabilitySerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = HumanUsability
+        fields = "__all__"
+        depth = 1
+
+
+class UsabilitySerializer(DisplayNameModelSerializer):
+    toxicity = ToxicitySerializer()
+    fauna_usability = FaunaUsabilitySerializer()
+    human_usability = HumanUsabilitySerializer()
+
+    class Meta:
+        model = Usability
+        exclude = ["plant"]
+        depth = 1
+    
 
 class PlantSerializer(DisplayNameModelSerializer):
 
@@ -196,7 +232,7 @@ class PlantSerializer(DisplayNameModelSerializer):
     application = ApplicationSerializer()
     plantation_and_creation = PlantationAndCareSerializer()
     reproduction_and_production = ReproductionAndProductionSerializer()
-    usability = Serializer()
+    usability = UsabilitySerializer()
     disease = Serializer()
     general_information = Serializer()
 
