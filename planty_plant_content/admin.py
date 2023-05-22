@@ -36,6 +36,7 @@ from .models import (
 
 # Register your models here.
 
+
 class EcologyAndNatLocationInline(admin.StackedInline):
     model = EcologyAndNatLocation
 

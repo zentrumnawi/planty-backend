@@ -21,12 +21,11 @@ pillow = "*"
 psycopg2-binary = "*"
 raven = "*"
 whitenoise = "*"
-solid-backend = {version = "^0.3.0a2", allow-prereleases = true}
+solid-backend = {version = "^0.3.0", allow-prereleases = true}
 django-anymail = "^8.4"
 
 [tool.poetry.dev-dependencies]
 black = "19.10b0"
-codecov = "*"
 coverage = "*"
 django-coverage-plugin = "*"
 django-debug-toolbar = "*"

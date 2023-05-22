@@ -441,7 +441,7 @@ class EcologyAndNatLocation(models.Model):
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
-        related_name="ecology_andd_natlocation",
+        related_name="ecology_and_natlocation",
         verbose_name=_("Pflanze"),
     )
     nat_occ = models.OneToOneField(
