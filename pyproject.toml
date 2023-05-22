@@ -23,6 +23,7 @@ raven = "*"
 whitenoise = "*"
 solid-backend = {version = "^0.3.0", allow-prereleases = true}
 django-anymail = "^8.4"
+drf-spectacular = "^0.26.2"
 
 [tool.poetry.dev-dependencies]
 black = "19.10b0"
