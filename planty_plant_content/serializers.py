@@ -4,32 +4,32 @@ from planty_content.serializers import DisplayNameModelSerializer
 
 from .models import (
     Appearance,
+    Application,
     Bark,
     Blossom,
+    Diseases,
     EcologyAndNatLocation,
+    FaunaUsability,
     Fruit,
+    Function,
+    GeneralInformation,
+    Habitat,
+    HabitatFactors,
     Habitus,
+    HumanUsability,
     Leaf,
     Living,
     NatBehavior,
     NatOccurence,
     Plant,
+    PlantationAndCare,
+    ReproductionAndProduction,
     Root,
     Sprout,
     Taxonomy,
-    ZeigerValues,
-    Application,
-    Function,
-    HabitatFactors,
-    Habitat,
-    PlantationAndCare,
-    ReproductionAndProduction,
-    Usability,
     Toxicity,
-    FaunaUsability,
-    HumanUsability,
-    Diseases,
-    GeneralInformation
+    Usability,
+    ZeigerValues,
 )
 
 
@@ -179,7 +179,6 @@ class ApplicationSerializer(DisplayNameModelSerializer):
 
 
 class PlantationAndCareSerializer(DisplayNameModelSerializer):
-
     class Meta:
         model = PlantationAndCare
         exclude = ["plant"]
@@ -187,7 +186,6 @@ class PlantationAndCareSerializer(DisplayNameModelSerializer):
 
 
 class ReproductionAndProductionSerializer(DisplayNameModelSerializer):
-
     class Meta:
         model = ReproductionAndProduction
         exclude = ["plant"]
@@ -231,7 +229,7 @@ class DiseasesSerializer(DisplayNameModelSerializer):
         model = Diseases
         exclude = ["plant"]
         depth = 1
-        
+
 
 class GeneralInformationSerializer(DisplayNameModelSerializer):
     class Meta:
