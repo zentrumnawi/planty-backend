@@ -15,7 +15,7 @@ from .models import (
     Sprout,
     Twine,
     Wine,
-    YoungLeaf,
+    YoungLeaf, GeneralInformation,
 )
 
 # Register your models here.
@@ -57,9 +57,14 @@ class DiseaseInline(admin.StackedInline):
     model = Disease
 
 
+class GeneralInformationInline(admin.StackedInline):
+    model = GeneralInformation
+
+
 class WineModelAdmin(admin.ModelAdmin):
-    list_display = ["id", "name", "synonyms"]
+    list_display = ["id", "get_name", "get_synonyms"]
     inlines = [
+        GeneralInformationInline,
         SproutInline,
         YoungLeafInline,
         GrownLeafInline,
@@ -73,7 +78,14 @@ class WineModelAdmin(admin.ModelAdmin):
         AudioVideoMediaObjectInline,
     ]
 
+    def get_name(self, obj):
+        return obj.general_information.name
 
+    def get_synonyms(self, obj):
+        return obj.general_information.synonyms
+
+
+admin.site.register(GeneralInformation, admin.ModelAdmin)
 admin.site.register(Sprout, admin.ModelAdmin)
 admin.site.register(YoungLeaf, admin.ModelAdmin)
 admin.site.register(GrownLeaf, admin.ModelAdmin)
