@@ -1,3 +1,4 @@
+from solid_backend.media_object.serializers import MediaObjectSerializer
 from solid_backend.utils.serializers import SolidModelSerializer
 
 from .models import (
@@ -247,6 +248,7 @@ class PlantSerializer(SolidModelSerializer):
     usability = UsabilitySerializer()
     disease = DiseasesSerializer()
     general_information = GeneralInformationSerializer()
+    media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
         model = Plant
