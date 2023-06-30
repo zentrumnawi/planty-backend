@@ -12,7 +12,7 @@ from .models import (
     Sprout,
     Twine,
     Wine,
-    YoungLeaf,
+    YoungLeaf, GeneralInformation,
 )
 
 
@@ -86,6 +86,13 @@ class DiseaseSerializer(DisplayNameModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
+class GeneralInformationSerializer(DisplayNameModelSerializer):
+    class Meta:
+        model = GeneralInformation
+        exclude = ["wine"]
+        swagger_schema_fields = {"title": str(model._meta.verbose_name)}
+
+
 class WineSerializer(DisplayNameModelSerializer):
     sprout = SproutSerializer()
     young_leaf = YoungLeafSerializer()
@@ -96,6 +103,7 @@ class WineSerializer(DisplayNameModelSerializer):
     properties = PropertiesSerializer()
     phenology = PhenologySerializer(required=False)
     disease = DiseaseSerializer()
+    general_information = GeneralInformationSerializer()
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
