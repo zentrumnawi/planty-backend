@@ -1,7 +1,5 @@
-from rest_framework import serializers
 from solid_backend.media_object.serializers import MediaObjectSerializer
-from solid_backend.photograph.serializers import PhotographSerializer
-
+from solid_backend.utils.serializers import SolidModelSerializer
 from .models import (
     Berry,
     Disease,
@@ -15,85 +13,77 @@ from .models import (
     YoungLeaf, GeneralInformation,
 )
 
-
-class DisplayNameModelSerializer(serializers.ModelSerializer):
-    def to_representation(self, instance):
-        ret = super(DisplayNameModelSerializer, self).to_representation(instance)
-
-        return serializers.OrderedDict(filter(lambda x: not x[1] is None, ret.items()))
-
-
-class SproutSerializer(DisplayNameModelSerializer):
+class SproutSerializer(SolidModelSerializer):
     class Meta:
         model = Sprout
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class YoungLeafSerializer(DisplayNameModelSerializer):
+class YoungLeafSerializer(SolidModelSerializer):
     class Meta:
         model = YoungLeaf
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class GrownLeafSerializer(DisplayNameModelSerializer):
+class GrownLeafSerializer(SolidModelSerializer):
     class Meta:
         model = GrownLeaf
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class GrapeSerializer(DisplayNameModelSerializer):
+class GrapeSerializer(SolidModelSerializer):
     class Meta:
         model = Grape
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class BerrySerializer(DisplayNameModelSerializer):
+class BerrySerializer(SolidModelSerializer):
     class Meta:
         model = Berry
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class TwineSerializer(DisplayNameModelSerializer):
+class TwineSerializer(SolidModelSerializer):
     class Meta:
         model = Twine
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class PropertiesSerializer(DisplayNameModelSerializer):
+class PropertiesSerializer(SolidModelSerializer):
     class Meta:
         model = Properties
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class PhenologySerializer(DisplayNameModelSerializer):
+class PhenologySerializer(SolidModelSerializer):
     class Meta:
         model = Phenology
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class DiseaseSerializer(DisplayNameModelSerializer):
+class DiseaseSerializer(SolidModelSerializer):
     class Meta:
         model = Disease
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class GeneralInformationSerializer(DisplayNameModelSerializer):
+class GeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["wine"]
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class WineSerializer(DisplayNameModelSerializer):
+class WineSerializer(SolidModelSerializer):
     sprout = SproutSerializer()
     young_leaf = YoungLeafSerializer()
     grown_leaf = GrownLeafSerializer()
