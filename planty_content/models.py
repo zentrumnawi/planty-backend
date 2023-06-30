@@ -7,34 +7,10 @@ from .choices import *
 
 
 class Wine(SolidBaseProfile):
-    name = models.CharField(max_length=200, verbose_name=_("Sorte"))
-    synonyms = models.CharField(
-        max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
-    )
-    blossom = models.CharField(
-        max_length=10,
-        choices=BLOSSOM_CHOICES,
-        blank=True,
-        null=True,
-        verbose_name=_("Blüte"),
-    )
-    cross_parents = models.CharField(
-        max_length=200, blank=True, null=True, verbose_name=_("Kreuzungseltern")
-    )
-    origin = models.CharField(
-        max_length=200,
-        verbose_name=_("Herkunft"),
-        help_text=_('Falss nicht bekannt "unbekannt" als Eingabe'),
-    )
-
-    notes = models.TextField(
-        max_length=400, blank=True, null=True, verbose_name=_("Anmerkungen")
-    )
-
     class Meta:
         verbose_name = _("Rebe")
         verbose_name_plural = _("Reben")
-        ordering = ("name",)
+        ordering = ("general_information__name",)
 
 
 class Sprout(models.Model):
@@ -489,3 +465,42 @@ class Disease(models.Model):
     class Meta:
         verbose_name = _("Krankheiten")
         verbose_name_plural = verbose_name
+
+
+class GeneralInformation(models.Model):
+
+    wine = models.OneToOneField(
+        to=Wine,
+        on_delete=models.CASCADE,
+        related_name="general_information",
+        verbose_name=_("Rebe"),
+    )
+
+    name = models.CharField(max_length=200, verbose_name=_("Sorte"))
+    synonyms = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name=_("Synonyme")
+    )
+    blossom = models.CharField(
+        max_length=10,
+        choices=BLOSSOM_CHOICES,
+        blank=True,
+        null=True,
+        verbose_name=_("Blüte"),
+    )
+    cross_parents = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name=_("Kreuzungseltern")
+    )
+    origin = models.CharField(
+        max_length=200,
+        verbose_name=_("Herkunft"),
+        help_text=_('Falls nicht bekannt "unbekannt" als Eingabe'),
+    )
+
+    notes = models.TextField(
+        max_length=400, blank=True, null=True, verbose_name=_("Anmerkungen")
+    )
+
+    class Meta:
+        verbose_name = _("Allgemein")
+        verbose_name_plural = _("Allgemein")
+
