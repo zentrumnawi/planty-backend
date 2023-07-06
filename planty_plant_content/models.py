@@ -183,6 +183,7 @@ class Taxonomy(models.Model):
         verbose_name=_("Botanischer Name"),
         help_text=_("Gattung und Art, ggf. Unterart/ Variation, ggf. Sorte"),
     )
+    de_name = models.CharField(max_length=100, verbose_name=_("Deutscher Name"))
     relevant_cultivar = models.TextField(
         max_length=500,
         null=True,
@@ -1581,6 +1582,7 @@ class GeneralInformation(models.Model):
         blank=True,
         verbose_name=_("Verortung am Hochschulstandort"),
     )
+    # name = models.CharField(max_length=100, verbose_name=_("Deutscher Name"))
 
     class Meta:
         verbose_name = _("Informatives")

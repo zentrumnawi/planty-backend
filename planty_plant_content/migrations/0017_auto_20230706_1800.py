@@ -9,11 +9,16 @@ def move_de_name_to_general_info_name(apps, schema_editor):
     respective plant.
     """
     Plant = apps.get_model("planty_plant_content", "Plant")
+    GeneralInformation = apps.get_model("planty_plant_content", "GeneralInformation")
 
     for obj in Plant.objects.all():
-        general_info = obj.general_information
-        general_info.name = obj.living.de_name
-        general_info.save()
+        try:
+            general_info = obj.general_information
+        except GeneralInformation.DoesNotExist:
+            GeneralInformation.objects.create(plant=obj, name=obj.living.de_name)
+        else:
+            general_info.name = obj.living.de_name
+            general_info.save()
 
 
 def move_name_to_taxonomy_de_name(apps, schema_editor):
@@ -22,12 +27,16 @@ def move_name_to_taxonomy_de_name(apps, schema_editor):
     model instance.
     """
     Plant = apps.get_model("planty_plant_content", "Plant")
+    Taxonomy = apps.get_model("planty_plant_content", "Taxonomy")
 
     for obj in Plant.objects.all():
-        living = obj.living
-        living.de_name = obj.general_information.name
-        living.save()
-
+        try:
+            living = obj.living
+        except Taxonomy.DoesNotExist:
+            Taxonomy.objects.create(plant=obj, de_name=obj.general_information.name)
+        else:
+            living.de_name = obj.general_information.name
+            living.save()
 
 class Migration(migrations.Migration):
 
