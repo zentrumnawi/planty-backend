@@ -124,7 +124,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "de_name",
-                    models.CharField(max_length=100, verbose_name="Deutscher Name"),
+                    models.CharField(max_length=100, default="Test", verbose_name="Deutscher Name"),
                 ),
                 (
                     "relevant_cultivar",
