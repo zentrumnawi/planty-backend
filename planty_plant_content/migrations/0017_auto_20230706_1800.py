@@ -38,6 +38,7 @@ def move_name_to_taxonomy_de_name(apps, schema_editor):
             living.de_name = obj.general_information.name
             living.save()
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
