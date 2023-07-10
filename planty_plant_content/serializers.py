@@ -230,7 +230,7 @@ class DiseasesSerializer(SolidModelSerializer):
         depth = 1
 
 
-class GeneralInformationSerializer(SolidModelSerializer):
+class PlantGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["plant"]
@@ -247,7 +247,7 @@ class PlantSerializer(SolidModelSerializer):
     reproduction_and_production = ReproductionAndProductionSerializer()
     usability = UsabilitySerializer()
     disease = DiseasesSerializer()
-    general_information = GeneralInformationSerializer()
+    general_information = PlantGeneralInformationSerializer()
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
