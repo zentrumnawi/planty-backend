@@ -76,7 +76,7 @@ class DiseaseSerializer(SolidModelSerializer):
         swagger_schema_fields = {"title": str(model._meta.verbose_name)}
 
 
-class GeneralInformationSerializer(SolidModelSerializer):
+class WineGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
         exclude = ["wine"]
@@ -93,7 +93,7 @@ class WineSerializer(SolidModelSerializer):
     properties = PropertiesSerializer()
     phenology = PhenologySerializer(required=False)
     disease = DiseaseSerializer()
-    general_information = GeneralInformationSerializer()
+    general_information = WineGeneralInformationSerializer()
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
