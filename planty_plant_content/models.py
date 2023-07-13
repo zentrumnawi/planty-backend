@@ -1,4 +1,5 @@
 from enum import Enum
+import re
 
 from django.contrib.postgres.fields import ArrayField
 from django.db import models
@@ -105,6 +106,10 @@ class Living(models.Model):
         verbose_name = _("Lebensweise")
         verbose_name_plural = _("Lebensweisen")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Living, self).__str__())
+        return re.sub(r"\d+", self.taxonomy.bot_name, object_cleared)
+
 
 class Taxonomy(models.Model):
     FAMILY_CHOICES = ChoiceEnum(
@@ -175,7 +180,7 @@ class Taxonomy(models.Model):
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
-        related_name="living",
+        related_name="taxonomy",
         verbose_name=_("Pflanze"),
     )
     bot_name = models.CharField(
@@ -216,13 +221,17 @@ class Taxonomy(models.Model):
     living = models.OneToOneField(
         to=Living,
         on_delete=models.CASCADE,
-        related_name="living",
+        related_name="taxonomy",
         verbose_name=_("Lebensweise"),
     )
 
     class Meta:
         verbose_name = _("Taxonomie und Lebensweise")
         verbose_name_plural = _("Taxonomien und Lebensweisen")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Taxonomy, self).__str__())
+        return re.sub(r"\d+", self.bot_name, object_cleared)
 
 
 class NatOccurence(models.Model):
@@ -283,6 +292,13 @@ class NatOccurence(models.Model):
     class Meta:
         verbose_name = _("Ökologie und Naturstandort")
         verbose_name_plural = _("Ökologien und Naturstandorte")
+        
+    def __str__(self):
+        try:
+            object_cleared = re.sub("object ", "", super(NatOccurence, self).__str__())
+            return re.sub(r"\d+", self.eco_and_natlocation.plant.taxonomy.bot_name, object_cleared)
+        except:
+            return super(NatOccurence, self).__str__()
 
 
 class ZeigerValues(models.Model):
@@ -404,6 +420,13 @@ class ZeigerValues(models.Model):
     class Meta:
         verbose_name = _("Zeigerwerte nach Ellenberg")
         verbose_name_plural = _("Zeigerwerte nach Ellenberg")
+        
+    def __str__(self):
+        try:
+            object_cleared = re.sub("object ", "", super(ZeigerValues, self).__str__())
+            return re.sub(r"\d+", self.nat_behavior.eco_and_natlocation.plant.taxonomy.bot_name, object_cleared)
+        except:
+            return super(ZeigerValues, self).__str__()
 
 
 class NatBehavior(models.Model):
@@ -434,6 +457,13 @@ class NatBehavior(models.Model):
             "Natürliche Verhaltensweisen und Fähigkeiten am Standort"
         )
 
+    def __str__(self):
+        try:
+            object_cleared = re.sub("object ", "", super(NatBehavior, self).__str__())
+            return re.sub(r"\d+", self.eco_and_natlocation.plant.taxonomy.bot_name, object_cleared)
+        except:
+            return super(NatBehavior, self).__str__()
+
 
 class EcologyAndNatLocation(models.Model):
 
@@ -446,6 +476,7 @@ class EcologyAndNatLocation(models.Model):
     nat_occ = models.OneToOneField(
         to=NatOccurence,
         on_delete=models.CASCADE,
+        primary_key=True,
         related_name="eco_and_natlocation",
         verbose_name=_("Natürliches Vorkommen"),
     )
@@ -459,6 +490,10 @@ class EcologyAndNatLocation(models.Model):
     class Meta:
         verbose_name = _("Ökologie und Naturstandort")
         verbose_name_plural = _("Ökologie und Naturstandort")
+        
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(EcologyAndNatLocation, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
 
 
 class Habitus(models.Model):
@@ -503,6 +538,10 @@ class Habitus(models.Model):
         verbose_name = _("Habitus")
         verbose_name_plural = _("Habita")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+
 
 class Sprout(models.Model):
     branch_form = models.TextField(
@@ -531,6 +570,10 @@ class Sprout(models.Model):
     class Meta:
         verbose_name = _("Trieb")
         verbose_name_plural = _("Triebe")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Leaf(models.Model):
@@ -647,6 +690,10 @@ class Leaf(models.Model):
     class Meta:
         verbose_name = _("Blatt")
         verbose_name_plural = _("Blätter")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Blossom(models.Model):
@@ -766,6 +813,10 @@ class Blossom(models.Model):
         verbose_name = _("Blüte")
         verbose_name_plural = _("Blüten")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+
 
 class Fruit(models.Model):
     form = models.TextField(
@@ -800,6 +851,10 @@ class Fruit(models.Model):
         verbose_name = _("Frucht")
         verbose_name_plural = _("Früchte")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+
 
 class Bark(models.Model):
     color = models.CharField(
@@ -823,6 +878,10 @@ class Bark(models.Model):
     class Meta:
         verbose_name = _("Rinde")
         verbose_name_plural = _("Rinden")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Bark, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Root(models.Model):
@@ -857,6 +916,10 @@ class Root(models.Model):
     class Meta:
         verbose_name = _("Wurzel")
         verbose_name_plural = _("Wurzeln")
+        
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Root, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Appearance(models.Model):
@@ -913,6 +976,10 @@ class Appearance(models.Model):
     class Meta:
         verbose_name = _("Habitus und Erscheinung")
         verbose_name_plural = _("Habitus und Erscheinungen")
+        
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Appearance, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
 
 
 class Habitat(models.Model):
@@ -938,6 +1005,10 @@ class Habitat(models.Model):
     class Meta:
         verbose_name = _("Standorte")
         verbose_name_plural = _("Standorte")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Habitat, self).__str__())
+        return re.sub(r"\d+", self.application.plant.taxonomy.bot_name, object_cleared)
 
 
 class HabitatFactors(models.Model):
@@ -1100,6 +1171,10 @@ class HabitatFactors(models.Model):
         verbose_name = _("Standortfaktoren und Ansprüche")
         verbose_name_plural = _("Standortfaktoren und Ansprüche")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(HabitatFactors, self).__str__())
+        return re.sub(r"\d+", self.application.plant.taxonomy.bot_name, object_cleared)
+
 
 class Function(models.Model):
     sightings = models.TextField(
@@ -1153,6 +1228,10 @@ class Function(models.Model):
         verbose_name = _("Funktion")
         verbose_name_plural = _("Funktionen")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Function, self).__str__())
+        return re.sub(r"\d+", self.application.plant.taxonomy.bot_name, object_cleared)
+
 
 class Application(models.Model):
 
@@ -1184,6 +1263,10 @@ class Application(models.Model):
     class Meta:
         verbose_name = _("Verwendung")
         verbose_name_plural = _("Verwendungen")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Application, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
 
 
 class PlantationAndCare(models.Model):
@@ -1259,6 +1342,10 @@ class PlantationAndCare(models.Model):
     class Meta:
         verbose_name = _("Pflanzung und Pflege")
         verbose_name_plural = _("Pflanzungen und Pflege")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(PlantationAndCare, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
 
 
 class ReproductionAndProduction(models.Model):
@@ -1343,6 +1430,10 @@ class ReproductionAndProduction(models.Model):
         verbose_name = _("Vermehrung / Produktion")
         verbose_name_plural = _("Vermehrungen / Produktionen")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(ReproductionAndProduction, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+
 
 class Toxicity(models.Model):
     TOXICITY_CHOICES = ChoiceEnum(
@@ -1389,6 +1480,10 @@ class Toxicity(models.Model):
     class Meta:
         verbose_name = _("Giftigkeit")
         verbose_name_plural = _("Giftigkeiten")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Toxicity, self).__str__())
+        return re.sub(r"\d+", self.usability.plant.taxonomy.bot_name, object_cleared)
 
 
 class FaunaUsability(models.Model):
@@ -1460,6 +1555,10 @@ class FaunaUsability(models.Model):
         verbose_name = _("Nutzbarkeit Fauna")
         verbose_name_plural = _("Nutzbarkeiten Fauna")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(FaunaUsability, self).__str__())
+        return re.sub(r"\d+", self.usability.plant.taxonomy.bot_name, object_cleared)
+
 
 class HumanUsability(models.Model):
     medical_use = models.TextField(
@@ -1493,6 +1592,10 @@ class HumanUsability(models.Model):
     class Meta:
         verbose_name = _("Nutzbarkeit Mensch ")
         verbose_name_plural = _("Nutzbarkeiten Mensch ")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(HumanUsability, self).__str__())
+        return re.sub(r"\d+", self.usability.plant.taxonomy.bot_name, object_cleared)
 
 
 class Usability(models.Model):
@@ -1532,6 +1635,10 @@ class Usability(models.Model):
         verbose_name = _("Nutzbarkeit")
         verbose_name_plural = _("Nutzbarkeiten")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Usability, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+
 
 class Diseases(models.Model):
 
@@ -1567,6 +1674,10 @@ class Diseases(models.Model):
         verbose_name = _("Krankheiten / Schädlinge / Resistenzen")
         verbose_name_plural = _("Krankheiten / Schädlinge / Resistenzen")
 
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Diseases, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+
 
 class GeneralInformation(models.Model):
 
@@ -1593,3 +1704,7 @@ class GeneralInformation(models.Model):
     class Meta:
         verbose_name = _("Informatives")
         verbose_name_plural = _("Informatives")
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(GeneralInformation, self).__str__())
+        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
