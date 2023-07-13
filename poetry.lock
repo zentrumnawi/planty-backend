@@ -994,7 +994,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 
 [[package]]
 name = "solid-backend"
-version = "0.3.4"
+version = "0.3.5"
 description = "Clean Django app for e-learning application with..."
 category = "main"
 optional = false
@@ -1875,8 +1875,8 @@ six = [
     {file = "six-1.15.0.tar.gz", hash = "sha256:30639c035cdb23534cd4aa2dd52c3bf48f06e5f4a941509c8bafd8ce11080259"},
 ]
 solid-backend = [
-    {file = "solid_backend-0.3.4-py3-none-any.whl", hash = "sha256:47499326d0276ed594a77313467c5f90f95a02f0a5acc61dd2d52bb7407ab286"},
-    {file = "solid_backend-0.3.4.tar.gz", hash = "sha256:fe36037c5995ad4297a9cf1259c8b3d83fc2bee0e34015daf25eab620093c180"},
+    {file = "solid_backend-0.3.5-py3-none-any.whl", hash = "sha256:65ce684e0978ada757e84871dfde9fc7900610cad9742f862e256a1742a93020"},
+    {file = "solid_backend-0.3.5.tar.gz", hash = "sha256:7648653d981b8bcd91f8238cc1597a3c9cc476edfdef927f29249cba114e3944"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},

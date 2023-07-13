@@ -136,7 +136,7 @@ class AppearanceSerializer(SolidModelSerializer):
     leaf = LeafSerializer()
     blossom = BlossomSerializer()
     fruit = FruitSerializer()
-    bark = BarkSerializer()
+    bark = BarkSerializer(required=False)
     root = RootSerializer()
 
     class Meta:
@@ -239,15 +239,15 @@ class PlantGeneralInformationSerializer(SolidModelSerializer):
 
 class PlantSerializer(SolidModelSerializer):
 
-    living = TaxonomyAndLivingSerializer()
-    ecology_and_natlocation = EcologyAndNatLocationSerializer()
-    appearance = AppearanceSerializer()
-    application = ApplicationSerializer()
-    plantation_and_creation = PlantationAndCareSerializer()
-    reproduction_and_production = ReproductionAndProductionSerializer()
-    usability = UsabilitySerializer()
-    disease = DiseasesSerializer()
-    general_information = PlantGeneralInformationSerializer()
+    taxonomy = TaxonomyAndLivingSerializer(required=False)
+    ecology_and_natlocation = EcologyAndNatLocationSerializer(required=False)
+    appearance = AppearanceSerializer(required=False)
+    application = ApplicationSerializer(required=False)
+    plantation_and_creation = PlantationAndCareSerializer(required=False)
+    reproduction_and_production = ReproductionAndProductionSerializer(required=False)
+    usability = UsabilitySerializer(required=False)
+    disease = DiseasesSerializer(required=False)
+    general_information = PlantGeneralInformationSerializer(required=False)
     media_objects = MediaObjectSerializer(many=True)
 
     class Meta:
