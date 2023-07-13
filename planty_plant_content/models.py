@@ -816,9 +816,6 @@ class Bark(models.Model):
         verbose_name=_("Oberfläche/Struktur"),
         help_text=_("Jung- und Altzustand"),
     )
-    structure = models.TextField(
-        max_length=500, null=True, blank=True, verbose_name=_("Aufbau")
-    )
     extras = models.TextField(
         max_length=500, null=True, blank=True, verbose_name=_("Weitere Merkmale")
     )
