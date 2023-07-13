@@ -476,7 +476,6 @@ class EcologyAndNatLocation(models.Model):
     nat_occ = models.OneToOneField(
         to=NatOccurence,
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name="eco_and_natlocation",
         verbose_name=_("Natürliches Vorkommen"),
     )
@@ -538,9 +537,9 @@ class Habitus(models.Model):
         verbose_name = _("Habitus")
         verbose_name_plural = _("Habita")
 
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Sprout(models.Model):
@@ -571,9 +570,9 @@ class Sprout(models.Model):
         verbose_name = _("Trieb")
         verbose_name_plural = _("Triebe")
 
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Leaf(models.Model):
@@ -691,9 +690,9 @@ class Leaf(models.Model):
         verbose_name = _("Blatt")
         verbose_name_plural = _("Blätter")
 
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Blossom(models.Model):
@@ -813,9 +812,9 @@ class Blossom(models.Model):
         verbose_name = _("Blüte")
         verbose_name_plural = _("Blüten")
 
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Fruit(models.Model):
@@ -851,9 +850,9 @@ class Fruit(models.Model):
         verbose_name = _("Frucht")
         verbose_name_plural = _("Früchte")
 
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Bark(models.Model):
@@ -879,9 +878,9 @@ class Bark(models.Model):
         verbose_name = _("Rinde")
         verbose_name_plural = _("Rinden")
 
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Bark, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Bark, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Root(models.Model):
@@ -917,9 +916,9 @@ class Root(models.Model):
         verbose_name = _("Wurzel")
         verbose_name_plural = _("Wurzeln")
         
-    def __str__(self):
-        object_cleared = re.sub("object ", "", super(Root, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    # def __str__(self):
+    #     object_cleared = re.sub("object ", "", super(Root, self).__str__())
+    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
 
 
 class Appearance(models.Model):
@@ -962,6 +961,8 @@ class Appearance(models.Model):
     )
     bark = models.OneToOneField(
         to=Bark,
+        null=True,
+        blank=True,
         on_delete=models.CASCADE,
         related_name="appearance",
         verbose_name=_("Rinde"),

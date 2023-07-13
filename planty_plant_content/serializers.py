@@ -136,7 +136,7 @@ class AppearanceSerializer(SolidModelSerializer):
     leaf = LeafSerializer()
     blossom = BlossomSerializer()
     fruit = FruitSerializer()
-    bark = BarkSerializer()
+    bark = BarkSerializer(required=False)
     root = RootSerializer()
 
     class Meta:
