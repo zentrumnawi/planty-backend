@@ -1505,6 +1505,8 @@ class Usability(models.Model):
     )
     toxicity = models.OneToOneField(
         to=Toxicity,
+        null=True,
+        blank=True,
         on_delete=models.CASCADE,
         related_name="usability",
         verbose_name=_("Giftigkeit"),
@@ -1512,12 +1514,16 @@ class Usability(models.Model):
     fauna_usability = models.OneToOneField(
         to=FaunaUsability,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
         related_name="usability",
         verbose_name=_("Nutzbarkeit Fauna"),
     )
     human_usability = models.OneToOneField(
         to=HumanUsability,
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
         related_name="usability",
         verbose_name=_("Nutzbarkeit Mensch "),
     )
