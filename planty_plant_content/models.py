@@ -486,7 +486,8 @@ class Habitus(models.Model):
         verbose_name=_("Weiteres zur Dimension"),
         help_text=_("Veränderte Größen bei speziellen Bedingungen"),
     )
-    grow_form = models.CharField(max_length=100, verbose_name=_("Wuchsform"))
+    grow_form = models.TextField(
+        max_length=500, verbose_name=_("Wuchsform"))
     grow_extra = models.TextField(
         max_length=500, null=True, blank=True, verbose_name=_("Weiteres zum Wuchs")
     )
@@ -504,8 +505,8 @@ class Habitus(models.Model):
 
 
 class Sprout(models.Model):
-    branch_form = models.CharField(
-        max_length=100,
+    branch_form = models.TextField(
+        max_length=500,
         null=True,
         blank=True,
         verbose_name=_("Form Äste/ Triebe/ Verzweigung"),
@@ -566,8 +567,8 @@ class Leaf(models.Model):
         ),
     ).choices()
 
-    form = models.CharField(
-        max_length=100,
+    form = models.TextField(
+        max_length=500,
         verbose_name=_("Form"),
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
@@ -585,8 +586,8 @@ class Leaf(models.Model):
         verbose_name=_("Größe"),
         help_text=_("in mm/cm, Eingabe der Einheit"),
     )
-    color = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Farbe")
+    color = models.TextField(
+        max_length=500, null=True, blank=True, verbose_name=_("Farbe")
     )
     panasch = models.CharField(
         max_length=100, null=True, blank=True, verbose_name=_("Panschierung")
@@ -683,8 +684,8 @@ class Blossom(models.Model):
         ("XII", "XII"),
     )
 
-    stand = models.CharField(
-        max_length=100,
+    stand = models.TextField(
+        max_length=500,
         null=True,
         blank=True,
         verbose_name=_("Blütenstand"),
@@ -753,8 +754,8 @@ class Blossom(models.Model):
     note_to_bloom = models.TextField(
         max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Blütezeit")
     )
-    odor = models.CharField(
-        max_length=100,
+    odor = models.TextField(
+        max_length=500,
         null=True,
         blank=True,
         verbose_name=_("Geruch"),
@@ -767,8 +768,8 @@ class Blossom(models.Model):
 
 
 class Fruit(models.Model):
-    form = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Form")
+    form = models.TextField(
+        max_length=500, null=True, blank=True, verbose_name=_("Form")
     )
     size = models.CharField(
         max_length=100, null=True, blank=True, verbose_name=_("Größe")
@@ -808,8 +809,8 @@ class Bark(models.Model):
         verbose_name=_("Farbe"),
         help_text=_("Jung- und Altzustand"),
     )
-    surface = models.CharField(
-        max_length=100,
+    surface = models.TextField(
+        max_length=500,
         null=True,
         blank=True,
         verbose_name=_("Oberfläche/Struktur"),
@@ -828,8 +829,8 @@ class Bark(models.Model):
 
 
 class Root(models.Model):
-    type = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Typ")
+    type = models.TextField(
+        max_length=500, null=True, blank=True, verbose_name=_("Typ")
     )
     depth = models.CharField(
         max_length=100, null=True, blank=True, verbose_name=_("Tiefe, konkret")
@@ -1534,8 +1535,8 @@ class Diseases(models.Model):
         related_name="disease",
         verbose_name=_("Pflanze"),
     )
-    diseases = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Krankheiten/Schädlinge")
+    diseases = models.TextField(
+        max_length=500, null=True, blank=True, verbose_name=_("Krankheiten/Schädlinge")
     )
     physiology_damage = models.CharField(
         max_length=100, null=True, blank=True, verbose_name=_("Physiologische Schäden")
