@@ -64,7 +64,7 @@ class Living(models.Model):
     LIFESPAN_CHOICES = ChoiceEnum(
         "LifespanChoices",
         (
-            "ausdauernd, sehr kurz überdauernd ( < 50 J)?",
+            "ausdauernd, sehr kurz überdauernd ( < 50 J)",
             "ausdauernd, kurz überdauernd(50 - 100J)",
             "ausdauernd, mäßig dauerhaft(100 - 300J)",
             "ausdauernd, dauerhaft(300 - 500J)",
@@ -1373,6 +1373,9 @@ class Toxicity(models.Model):
             "kontaktgiftig",
             "phototoxisch",
             "ungiftig",
+            "Nadeln giftig",
+            "Nadeln leicht giftig",
+            "Nadeln stark giftig"
         ),
     ).choices()
 
