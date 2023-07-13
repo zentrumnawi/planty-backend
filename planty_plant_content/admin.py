@@ -93,11 +93,11 @@ class PlantAdmin(admin.ModelAdmin):
 
     @admin.decorators.display(description="Bot. Name")
     def get_bot_name(self, obj):
-        return obj.taxonomy.bot_name
+        return obj.general_information.name
 
     @admin.decorators.display(description="Name")
     def get_name(self, obj):
-        return obj.general_information.name
+        return obj.general_information.sub_name
 
     class Meta:
         model = Plant

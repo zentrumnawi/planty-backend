@@ -42,7 +42,6 @@ class Plant(SolidBaseProfile):
 
 
 class Living(models.Model):
-
     LIVING_CHOICES = ChoiceEnum(
         "LivingChoices",
         (
@@ -108,7 +107,7 @@ class Living(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Living, self).__str__())
-        return re.sub(r"\d+", self.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.taxonomy.plant.general_information.name, object_cleared)
 
 
 class Taxonomy(models.Model):
@@ -183,11 +182,6 @@ class Taxonomy(models.Model):
         related_name="taxonomy",
         verbose_name=_("Pflanze"),
     )
-    bot_name = models.CharField(
-        max_length=100,
-        verbose_name=_("Botanischer Name"),
-        help_text=_("Gattung und Art, ggf. Unterart/ Variation, ggf. Sorte"),
-    )
     relevant_cultivar = models.TextField(
         max_length=500,
         null=True,
@@ -231,7 +225,7 @@ class Taxonomy(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Taxonomy, self).__str__())
-        return re.sub(r"\d+", self.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class NatOccurence(models.Model):
@@ -292,17 +286,16 @@ class NatOccurence(models.Model):
     class Meta:
         verbose_name = _("Ökologie und Naturstandort")
         verbose_name_plural = _("Ökologien und Naturstandorte")
-        
+
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(NatOccurence, self).__str__())
-            return re.sub(r"\d+", self.eco_and_natlocation.plant.taxonomy.bot_name, object_cleared)
+            return re.sub(r"\d+", self.eco_and_natlocation.plant.general_information.name, object_cleared)
         except:
             return super(NatOccurence, self).__str__()
 
 
 class ZeigerValues(models.Model):
-
     ZEIGER_CHOICES = ChoiceEnum(
         "ZeigerChoices",
         (
@@ -420,11 +413,11 @@ class ZeigerValues(models.Model):
     class Meta:
         verbose_name = _("Zeigerwerte nach Ellenberg")
         verbose_name_plural = _("Zeigerwerte nach Ellenberg")
-        
+
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(ZeigerValues, self).__str__())
-            return re.sub(r"\d+", self.nat_behavior.eco_and_natlocation.plant.taxonomy.bot_name, object_cleared)
+            return re.sub(r"\d+", self.nat_behavior.eco_and_natlocation.plant.general_information.name, object_cleared)
         except:
             return super(ZeigerValues, self).__str__()
 
@@ -460,13 +453,12 @@ class NatBehavior(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(NatBehavior, self).__str__())
-            return re.sub(r"\d+", self.eco_and_natlocation.plant.taxonomy.bot_name, object_cleared)
+            return re.sub(r"\d+", self.eco_and_natlocation.plant.general_information.name, object_cleared)
         except:
             return super(NatBehavior, self).__str__()
 
 
 class EcologyAndNatLocation(models.Model):
-
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
@@ -489,10 +481,10 @@ class EcologyAndNatLocation(models.Model):
     class Meta:
         verbose_name = _("Ökologie und Naturstandort")
         verbose_name_plural = _("Ökologie und Naturstandort")
-        
+
     def __str__(self):
         object_cleared = re.sub("object ", "", super(EcologyAndNatLocation, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class Habitus(models.Model):
@@ -537,9 +529,9 @@ class Habitus(models.Model):
         verbose_name = _("Habitus")
         verbose_name_plural = _("Habita")
 
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Sprout(models.Model):
@@ -570,13 +562,12 @@ class Sprout(models.Model):
         verbose_name = _("Trieb")
         verbose_name_plural = _("Triebe")
 
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Leaf(models.Model):
-
     ENDURANCE_CHOICES = ChoiceEnum(
         "EnduranceChoices",
         ("immergrün", "überwinternd grün / wintergrün", "sommergrün", "vorsommergrün",),
@@ -690,13 +681,12 @@ class Leaf(models.Model):
         verbose_name = _("Blatt")
         verbose_name_plural = _("Blätter")
 
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Blossom(models.Model):
-
     POLLINATION_CHOICES = ChoiceEnum(
         "PollinationChoices",
         (
@@ -767,7 +757,7 @@ class Blossom(models.Model):
         max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
     )
     pollination = ChoiceArrayField(
-        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True,),
+        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True, ),
         null=True,
         blank=True,
         verbose_name=_("Bestäubungsfaktoren "),
@@ -812,9 +802,9 @@ class Blossom(models.Model):
         verbose_name = _("Blüte")
         verbose_name_plural = _("Blüten")
 
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Fruit(models.Model):
@@ -850,9 +840,9 @@ class Fruit(models.Model):
         verbose_name = _("Frucht")
         verbose_name_plural = _("Früchte")
 
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Bark(models.Model):
@@ -878,9 +868,9 @@ class Bark(models.Model):
         verbose_name = _("Rinde")
         verbose_name_plural = _("Rinden")
 
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Bark, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Bark, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Root(models.Model):
@@ -915,10 +905,10 @@ class Root(models.Model):
     class Meta:
         verbose_name = _("Wurzel")
         verbose_name_plural = _("Wurzeln")
-        
-    # def __str__(self):
-    #     object_cleared = re.sub("object ", "", super(Root, self).__str__())
-    #     return re.sub(r"\d+", self.appearance.plant.taxonomy.bot_name, object_cleared)
+
+    def __str__(self):
+        object_cleared = re.sub("object ", "", super(Root, self).__str__())
+        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
 
 
 class Appearance(models.Model):
@@ -977,10 +967,10 @@ class Appearance(models.Model):
     class Meta:
         verbose_name = _("Habitus und Erscheinung")
         verbose_name_plural = _("Habitus und Erscheinungen")
-        
+
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Appearance, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class Habitat(models.Model):
@@ -1009,7 +999,7 @@ class Habitat(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Habitat, self).__str__())
-        return re.sub(r"\d+", self.application.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
 
 
 class HabitatFactors(models.Model):
@@ -1174,7 +1164,7 @@ class HabitatFactors(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(HabitatFactors, self).__str__())
-        return re.sub(r"\d+", self.application.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
 
 
 class Function(models.Model):
@@ -1231,11 +1221,10 @@ class Function(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Function, self).__str__())
-        return re.sub(r"\d+", self.application.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
 
 
 class Application(models.Model):
-
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
@@ -1267,7 +1256,7 @@ class Application(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Application, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class PlantationAndCare(models.Model):
@@ -1346,7 +1335,7 @@ class PlantationAndCare(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(PlantationAndCare, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class ReproductionAndProduction(models.Model):
@@ -1433,7 +1422,7 @@ class ReproductionAndProduction(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(ReproductionAndProduction, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class Toxicity(models.Model):
@@ -1484,11 +1473,10 @@ class Toxicity(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Toxicity, self).__str__())
-        return re.sub(r"\d+", self.usability.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
 
 
 class FaunaUsability(models.Model):
-
     BEE_CHOICES = ChoiceEnum(
         "BeeChoices", ("Nektar", "Pollen", "Aufenthalt", "Nistmaterial")
     ).choices()
@@ -1558,7 +1546,7 @@ class FaunaUsability(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(FaunaUsability, self).__str__())
-        return re.sub(r"\d+", self.usability.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
 
 
 class HumanUsability(models.Model):
@@ -1596,11 +1584,10 @@ class HumanUsability(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(HumanUsability, self).__str__())
-        return re.sub(r"\d+", self.usability.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
 
 
 class Usability(models.Model):
-
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
@@ -1638,11 +1625,10 @@ class Usability(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Usability, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class Diseases(models.Model):
-
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
@@ -1677,11 +1663,10 @@ class Diseases(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(Diseases, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
 class GeneralInformation(models.Model):
-
     plant = models.OneToOneField(
         to=Plant,
         on_delete=models.CASCADE,
@@ -1700,7 +1685,8 @@ class GeneralInformation(models.Model):
         blank=True,
         verbose_name=_("Verortung am Hochschulstandort"),
     )
-    name = models.CharField(max_length=100, verbose_name=_("Deutscher Name"))
+    name = models.CharField(max_length=100, verbose_name=_("Botanischer Name"),
+                            help_text=_("Gattung und Art, ggf. Unterart/ Variation, ggf. Sorte"))
     sub_name = models.CharField(max_length=100, blank=True, verbose_name=_("Deutscher Name"))
 
     class Meta:
@@ -1709,4 +1695,4 @@ class GeneralInformation(models.Model):
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(GeneralInformation, self).__str__())
-        return re.sub(r"\d+", self.plant.taxonomy.bot_name, object_cleared)
+        return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
