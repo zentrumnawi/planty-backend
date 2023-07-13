@@ -1701,6 +1701,7 @@ class GeneralInformation(models.Model):
         verbose_name=_("Verortung am Hochschulstandort"),
     )
     name = models.CharField(max_length=100, verbose_name=_("Deutscher Name"))
+    sub_name = models.CharField(max_length=100, blank=True, verbose_name=_("Deutscher Name"))
 
     class Meta:
         verbose_name = _("Informatives")
