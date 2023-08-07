@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "stdimage",
     "corsheaders",
     "taggit",
+    "drf_spectacular",
     "planty_content.apps.PlantyContentConfig",
     "planty_plant_content.apps.PlantyPlantContentConfig",
     "solid_backend.content",
@@ -140,9 +141,14 @@ URI_PREFIX = env("URI_PREFIX", default="")
 STATIC_ROOT = str(ROOT_DIR("staticfiles"))
 STATIC_URL = "/static/"
 
-PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
-    "PROFILES_SERIALIZER", default=""
-).rsplit(".", 1)
+# PROFILES_SERIALIZER_MODULE, PROFILES_SERIALIZER_NAME = env(
+#     "PROFILES_SERIALIZER", default=""
+# ).rsplit(".", 1)
+
+PROFILES_SERIALIZERS = {
+    "wine_related": ("planty_content.serializers", "WineSerializer",),
+    "plant_related": ("planty_plant_content.serializers", "PlantSerializer"),
+}
 
 DATABASE_FIELD_MAPPING = {}
 
@@ -154,3 +160,16 @@ STATICFILES_FINDERS = (
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Restframework
+REST_FRAMEWORK = {
+    # YOUR SETTINGS
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'PLANTY API',
+    'DESCRIPTION': "Backend for the e-learning application PLANTY.",
+    'VERSION': '2.0.0',
+    # OTHER SETTINGS
+}
