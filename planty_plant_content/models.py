@@ -566,8 +566,11 @@ class Sprout(models.Model):
         verbose_name_plural = _("Triebe")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Sprout, self).__str__()
 
 
 class Leaf(models.Model):
@@ -685,8 +688,11 @@ class Leaf(models.Model):
         verbose_name_plural = _("Blätter")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Leaf, self).__str__()
 
 
 class Blossom(models.Model):
@@ -806,8 +812,11 @@ class Blossom(models.Model):
         verbose_name_plural = _("Blüten")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Blossom, self).__str__()
 
 
 class Fruit(models.Model):
@@ -844,8 +853,11 @@ class Fruit(models.Model):
         verbose_name_plural = _("Früchte")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Fruit, self).__str__()
 
 
 class Bark(models.Model):
@@ -872,8 +884,11 @@ class Bark(models.Model):
         verbose_name_plural = _("Rinden")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Bark, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Bark, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Bark, self).__str__()
 
 
 class Root(models.Model):
@@ -910,8 +925,11 @@ class Root(models.Model):
         verbose_name_plural = _("Wurzeln")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Root, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Root, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Root, self).__str__()
 
 
 class Appearance(models.Model):
