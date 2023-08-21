@@ -106,8 +106,11 @@ class Living(models.Model):
         verbose_name_plural = _("Lebensweisen")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Living, self).__str__())
-        return re.sub(r"\d+", self.taxonomy.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Living, self).__str__())
+            return re.sub(r"\d+", self.taxonomy.plant.general_information.name, object_cleared)
+        except:
+            return super(Living, self).__str__()
 
 
 class Taxonomy(models.Model):
