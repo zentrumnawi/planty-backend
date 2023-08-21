@@ -1,6 +1,8 @@
 import logging
 
 from .common import *  # noqa
+# DEBUG
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
 # SECRET CONFIGURATION
 SECRET_KEY = env("DJANGO_SECRET_KEY")
