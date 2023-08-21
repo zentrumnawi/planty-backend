@@ -530,8 +530,11 @@ class Habitus(models.Model):
         verbose_name_plural = _("Habita")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
-        return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
+            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+        except:
+            return super(Habitus, self).__str__()
 
 
 class Sprout(models.Model):
