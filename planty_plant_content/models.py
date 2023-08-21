@@ -1022,8 +1022,11 @@ class Habitat(models.Model):
         verbose_name_plural = _("Standorte")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Habitat, self).__str__())
-        return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(Habitat, self).__str__())
+            return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+        except:
+            return super(Habitat, self).__str__()
 
 
 class HabitatFactors(models.Model):
@@ -1187,9 +1190,11 @@ class HabitatFactors(models.Model):
         verbose_name_plural = _("Standortfaktoren und Ansprüche")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(HabitatFactors, self).__str__())
-        return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
-
+        try:
+            object_cleared = re.sub("object ", "", super(HabitatFactors, self).__str__())
+            return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+        except:
+            return super(HabitatFactors, self).__str__()
 
 class Function(models.Model):
     sightings = models.TextField(
@@ -1244,9 +1249,11 @@ class Function(models.Model):
         verbose_name_plural = _("Funktionen")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Function, self).__str__())
-        return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
-
+        try:
+            object_cleared = re.sub("object ", "", super(Function, self).__str__())
+            return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+        except:
+            return super(Function, self).__str__()
 
 class Application(models.Model):
     plant = models.OneToOneField(
@@ -1496,9 +1503,11 @@ class Toxicity(models.Model):
         verbose_name_plural = _("Giftigkeiten")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(Toxicity, self).__str__())
-        return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
-
+        try:
+            object_cleared = re.sub("object ", "", super(Toxicity, self).__str__())
+            return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+        except:
+            return super(Toxicity, self).__str__()
 
 class FaunaUsability(models.Model):
     BEE_CHOICES = ChoiceEnum(
@@ -1569,8 +1578,11 @@ class FaunaUsability(models.Model):
         verbose_name_plural = _("Nutzbarkeiten Fauna")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(FaunaUsability, self).__str__())
-        return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(FaunaUsability, self).__str__())
+            return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+        except:
+            return super(FaunaUsability, self).__str__()
 
 
 class HumanUsability(models.Model):
@@ -1607,8 +1619,11 @@ class HumanUsability(models.Model):
         verbose_name_plural = _("Nutzbarkeiten Mensch ")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(HumanUsability, self).__str__())
-        return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+        try:
+            object_cleared = re.sub("object ", "", super(HumanUsability, self).__str__())
+            return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+        except:
+            return super(HumanUsability, self).__str__()
 
 
 class Usability(models.Model):
