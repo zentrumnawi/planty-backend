@@ -5,7 +5,7 @@ INSTALLED_APPS += [
 ]
 
 # DEBUG
-DEBUG = env.bool("DJANGO_DEBUG", default=True)
+DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
 # SECRET KEY
 SECRET_KEY = env(
