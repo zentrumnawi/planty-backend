@@ -14,13 +14,15 @@ Including another URLconf
     2. Add, include('main.urls')),
     url(r'^admin/', admin.site.urls),
 ]"""
-
+import types
 from django.conf import settings
+from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import path
-from django.contrib import admin
+from .admin import get_app_list
 from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView, SpectacularRedocView
 
+admin.site.get_app_list = types.MethodType(get_app_list, admin.site)
 
 urlpatterns = [
     # YOUR PATTERNS
