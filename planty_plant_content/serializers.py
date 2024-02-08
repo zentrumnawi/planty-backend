@@ -67,7 +67,7 @@ class NatBehaviorSerializer(SolidModelSerializer):
 
     class Meta:
         model = NatBehavior
-        fields = "__all__"
+        fields = ("strategy_type", "zeiger_value")
         depth = 1
 
 
