@@ -1729,8 +1729,8 @@ class GeneralInformation(models.Model):
     sub_name = models.CharField(max_length=100, blank=True, verbose_name=_("Deutscher Name"))
 
     class Meta:
-        verbose_name = _("Informatives")
-        verbose_name_plural = _("Informatives")
+        verbose_name = _("Allgemein")
+        verbose_name_plural = _("Allgemein")
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(GeneralInformation, self).__str__())

@@ -233,7 +233,13 @@ class DiseasesSerializer(SolidModelSerializer):
 class PlantGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
-        exclude = ["plant"]
+        fields = (
+            "info",
+            "geo_data",
+            "name",
+            "sub_name",
+            "literature"
+        )
         depth = 1
 
 
