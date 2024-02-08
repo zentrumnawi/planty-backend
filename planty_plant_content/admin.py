@@ -79,6 +79,7 @@ class GeneralInformationInline(admin.StackedInline):
         "literature"
     )
 
+
 class PlantAdmin(admin.ModelAdmin):
 
     inlines = [
@@ -96,6 +97,7 @@ class PlantAdmin(admin.ModelAdmin):
     ]
 
     list_display = ["id", "get_bot_name", "get_name"]
+    ordering = ("general_information__name",)
 
     @admin.decorators.display(description="Bot. Name")
     def get_bot_name(self, obj):
@@ -107,7 +109,6 @@ class PlantAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Plant
-
 
 admin.site.register(Taxonomy, admin.ModelAdmin)
 admin.site.register(Living, admin.ModelAdmin)

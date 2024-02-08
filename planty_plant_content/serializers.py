@@ -259,4 +259,5 @@ class PlantSerializer(SolidModelSerializer):
     class Meta:
         model = Plant
         fields = "__all__"
+        ordering = ""
         depth = 1
