@@ -35,6 +35,37 @@ class ChoiceEnum(Enum):
         return tuple((str(i.value), i.name) for i in cls)
 
 
+class SortedChoiceEnum(Enum):
+    """
+    Class to use for Enums if people change the Enum which would destroy the original ordered tuple.
+
+    Example:
+        Begin with:
+        ChoiceEnmu(['A TESTE', 'B TEST', 'C TEST'])
+        --> (('1', 'A TESTE'),('2', 'B TEST'),('3', 'C TEST'))
+
+        Changed to:
+        ChoiceEnmu(['A TESTE', 'A 2. TEST', 'B TEST', 'C TEST'])
+        (('1', 'A TESTE'), ('2', 'A 2. TEST'), ('3', 'B TEST'), ('4', 'C TEST'))
+
+        This would cause a Miss assignment for all Entries that previously had 'B TEST' or 'C TEST' assigned.
+
+    If a requested Changes to an Enum would lead to a messed Up order switch ChoiceEnum with SortedChoiceEnum and add
+    new Entries at the end of the List.
+
+    Example:
+
+       ChoiceEnmu(['A TESTE', 'B TEST', 'C TEST'])
+       becomes
+       SortedChoiceEnmu(['A TESTE', 'B TEST', 'C TEST', 'A 2. TEST'])
+    """
+    @classmethod
+    def choices(cls):
+        sorted_list = [(str(i.value), i.name) for i in cls]
+        sorted_list.sort(key=lambda tpl: tpl[1])
+        return tuple(sorted_list)
+
+
 class Plant(SolidBaseProfile):
     class Meta:
         verbose_name = _("Pflanze")
@@ -114,7 +145,7 @@ class Living(models.Model):
 
 
 class Taxonomy(models.Model):
-    FAMILY_CHOICES = ChoiceEnum(
+    FAMILY_CHOICES = SortedChoiceEnum(
         "FamilyChoices",
         (
             "Amaryllidaceae (Narzissengewächse)",
