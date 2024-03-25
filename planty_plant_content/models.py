@@ -551,7 +551,7 @@ class Sprout(models.Model):
         max_length=500, verbose_name=_("Knospen"), help_text=_("Form und Farbe")
     )
     leaf_scar = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Blattnarbe")
+        max_length=250, null=True, blank=True, verbose_name=_("Blattnarbe")
     )
     odor = models.CharField(
         max_length=100,
@@ -615,7 +615,7 @@ class Leaf(models.Model):
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
     edge_form = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Randform"),
@@ -638,7 +638,7 @@ class Leaf(models.Model):
         max_length=100, null=True, blank=True, verbose_name=_("Farbe in Herbst/Winter")
     )
     position = models.CharField(
-        max_length=100,
+        max_length=250,
         verbose_name=_("Stellung"),
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
@@ -669,7 +669,7 @@ class Leaf(models.Model):
         verbose_name=_("Blattaustrieb (phänologisch)"),
     )
     budding_time = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Zeitpunkt des Austriebs"),
@@ -740,7 +740,7 @@ class Blossom(models.Model):
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
     form_single_blossom = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Form der Einzelblüte"),
@@ -756,7 +756,7 @@ class Blossom(models.Model):
         ),
     )
     color = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Farbe"),
@@ -797,7 +797,7 @@ class Blossom(models.Model):
         verbose_name=_("Phänologische Blühphasen "),
     )
     age_at_frist_bloom = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Alter bei erster Blüte")
+        max_length=250, null=True, blank=True, verbose_name=_("Alter bei erster Blüte")
     )
     note_to_bloom = models.TextField(
         max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Blütezeit")
@@ -909,7 +909,7 @@ class Root(models.Model):
         help_text=_("Vegetative Ausbreitung und Speicherorgane"),
     )
     sensitivity = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Empfindlichkeit"),
