@@ -67,7 +67,7 @@ class NatBehaviorSerializer(SolidModelSerializer):
 
     class Meta:
         model = NatBehavior
-        fields = "__all__"
+        fields = ("strategy_type", "zeiger_value")
         depth = 1
 
 
@@ -233,7 +233,13 @@ class DiseasesSerializer(SolidModelSerializer):
 class PlantGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
-        exclude = ["plant"]
+        fields = (
+            "info",
+            "geo_data",
+            "name",
+            "sub_name",
+            "literature"
+        )
         depth = 1
 
 
@@ -253,4 +259,5 @@ class PlantSerializer(SolidModelSerializer):
     class Meta:
         model = Plant
         fields = "__all__"
+        ordering = ""
         depth = 1

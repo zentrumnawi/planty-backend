@@ -35,6 +35,37 @@ class ChoiceEnum(Enum):
         return tuple((str(i.value), i.name) for i in cls)
 
 
+class SortedChoiceEnum(Enum):
+    """
+    Class to use for Enums if people change the Enum which would destroy the original ordered tuple.
+
+    Example:
+        Begin with:
+        ChoiceEnmu(['A TESTE', 'B TEST', 'C TEST'])
+        --> (('1', 'A TESTE'),('2', 'B TEST'),('3', 'C TEST'))
+
+        Changed to:
+        ChoiceEnmu(['A TESTE', 'A 2. TEST', 'B TEST', 'C TEST'])
+        (('1', 'A TESTE'), ('2', 'A 2. TEST'), ('3', 'B TEST'), ('4', 'C TEST'))
+
+        This would cause a Miss assignment for all Entries that previously had 'B TEST' or 'C TEST' assigned.
+
+    If a requested Changes to an Enum would lead to a messed Up order switch ChoiceEnum with SortedChoiceEnum and add
+    new Entries at the end of the List.
+
+    Example:
+
+       ChoiceEnmu(['A TESTE', 'B TEST', 'C TEST'])
+       becomes
+       SortedChoiceEnmu(['A TESTE', 'B TEST', 'C TEST', 'A 2. TEST'])
+    """
+    @classmethod
+    def choices(cls):
+        sorted_list = [(str(i.value), i.name) for i in cls]
+        sorted_list.sort(key=lambda tpl: tpl[1])
+        return tuple(sorted_list)
+
+
 class Plant(SolidBaseProfile):
     class Meta:
         verbose_name = _("Pflanze")
@@ -114,14 +145,14 @@ class Living(models.Model):
 
 
 class Taxonomy(models.Model):
-    FAMILY_CHOICES = ChoiceEnum(
+    FAMILY_CHOICES = SortedChoiceEnum(
         "FamilyChoices",
         (
-            "Amaryllidaceae (Narzissengewächse)",
+            "Amaryllidaceae (Amaryllisgewächse)",
             "Anacardiaceae (Sumachgewächse)",
             "Apiaceae (Doldenblütler)",
             "Aquifoliaceae (Stechpalmengewächse)",
-            "Araliaceae (Efeugewächse)",
+            "Araliaceae (Araliengewächse)",
             "Aristolochiaceae (Osterluzeigewächse)",
             "Asteraceae (Korbblütler)",
             "Berberidaceae (Berberitzengewächse)",
@@ -146,24 +177,24 @@ class Taxonomy(models.Model):
             "Gentianaceae (Enziangewächse)",
             "Ginkgoaceae (Ginkgogewächse)",
             "Hamamelidaceae (Zaubernussgewächse)",
-            "Hydrangeaceae, Hortensiengewächse",
+            "Hydrangeaceae (Hortensiengewächse)",
             "Iridaceae (Schwertliliengewächse)",
-            "Juglandaceae (Walnußgewächse)",
+            "Juglandaceae (Walnussgewächse)",
             "Lamiaceae (Lippenblütler)",
             "Liliaceae (Liliengewächse)",
             "Magnoliaceae (Magnoliengewächse)",
             "Malvaceae (Malvengewächse)",
-            "Moraceae (Maulbeerbaumgewächse)",
+            "Moraceae (Maulbeergewächse)",
             "Nymphaeaceae (Seerosengewächse)",
             "Oleaceae (Ölbaumgewächse)",
             "Orchidaceae (Orchideengewächse)",
             "Papaveraceae (Mohngewächse)",
             "Pinaceae (Kieferngewächse)",
             "Platanaceae (Platanengewächse)",
-            "Poaceae (Süssgräser)",
+            "Poaceae (Süßgräser)",
             "Polygonaceae (Knöterichgewächse)",
             "Primulaceae (Primelgewächse)",
-            "Ranunculaceae (Hahnenfussgewächse)",
+            "Ranunculaceae (Hahnenfußgewächse)",
             "Rosaceae (Rosengewächse)",
             "Salicaceae (Weidengewächse)",
             "Sapindaceae (Seifenbaumgewächse)",
@@ -176,6 +207,10 @@ class Taxonomy(models.Model):
             "Thymelaeaceae (Seidelbastgewächse)",
             "Ulmaceae (Ulmengewächse)",
             "Vitaceae (Rebengewächse)",
+            "Adoxaceae (Moschuskrautgewächse)",
+            "Ebenaceae (Ebenholzgewächse)",
+            "Lythraceae (Weiderichgewächse)",
+            "Rutaceae (Rautengewächse)"
         ),
     ).choices()
 
@@ -551,7 +586,7 @@ class Sprout(models.Model):
         max_length=500, verbose_name=_("Knospen"), help_text=_("Form und Farbe")
     )
     leaf_scar = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Blattnarbe")
+        max_length=250, null=True, blank=True, verbose_name=_("Blattnarbe")
     )
     odor = models.CharField(
         max_length=100,
@@ -615,7 +650,7 @@ class Leaf(models.Model):
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
     edge_form = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Randform"),
@@ -638,7 +673,7 @@ class Leaf(models.Model):
         max_length=100, null=True, blank=True, verbose_name=_("Farbe in Herbst/Winter")
     )
     position = models.CharField(
-        max_length=100,
+        max_length=250,
         verbose_name=_("Stellung"),
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
@@ -669,7 +704,7 @@ class Leaf(models.Model):
         verbose_name=_("Blattaustrieb (phänologisch)"),
     )
     budding_time = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Zeitpunkt des Austriebs"),
@@ -740,7 +775,7 @@ class Blossom(models.Model):
         help_text=_("Formulierungen entspr. Schmeil-Fitschen"),
     )
     form_single_blossom = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Form der Einzelblüte"),
@@ -756,7 +791,7 @@ class Blossom(models.Model):
         ),
     )
     color = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Farbe"),
@@ -797,7 +832,7 @@ class Blossom(models.Model):
         verbose_name=_("Phänologische Blühphasen "),
     )
     age_at_frist_bloom = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Alter bei erster Blüte")
+        max_length=250, null=True, blank=True, verbose_name=_("Alter bei erster Blüte")
     )
     note_to_bloom = models.TextField(
         max_length=500, null=True, blank=True, verbose_name=_("Hinweise zur Blütezeit")
@@ -909,7 +944,7 @@ class Root(models.Model):
         help_text=_("Vegetative Ausbreitung und Speicherorgane"),
     )
     sensitivity = models.CharField(
-        max_length=100,
+        max_length=250,
         null=True,
         blank=True,
         verbose_name=_("Empfindlichkeit"),
@@ -1729,8 +1764,8 @@ class GeneralInformation(models.Model):
     sub_name = models.CharField(max_length=100, blank=True, verbose_name=_("Deutscher Name"))
 
     class Meta:
-        verbose_name = _("Informatives")
-        verbose_name_plural = _("Informatives")
+        verbose_name = _("Allgemein")
+        verbose_name_plural = _("Allgemein")
 
     def __str__(self):
         object_cleared = re.sub("object ", "", super(GeneralInformation, self).__str__())
