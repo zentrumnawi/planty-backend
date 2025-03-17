@@ -47,6 +47,7 @@ class TaxonomyInline(admin.StackedInline):
 
 class AppearanceInline(admin.StackedInline):
     model = Appearance
+    raw_id_fields=["plant", "habitus", "sprout", "leaf", "blossom", "fruit", "bark", "root"]
 
 
 class ApplicationInline(admin.StackedInline):
@@ -110,6 +111,14 @@ class PlantAdmin(admin.ModelAdmin):
     class Meta:
         model = Plant
 
+
+class AppearanceModelAdmin(admin.ModelAdmin):
+    raw_id_fields=["plant", "habitus", "sprout", "leaf", "blossom", "fruit", "bark", "root"]
+
+    class Meta:
+        model = Appearance
+
+
 admin.site.register(Taxonomy, admin.ModelAdmin)
 admin.site.register(Living, admin.ModelAdmin)
 admin.site.register(NatBehavior, admin.ModelAdmin)
@@ -123,7 +132,7 @@ admin.site.register(Blossom, admin.ModelAdmin)
 admin.site.register(Fruit, admin.ModelAdmin)
 admin.site.register(Bark, admin.ModelAdmin)
 admin.site.register(Root, admin.ModelAdmin)
-admin.site.register(Appearance, admin.ModelAdmin)
+admin.site.register(Appearance, AppearanceModelAdmin)
 admin.site.register(Habitat, admin.ModelAdmin)
 admin.site.register(HabitatFactors, admin.ModelAdmin)
 admin.site.register(Function, admin.ModelAdmin)
