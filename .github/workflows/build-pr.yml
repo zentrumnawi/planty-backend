@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TRAVIS_CI: True
-      PATH: ${{ github.workspace }}/.poetry/bin:${{ env.PATH }}
+      PATH: ${{ github.workspace }}/.poetry/bin:${{ github.env.PATH }}
       POETRY_VERSION: 1.2.0
       POETRY_VIRTUALENVS_CREATE: false
       PROFILES_SERIALIZER: "planty_content.serializers.WineSerializer"
@@ -29,7 +29,7 @@ jobs:
     - name: Install Poetry
       run: |
         curl -sSL https://install.python-poetry.org | python3 -
-        poetry --version
+        $HOME/.poetry/bin/poetry --version
 
     - name: Cache Poetry dependencies
       uses: actions/cache@v3
@@ -43,7 +43,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        make
+        $HOME/.poetry/bin/poetry install
 
     - name: Create database and user
       run: |
@@ -54,7 +54,7 @@ jobs:
     - name: Run tests
       run: |
         black . --check
-        poetry run pytest --cov=./
+        $HOME/.poetry/bin/poetry run pytest --cov=./
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
