@@ -71,13 +71,7 @@ class DiseasesInline(admin.StackedInline):
 
 class GeneralInformationInline(admin.StackedInline):
     model = GeneralInformation
-    fields = (
-        "info",
-        "geo_data",
-        "name",
-        "sub_name",
-        "literature"
-    )
+    fields = ("info", "geo_data", "name", "sub_name", "literature")
 
 
 class PlantAdmin(admin.ModelAdmin):
@@ -109,6 +103,7 @@ class PlantAdmin(admin.ModelAdmin):
 
     class Meta:
         model = Plant
+
 
 admin.site.register(Taxonomy, admin.ModelAdmin)
 admin.site.register(Living, admin.ModelAdmin)
