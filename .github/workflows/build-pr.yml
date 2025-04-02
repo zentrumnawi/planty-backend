@@ -7,7 +7,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      TRAVIS_CI: True
+      TRAVIS_CI: False
       POETRY_VERSION: 1.2.0
       POETRY_VIRTUALENVS_CREATE: false
       PROFILES_SERIALIZER: "planty_content.serializers.WineSerializer"
