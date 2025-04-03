@@ -1,4 +1,60 @@
-from .common import *  # noqa
+import environ
+from django.utils.translation import gettext_lazy as _
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+ROOT_DIR = environ.Path(__file__) - 3
+APPS_DIR = ROOT_DIR.path("planty_content")
+
+env = environ.Env()
+
+# Application definition
+
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
+    "rest_framework",
+    "drf_yasg",
+    "mptt",
+    "stdimage",
+    "corsheaders",
+    "taggit",
+    "drf_spectacular",
+    "planty_content.apps.PlantyContentConfig",
+    "planty_plant_content.apps.PlantyPlantContentConfig",
+    "solid_backend.content",
+    "solid_backend.contact",
+    "solid_backend.glossary",
+    "solid_backend.message",
+    "solid_backend.slideshow",
+    "solid_backend.quiz",
+    "solid_backend.photograph",
+    "solid_backend.media_object",
+    "django_cleanup.apps.CleanupConfig",  # Should be placed last!
+]
+
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+]
+
+ROOT_URLCONF = "config.urls"
+
+PROFILES_SERIALIZERS = {
+    "wine_related": ("planty_content.serializers", "WineSerializer",),
+    "plant_related": ("planty_plant_content.serializers", "PlantSerializer"),
+}
 
 INSTALLED_APPS += [
     "django_extensions",
