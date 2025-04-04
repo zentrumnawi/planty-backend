@@ -7,11 +7,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     env:
-      TRAVIS_CI: False
       POETRY_VERSION: 1.2.0
       POETRY_VIRTUALENVS_CREATE: false
       PROFILES_SERIALIZER: "planty_content.serializers.WineSerializer"
-      DJANGO_SETTINGS_MODULE: config.settings.test
+      # Database config
+      POSTGRES_DB: test_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
 
     steps:
     - uses: actions/checkout@v3
@@ -25,6 +29,10 @@ jobs:
       run: |
         sudo systemctl start postgresql.service
         sudo systemctl status postgresql.service
+        # Set password for postgres user
+        sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+        # Create test database
+        sudo -u postgres psql -c "CREATE DATABASE test_db;"
 
     - name: Install Poetry
       run: |

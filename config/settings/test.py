@@ -1,5 +1,6 @@
 import environ
 from django.utils.translation import gettext_lazy as _
+import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -88,7 +89,14 @@ EMAIL_BACKEND = env(
 # }
 
 DATABASES = {
-    "default": {"ENGINE": "django.db.backends.postgresql_psycopg2", "NAME": "postgres",}
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "test_db",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
 }
 
 # CACHING
