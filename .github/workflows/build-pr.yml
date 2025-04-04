@@ -29,10 +29,13 @@ jobs:
       run: |
         sudo systemctl start postgresql.service
         sudo systemctl status postgresql.service
-        # Set password for postgres user
+        # Set up both users
         sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+        sudo -u postgres psql -c "CREATE USER db_user WITH PASSWORD 'db_pass';"
+        sudo -u postgres psql -c "ALTER USER db_user WITH SUPERUSER;"
         # Create test database
         sudo -u postgres psql -c "CREATE DATABASE test_db;"
+        sudo -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE test_db TO db_user;"
 
     - name: Install Poetry
       run: |
