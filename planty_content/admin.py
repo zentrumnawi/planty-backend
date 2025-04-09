@@ -15,7 +15,8 @@ from .models import (
     Sprout,
     Twine,
     Wine,
-    YoungLeaf, GeneralInformation,
+    YoungLeaf,
+    GeneralInformation,
 )
 
 # Register your models here.

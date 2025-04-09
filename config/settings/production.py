@@ -1,6 +1,7 @@
 import logging
 
 from .common import *  # noqa
+
 # DEBUG
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 

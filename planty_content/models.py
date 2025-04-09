@@ -503,4 +503,3 @@ class GeneralInformation(models.Model):
     class Meta:
         verbose_name = _("Allgemein")
         verbose_name_plural = _("Allgemein")
-
