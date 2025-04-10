@@ -651,12 +651,7 @@ class Sprout(models.Model):
 class Leaf(models.Model):
     ENDURANCE_CHOICES = ChoiceEnum(
         "EnduranceChoices",
-        (
-            "immergrün",
-            "überwinternd grün / wintergrün",
-            "sommergrün",
-            "vorsommergrün",
-        ),
+        ("immergrün", "überwinternd grün / wintergrün", "sommergrün", "vorsommergrün",),
     ).choices()
     ANATOMY_CHOICES = ChoiceEnum(
         "AnatomyChoices",
@@ -842,23 +837,13 @@ class Blossom(models.Model):
         help_text=_("Grundfarbe und besondere Farbnuancen"),
     )
     sexus = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name=_("Geschlechtlichkeit"),
+        max_length=100, null=True, blank=True, verbose_name=_("Geschlechtlichkeit"),
     )
     housing = models.CharField(
-        max_length=100,
-        null=True,
-        blank=True,
-        verbose_name=_("Häusigkeit"),
+        max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
     )
     pollination = ChoiceArrayField(
-        models.CharField(
-            max_length=2,
-            choices=POLLINATION_CHOICES,
-            blank=True,
-        ),
+        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True,),
         null=True,
         blank=True,
         verbose_name=_("Bestäubungsfaktoren "),
@@ -1220,10 +1205,7 @@ class HabitatFactors(models.Model):
         help_text=_("Für Innenräume"),
     )
     frost_sensitivity = models.TextField(
-        max_length=500,
-        null=True,
-        blank=True,
-        verbose_name=_("Frostempfindlichkeit"),
+        max_length=500, null=True, blank=True, verbose_name=_("Frostempfindlichkeit"),
     )
     hardy_zone = models.CharField(
         max_length=100,

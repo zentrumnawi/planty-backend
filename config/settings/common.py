@@ -99,15 +99,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
 # Internationalization
@@ -152,10 +146,7 @@ STATIC_URL = "/static/"
 # ).rsplit(".", 1)
 
 PROFILES_SERIALIZERS = {
-    "wine_related": (
-        "planty_content.serializers",
-        "WineSerializer",
-    ),
+    "wine_related": ("planty_content.serializers", "WineSerializer",),
     "plant_related": ("planty_plant_content.serializers", "PlantSerializer"),
 }
 

@@ -84,11 +84,7 @@ LOGGING = {
             "handlers": ["console"],
             "propagate": False,
         },
-        "raven": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        },
+        "raven": {"level": "DEBUG", "handlers": ["console"], "propagate": False,},
         "sentry.errors": {
             "level": "DEBUG",
             "handlers": ["console"],
