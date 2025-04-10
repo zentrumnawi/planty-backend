@@ -14,6 +14,7 @@ Including another URLconf
     2. Add, include('main.urls')),
     url(r'^admin/', admin.site.urls),
 ]"""
+
 import types
 from django.conf import settings
 from django.contrib import admin
