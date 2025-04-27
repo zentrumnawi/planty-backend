@@ -39,22 +39,31 @@ from .models import (
 
 class EcologyAndNatLocationInline(admin.StackedInline):
     model = EcologyAndNatLocation
-    raw_id_fields=["plant", "nat_occ", "nat_behavior"]
+    raw_id_fields = ["plant", "nat_occ", "nat_behavior"]
 
 
 class TaxonomyInline(admin.StackedInline):
     model = Taxonomy
-    raw_id_fields=["plant", "living"]
+    raw_id_fields = ["plant", "living"]
 
 
 class AppearanceInline(admin.StackedInline):
     model = Appearance
-    raw_id_fields=["plant", "habitus", "sprout", "leaf", "blossom", "fruit", "bark", "root"]
+    raw_id_fields = [
+        "plant",
+        "habitus",
+        "sprout",
+        "leaf",
+        "blossom",
+        "fruit",
+        "bark",
+        "root",
+    ]
 
 
 class ApplicationInline(admin.StackedInline):
     model = Application
-    raw_id_fields=["plant", "habitat", "habitat_factors", "appl_function"]
+    raw_id_fields = ["plant", "habitat", "habitat_factors", "appl_function"]
 
 
 class PlantationAndCareInline(admin.StackedInline):
@@ -67,7 +76,8 @@ class ReproductionAndProductionInline(admin.StackedInline):
 
 class UsabilityInline(admin.StackedInline):
     model = Usability
-    raw_id_fields=["plant", "toxicity", "fauna_usability", "human_usability"]
+    raw_id_fields = ["plant", "toxicity", "fauna_usability", "human_usability"]
+
 
 class DiseasesInline(admin.StackedInline):
     model = Diseases
@@ -96,7 +106,7 @@ class PlantAdmin(admin.ModelAdmin):
 
     list_display = ["id", "get_bot_name", "get_name"]
     ordering = ("general_information__name",)
-    raw_id_fields = ['tree_node']
+    raw_id_fields = ["tree_node"]
 
     @admin.decorators.display(description="Bot. Name")
     def get_bot_name(self, obj):
@@ -109,35 +119,55 @@ class PlantAdmin(admin.ModelAdmin):
     class Meta:
         model = Plant
 
+
 class AppearanceModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant", "habitus", "sprout", "leaf", "blossom", "fruit", "bark", "root"]
+    raw_id_fields = [
+        "plant",
+        "habitus",
+        "sprout",
+        "leaf",
+        "blossom",
+        "fruit",
+        "bark",
+        "root",
+    ]
+
 
 class UsabilityModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant", "toxicity", "fauna_usability", "human_usability"]
+    raw_id_fields = ["plant", "toxicity", "fauna_usability", "human_usability"]
+
 
 class ApplicationModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant", "habitat", "habitat_factors", "appl_function"]
+    raw_id_fields = ["plant", "habitat", "habitat_factors", "appl_function"]
+
 
 class EcologyAndNatLocationModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant", "nat_occ", "nat_behavior"]
+    raw_id_fields = ["plant", "nat_occ", "nat_behavior"]
+
 
 class TaxonomyModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant", "living"]
+    raw_id_fields = ["plant", "living"]
+
 
 class ReproductionAndProductionModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant"]
+    raw_id_fields = ["plant"]
+
 
 class DiseasesModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant"]
+    raw_id_fields = ["plant"]
+
 
 class PlantationAndCareModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant"]
+    raw_id_fields = ["plant"]
+
 
 class GeneralInformationModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["plant"]
+    raw_id_fields = ["plant"]
+
 
 class NatBehaviorModelAdmin(admin.ModelAdmin):
-    raw_id_fields=["zeiger_value"]
+    raw_id_fields = ["zeiger_value"]
+
 
 admin.site.register(Taxonomy, TaxonomyModelAdmin)
 admin.site.register(Living, admin.ModelAdmin)
