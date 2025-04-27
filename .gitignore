@@ -1,0 +1,39 @@
+# Basics
+*.py[cod]
+__pycache__
+.local
+
+# Logs
+*.log
+
+# Unit test / coverage reports
+.coverage
+.tox
+htmlcov
+
+# IDE specfic stuff
+.idea/
+
+# Translations
+*.mo
+*.pot
+
+# Vim
+*~
+*.swp
+*.swo
+
+# virtual environments
+.env
+.venv
+
+# Cache
+.cache/
+
+# OSX
+.DS_Store
+
+some/
+
+# Media files
+media/

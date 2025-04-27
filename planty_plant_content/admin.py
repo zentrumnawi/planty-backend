@@ -75,13 +75,7 @@ class DiseasesInline(admin.StackedInline):
 
 class GeneralInformationInline(admin.StackedInline):
     model = GeneralInformation
-    fields = (
-        "info",
-        "geo_data",
-        "name",
-        "sub_name",
-        "literature"
-    )
+    fields = ("info", "geo_data", "name", "sub_name", "literature")
 
 
 class PlantAdmin(admin.ModelAdmin):
