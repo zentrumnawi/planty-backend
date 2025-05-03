@@ -14,22 +14,39 @@ Including another URLconf
     2. Add, include('main.urls')),
     url(r'^admin/', admin.site.urls),
 ]"""
+
 import types
 from django.conf import settings
 from django.contrib import admin
 from django.conf.urls import include, url
 from django.urls import path
 from .admin import get_app_list
-from drf_spectacular.views import SpectacularSwaggerView, SpectacularAPIView, SpectacularRedocView
+from drf_spectacular.views import (
+    SpectacularSwaggerView,
+    SpectacularAPIView,
+    SpectacularRedocView,
+)
 
 admin.site.get_app_list = types.MethodType(get_app_list, admin.site)
 
 urlpatterns = [
     # YOUR PATTERNS
-    path(r'{}api/schema/'.format(settings.URI_PREFIX), SpectacularAPIView.as_view(), name='schema'),
+    path(
+        r"{}api/schema/".format(settings.URI_PREFIX),
+        SpectacularAPIView.as_view(),
+        name="schema",
+    ),
     # Optional UI:
-    path(r'{}api/schema/swagger-ui/'.format(settings.URI_PREFIX), SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path(r'{}api/schema/redoc/'.format(settings.URI_PREFIX), SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(
+        r"{}api/schema/swagger-ui/".format(settings.URI_PREFIX),
+        SpectacularSwaggerView.as_view(url_name="schema"),
+        name="swagger-ui",
+    ),
+    path(
+        r"{}api/schema/redoc/".format(settings.URI_PREFIX),
+        SpectacularRedocView.as_view(url_name="schema"),
+        name="redoc",
+    ),
 ]
 
 urlpatterns += [
