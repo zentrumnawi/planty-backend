@@ -1120,6 +1120,7 @@ class HabitatFactors(models.Model):
     MICROCLIMATE_CHOICES = ChoiceEnum(
         "MicroClimateChoices",
         (
+            "anspruchslos",
             "bevorzugt Kühle",
             "hitzeempfindlich",
             "exponierte Lage",
