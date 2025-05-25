@@ -233,13 +233,7 @@ class DiseasesSerializer(SolidModelSerializer):
 class PlantGeneralInformationSerializer(SolidModelSerializer):
     class Meta:
         model = GeneralInformation
-        fields = (
-            "info",
-            "geo_data",
-            "name",
-            "sub_name",
-            "literature"
-        )
+        fields = ("info", "geo_data", "name", "sub_name", "literature")
         depth = 1
 
 

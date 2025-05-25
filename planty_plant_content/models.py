@@ -59,6 +59,7 @@ class SortedChoiceEnum(Enum):
        becomes
        SortedChoiceEnmu(['A TESTE', 'B TEST', 'C TEST', 'A 2. TEST'])
     """
+
     @classmethod
     def choices(cls):
         sorted_list = [(str(i.value), i.name) for i in cls]
@@ -139,7 +140,9 @@ class Living(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Living, self).__str__())
-            return re.sub(r"\d+", self.taxonomy.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.taxonomy.plant.general_information.name, object_cleared
+            )
         except:
             return super(Living, self).__str__()
 
@@ -148,12 +151,16 @@ class Taxonomy(models.Model):
     FAMILY_CHOICES = SortedChoiceEnum(
         "FamilyChoices",
         (
-            "Amaryllidaceae (Amaryllisgewächse)",
+            "Acanthaceae (Akanthusgewächse)",
+            "Amaryllidaceae (Narzissengewächse)",
             "Anacardiaceae (Sumachgewächse)",
+            "Anthericaceae (Grasliliengewächse)",
             "Apiaceae (Doldenblütler)",
             "Aquifoliaceae (Stechpalmengewächse)",
-            "Araliaceae (Araliengewächse)",
+            "Araliaceae (Efeugewächse)",
             "Aristolochiaceae (Osterluzeigewächse)",
+            "Asparagaceae (Spargelgewächse)",
+            "Asphodelaceae (Affodillgewächse)",
             "Asteraceae (Korbblütler)",
             "Berberidaceae (Berberitzengewächse)",
             "Betulaceae (Birkengewächse)",
@@ -161,56 +168,72 @@ class Taxonomy(models.Model):
             "Boraginaceae (Raublattgewächse)",
             "Brassicaceae (Kreuzblütengewächse)",
             "Buddlejaceae (Schmetterlingsfliedergewächse)",
-            "Buxaceae (Buchsbaumgewächse)",
+            "Buxaceae (Buchsbaumgewächse )",
             "Campanulaceae (Glockenblumengewächse)",
             "Caprifoliaceae (Geißblattgewächse)",
             "Caryophyllaceae (Nelkengewächse)",
             "Celastraceae (Spindelbaumgewächse)",
             "Cercidiphyllaceae (Kuchenbaumgewächse)",
+            "Cistaceae (Zistrosengewächse)",
+            "Clusiaceae (Johanniskrautgewächse)",
             "Cornaceae (Hartriegelgewächse)",
+            "Crassulaceae (Dickblattgewächse)",
             "Cupressaceae (Zypressengewächse)",
+            "Dipsacaceae (Kardengewächse)",
             "Elaeagnaceae (Ölweidengewächse)",
             "Ericaceae (Heidekrautgewächse)",
             "Euphorbiaceae (Wolfsmilchgewächse)",
             "Fabaceae (Hülsenfrüchtler)",
             "Fagaceae (Buchengewächse)",
             "Gentianaceae (Enziangewächse)",
+            "Geraniaceae (Storchschnabelgewächse)",
             "Ginkgoaceae (Ginkgogewächse)",
             "Hamamelidaceae (Zaubernussgewächse)",
+            "Hemerocallidaceae (Tagliliengewächse)",
             "Hydrangeaceae (Hortensiengewächse)",
             "Iridaceae (Schwertliliengewächse)",
-            "Juglandaceae (Walnussgewächse)",
+            "Juglandaceae (Walnußgewächse)",
             "Lamiaceae (Lippenblütler)",
             "Liliaceae (Liliengewächse)",
+            "Lythraceae (Weiderichgewächse)",
             "Magnoliaceae (Magnoliengewächse)",
             "Malvaceae (Malvengewächse)",
-            "Moraceae (Maulbeergewächse)",
+            "Moraceae (Maulbeerbaumgewächse)",
             "Nymphaeaceae (Seerosengewächse)",
+            "Nyssaceae (Tupelogewächse)",
             "Oleaceae (Ölbaumgewächse)",
+            "Onagraceae (Nachtkerzengewächse)",
             "Orchidaceae (Orchideengewächse)",
+            "Paeoniaceae (Pfingstrosengewächse)",
             "Papaveraceae (Mohngewächse)",
             "Pinaceae (Kieferngewächse)",
+            "Plantaginaceae (Wegerichgewächse)",
             "Platanaceae (Platanengewächse)",
-            "Poaceae (Süßgräser)",
+            "Poaceae (Süssgräser)",
+            "Polemoniaceae (Himmelsleitergewächse)",
             "Polygonaceae (Knöterichgewächse)",
             "Primulaceae (Primelgewächse)",
-            "Ranunculaceae (Hahnenfußgewächse)",
+            "Ranunculaceae (Hahnenfussgewächse)",
+            "Rhamnaceae (Kreuzdorngewächse)",
             "Rosaceae (Rosengewächse)",
+            "Rubiaceae (Krappgewächse)",
             "Salicaceae (Weidengewächse)",
             "Sapindaceae (Seifenbaumgewächse)",
+            "Sapotaceae (Sapotengewächse)",
+            "Saxifragaceae (Steinbrechgewächse)",
             "Scrophulariaceae (Braunwurzgewächse)",
             "Scrophulariaceae (Rachenblütler)",
             "Simaroubaceae (Bittereschengewächse)",
             "Solanaceae (Nachtschattengewächse)",
+            "Styracaceae (Storaxbaumgewächse)",
             "Taxaceae (Eibengewächse)",
             "Taxodiaceae (Sumpfzypressengewächse)",
             "Thymelaeaceae (Seidelbastgewächse)",
             "Ulmaceae (Ulmengewächse)",
+            "Valerianaceae (Baldriangewächse)",
+            "Verbenaceae (Eisenkrautgewächse)",
+            "Violaceae (Veilchengewächse)",
             "Vitaceae (Rebengewächse)",
-            "Adoxaceae (Moschuskrautgewächse)",
-            "Ebenaceae (Ebenholzgewächse)",
-            "Lythraceae (Weiderichgewächse)",
-            "Rutaceae (Rautengewächse)"
         ),
     ).choices()
 
@@ -328,7 +351,11 @@ class NatOccurence(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(NatOccurence, self).__str__())
-            return re.sub(r"\d+", self.eco_and_natlocation.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+",
+                self.eco_and_natlocation.plant.general_information.name,
+                object_cleared,
+            )
         except:
             return super(NatOccurence, self).__str__()
 
@@ -455,7 +482,11 @@ class ZeigerValues(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(ZeigerValues, self).__str__())
-            return re.sub(r"\d+", self.nat_behavior.eco_and_natlocation.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+",
+                self.nat_behavior.eco_and_natlocation.plant.general_information.name,
+                object_cleared,
+            )
         except:
             return super(ZeigerValues, self).__str__()
 
@@ -491,7 +522,11 @@ class NatBehavior(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(NatBehavior, self).__str__())
-            return re.sub(r"\d+", self.eco_and_natlocation.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+",
+                self.eco_and_natlocation.plant.general_information.name,
+                object_cleared,
+            )
         except:
             return super(NatBehavior, self).__str__()
 
@@ -521,7 +556,9 @@ class EcologyAndNatLocation(models.Model):
         verbose_name_plural = _("Ökologie und Naturstandort")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(EcologyAndNatLocation, self).__str__())
+        object_cleared = re.sub(
+            "object ", "", super(EcologyAndNatLocation, self).__str__()
+        )
         return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
@@ -550,8 +587,7 @@ class Habitus(models.Model):
         verbose_name=_("Weiteres zur Dimension"),
         help_text=_("Veränderte Größen bei speziellen Bedingungen"),
     )
-    grow_form = models.TextField(
-        max_length=500, verbose_name=_("Wuchsform"))
+    grow_form = models.TextField(max_length=500, verbose_name=_("Wuchsform"))
     grow_extra = models.TextField(
         max_length=500, null=True, blank=True, verbose_name=_("Weiteres zum Wuchs")
     )
@@ -570,7 +606,9 @@ class Habitus(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Habitus, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Habitus, self).__str__()
 
@@ -606,7 +644,9 @@ class Sprout(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Sprout, self).__str__()
 
@@ -728,7 +768,9 @@ class Leaf(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Leaf, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Leaf, self).__str__()
 
@@ -804,7 +846,7 @@ class Blossom(models.Model):
         max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
     )
     pollination = ChoiceArrayField(
-        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True, ),
+        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True,),
         null=True,
         blank=True,
         verbose_name=_("Bestäubungsfaktoren "),
@@ -852,7 +894,9 @@ class Blossom(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Blossom, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Blossom, self).__str__()
 
@@ -893,7 +937,9 @@ class Fruit(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Fruit, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Fruit, self).__str__()
 
@@ -924,7 +970,9 @@ class Bark(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Bark, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Bark, self).__str__()
 
@@ -965,7 +1013,9 @@ class Root(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Root, self).__str__())
-            return re.sub(r"\d+", self.appearance.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.appearance.plant.general_information.name, object_cleared
+            )
         except:
             return super(Root, self).__str__()
 
@@ -1059,7 +1109,9 @@ class Habitat(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Habitat, self).__str__())
-            return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.application.plant.general_information.name, object_cleared
+            )
         except:
             return super(Habitat, self).__str__()
 
@@ -1068,6 +1120,7 @@ class HabitatFactors(models.Model):
     MICROCLIMATE_CHOICES = ChoiceEnum(
         "MicroClimateChoices",
         (
+            "anspruchslos",
             "bevorzugt Kühle",
             "hitzeempfindlich",
             "exponierte Lage",
@@ -1226,10 +1279,15 @@ class HabitatFactors(models.Model):
 
     def __str__(self):
         try:
-            object_cleared = re.sub("object ", "", super(HabitatFactors, self).__str__())
-            return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+            object_cleared = re.sub(
+                "object ", "", super(HabitatFactors, self).__str__()
+            )
+            return re.sub(
+                r"\d+", self.application.plant.general_information.name, object_cleared
+            )
         except:
             return super(HabitatFactors, self).__str__()
+
 
 class Function(models.Model):
     sightings = models.TextField(
@@ -1286,9 +1344,12 @@ class Function(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Function, self).__str__())
-            return re.sub(r"\d+", self.application.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.application.plant.general_information.name, object_cleared
+            )
         except:
             return super(Function, self).__str__()
+
 
 class Application(models.Model):
     plant = models.OneToOneField(
@@ -1487,7 +1548,9 @@ class ReproductionAndProduction(models.Model):
         verbose_name_plural = _("Vermehrungen / Produktionen")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(ReproductionAndProduction, self).__str__())
+        object_cleared = re.sub(
+            "object ", "", super(ReproductionAndProduction, self).__str__()
+        )
         return re.sub(r"\d+", self.plant.general_information.name, object_cleared)
 
 
@@ -1519,7 +1582,7 @@ class Toxicity(models.Model):
             "ungiftig",
             "Nadeln giftig",
             "Nadeln leicht giftig",
-            "Nadeln stark giftig"
+            "Nadeln stark giftig",
         ),
     ).choices()
 
@@ -1540,9 +1603,12 @@ class Toxicity(models.Model):
     def __str__(self):
         try:
             object_cleared = re.sub("object ", "", super(Toxicity, self).__str__())
-            return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+            return re.sub(
+                r"\d+", self.usability.plant.general_information.name, object_cleared
+            )
         except:
             return super(Toxicity, self).__str__()
+
 
 class FaunaUsability(models.Model):
     BEE_CHOICES = ChoiceEnum(
@@ -1614,8 +1680,12 @@ class FaunaUsability(models.Model):
 
     def __str__(self):
         try:
-            object_cleared = re.sub("object ", "", super(FaunaUsability, self).__str__())
-            return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+            object_cleared = re.sub(
+                "object ", "", super(FaunaUsability, self).__str__()
+            )
+            return re.sub(
+                r"\d+", self.usability.plant.general_information.name, object_cleared
+            )
         except:
             return super(FaunaUsability, self).__str__()
 
@@ -1655,8 +1725,12 @@ class HumanUsability(models.Model):
 
     def __str__(self):
         try:
-            object_cleared = re.sub("object ", "", super(HumanUsability, self).__str__())
-            return re.sub(r"\d+", self.usability.plant.general_information.name, object_cleared)
+            object_cleared = re.sub(
+                "object ", "", super(HumanUsability, self).__str__()
+            )
+            return re.sub(
+                r"\d+", self.usability.plant.general_information.name, object_cleared
+            )
         except:
             return super(HumanUsability, self).__str__()
 
@@ -1759,14 +1833,21 @@ class GeneralInformation(models.Model):
         blank=True,
         verbose_name=_("Verortung am Hochschulstandort"),
     )
-    name = models.CharField(max_length=100, verbose_name=_("Botanischer Name"),
-                            help_text=_("Gattung und Art, ggf. Unterart/ Variation, ggf. Sorte"))
-    sub_name = models.CharField(max_length=100, blank=True, verbose_name=_("Deutscher Name"))
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_("Botanischer Name"),
+        help_text=_("Gattung und Art, ggf. Unterart/ Variation, ggf. Sorte"),
+    )
+    sub_name = models.CharField(
+        max_length=100, blank=True, verbose_name=_("Deutscher Name")
+    )
 
     class Meta:
         verbose_name = _("Allgemein")
         verbose_name_plural = _("Allgemein")
 
     def __str__(self):
-        object_cleared = re.sub("object ", "", super(GeneralInformation, self).__str__())
+        object_cleared = re.sub(
+            "object ", "", super(GeneralInformation, self).__str__()
+        )
         return re.sub(r"\d+", self.plant.general_information.name, object_cleared)

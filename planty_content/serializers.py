@@ -10,8 +10,10 @@ from .models import (
     Sprout,
     Twine,
     Wine,
-    YoungLeaf, GeneralInformation,
+    YoungLeaf,
+    GeneralInformation,
 )
+
 
 class SproutSerializer(SolidModelSerializer):
     class Meta:
