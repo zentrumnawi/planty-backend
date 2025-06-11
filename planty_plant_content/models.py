@@ -71,6 +71,7 @@ class Plant(SolidBaseProfile):
     class Meta:
         verbose_name = _("Pflanze")
         verbose_name_plural = _("Pflanzen")
+        ordering = ("general_information__name",)
 
 
 class Living(models.Model):
