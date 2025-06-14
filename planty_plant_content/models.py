@@ -1411,8 +1411,8 @@ class PlantationAndCare(models.Model):
         related_name="plantation_and_creation",
         verbose_name=_("Pflanze"),
     )
-    plantation_time = models.CharField(
-        max_length=100,
+    plantation_time = models.TextField(
+        max_length=500,
         null=True,
         blank=True,
         verbose_name=_("Empfohlener Pflanzzeitpunkt "),
