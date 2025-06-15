@@ -7,6 +7,12 @@ from .choices import *
 
 
 class Wine(SolidBaseProfile):
+    
+    searchable_fields = [
+        "general_information__name",
+        "general_information__synonyms",
+    ]
+
     class Meta:
         verbose_name = _("Rebe")
         verbose_name_plural = _("Reben")
