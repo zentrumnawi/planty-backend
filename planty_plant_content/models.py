@@ -68,7 +68,7 @@ class SortedChoiceEnum(Enum):
 
 
 class Plant(SolidBaseProfile):
-    
+
     searchable_fields = [
         "general_information__name",
         "general_information__sub_name",

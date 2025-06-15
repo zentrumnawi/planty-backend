@@ -7,7 +7,7 @@ from .choices import *
 
 
 class Wine(SolidBaseProfile):
-    
+
     searchable_fields = [
         "general_information__name",
         "general_information__synonyms",
