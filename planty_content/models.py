@@ -13,6 +13,24 @@ class Wine(SolidBaseProfile):
         "general_information__synonyms",
     ]
 
+    @classmethod
+    def get_optimized_queryset(cls):
+        return cls.objects.select_related(
+            "tree_node",
+            "general_information",
+            "grape",
+            "berry",
+            "twine",
+            "properties",
+            "phenology",
+            "disease",
+            "sprout",
+            "young_leaf",
+            "grown_leaf",
+        ).prefetch_related(
+            "media_objects",
+        )
+
     class Meta:
         verbose_name = _("Rebe")
         verbose_name_plural = _("Reben")

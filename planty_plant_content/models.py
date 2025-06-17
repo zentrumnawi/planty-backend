@@ -74,6 +74,45 @@ class Plant(SolidBaseProfile):
         "general_information__sub_name",
     ]
 
+    @classmethod
+    def get_optimized_queryset(cls):
+        return cls.objects.select_related(
+            "tree_node",
+            "general_information",
+            "taxonomy",
+            "usability",
+            "disease",
+            "reproduction_and_production",
+            "appearance",
+            "application",
+            "plantation_and_creation",
+            "ecology_and_natlocation",
+            # Nested select_related for appearance
+            "appearance__habitus",
+            "appearance__sprout",
+            "appearance__leaf",
+            "appearance__blossom",
+            "appearance__fruit",
+            "appearance__bark",
+            "appearance__root",
+            # Nested select_related for application
+            "application__habitat",
+            "application__habitat_factors",
+            "application__appl_function",
+            # Nested select_related for usability
+            "usability__toxicity",
+            "usability__fauna_usability",
+            "usability__human_usability",
+            # Nested select_related for taxonomy
+            "taxonomy__living",
+            # Nested select_related for ecology_and_natlocation
+            "ecology_and_natlocation__nat_occ",
+            "ecology_and_natlocation__nat_behavior",
+            "ecology_and_natlocation__nat_behavior__zeiger_value",
+        ).prefetch_related(
+            "media_objects",
+        )
+
     class Meta:
         verbose_name = _("Pflanze")
         verbose_name_plural = _("Pflanzen")
