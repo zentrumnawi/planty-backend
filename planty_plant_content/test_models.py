@@ -9,7 +9,9 @@ class PlantModelTest(TestCase):
         """Set up test data."""
         self.plant = Plant.objects.create()
         self.general_info = GeneralInformation.objects.create(
-            plant=self.plant, name="Test Plant", sub_name="Test Sub Name",
+            plant=self.plant,
+            name="Test Plant",
+            sub_name="Test Sub Name",
         )
 
     def test_plant_creation(self):

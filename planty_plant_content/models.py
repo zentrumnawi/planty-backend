@@ -68,6 +68,51 @@ class SortedChoiceEnum(Enum):
 
 
 class Plant(SolidBaseProfile):
+
+    searchable_fields = [
+        "general_information__name",
+        "general_information__sub_name",
+    ]
+
+    @classmethod
+    def get_optimized_queryset(cls):
+        return cls.objects.select_related(
+            "tree_node",
+            "general_information",
+            "taxonomy",
+            "usability",
+            "disease",
+            "reproduction_and_production",
+            "appearance",
+            "application",
+            "plantation_and_creation",
+            "ecology_and_natlocation",
+            # Nested select_related for appearance
+            "appearance__habitus",
+            "appearance__sprout",
+            "appearance__leaf",
+            "appearance__blossom",
+            "appearance__fruit",
+            "appearance__bark",
+            "appearance__root",
+            # Nested select_related for application
+            "application__habitat",
+            "application__habitat_factors",
+            "application__appl_function",
+            # Nested select_related for usability
+            "usability__toxicity",
+            "usability__fauna_usability",
+            "usability__human_usability",
+            # Nested select_related for taxonomy
+            "taxonomy__living",
+            # Nested select_related for ecology_and_natlocation
+            "ecology_and_natlocation__nat_occ",
+            "ecology_and_natlocation__nat_behavior",
+            "ecology_and_natlocation__nat_behavior__zeiger_value",
+        ).prefetch_related(
+            "media_objects",
+        )
+
     class Meta:
         verbose_name = _("Pflanze")
         verbose_name_plural = _("Pflanzen")
@@ -655,7 +700,12 @@ class Sprout(models.Model):
 class Leaf(models.Model):
     ENDURANCE_CHOICES = ChoiceEnum(
         "EnduranceChoices",
-        ("immergrün", "überwinternd grün / wintergrün", "sommergrün", "vorsommergrün",),
+        (
+            "immergrün",
+            "überwinternd grün / wintergrün",
+            "sommergrün",
+            "vorsommergrün",
+        ),
     ).choices()
     ANATOMY_CHOICES = ChoiceEnum(
         "AnatomyChoices",
@@ -841,13 +891,23 @@ class Blossom(models.Model):
         help_text=_("Grundfarbe und besondere Farbnuancen"),
     )
     sexus = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Geschlechtlichkeit"),
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name=_("Geschlechtlichkeit"),
     )
     housing = models.CharField(
-        max_length=100, null=True, blank=True, verbose_name=_("Häusigkeit"),
+        max_length=100,
+        null=True,
+        blank=True,
+        verbose_name=_("Häusigkeit"),
     )
     pollination = ChoiceArrayField(
-        models.CharField(max_length=2, choices=POLLINATION_CHOICES, blank=True,),
+        models.CharField(
+            max_length=2,
+            choices=POLLINATION_CHOICES,
+            blank=True,
+        ),
         null=True,
         blank=True,
         verbose_name=_("Bestäubungsfaktoren "),
@@ -1210,7 +1270,10 @@ class HabitatFactors(models.Model):
         help_text=_("Für Innenräume"),
     )
     frost_sensitivity = models.TextField(
-        max_length=500, null=True, blank=True, verbose_name=_("Frostempfindlichkeit"),
+        max_length=500,
+        null=True,
+        blank=True,
+        verbose_name=_("Frostempfindlichkeit"),
     )
     hardy_zone = models.CharField(
         max_length=100,
