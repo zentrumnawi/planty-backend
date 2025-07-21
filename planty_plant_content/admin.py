@@ -27,7 +27,7 @@ from .models import (
     PlantationAndCare,
     ReproductionAndProduction,
     Root,
-    Sprout,
+    PlantSprout,
     Taxonomy,
     Toxicity,
     Usability,
@@ -176,7 +176,7 @@ admin.site.register(NatOccurence, admin.ModelAdmin)
 admin.site.register(ZeigerValues, admin.ModelAdmin)
 admin.site.register(EcologyAndNatLocation, EcologyAndNatLocationModelAdmin)
 admin.site.register(Habitus, admin.ModelAdmin)
-admin.site.register(Sprout, admin.ModelAdmin)
+admin.site.register(PlantSprout, admin.ModelAdmin)
 admin.site.register(Leaf, admin.ModelAdmin)
 admin.site.register(Blossom, admin.ModelAdmin)
 admin.site.register(Fruit, admin.ModelAdmin)

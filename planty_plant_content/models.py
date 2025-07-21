@@ -659,7 +659,7 @@ class Habitus(models.Model):
             return super(Habitus, self).__str__()
 
 
-class Sprout(models.Model):
+class PlantSprout(models.Model):
     branch_form = models.TextField(
         max_length=500,
         null=True,
@@ -689,12 +689,12 @@ class Sprout(models.Model):
 
     def __str__(self):
         try:
-            object_cleared = re.sub("object ", "", super(Sprout, self).__str__())
+            object_cleared = re.sub("object ", "", super(PlantSprout, self).__str__())
             return re.sub(
                 r"\d+", self.appearance.plant.general_information.name, object_cleared
             )
         except:
-            return super(Sprout, self).__str__()
+            return super(PlantSprout, self).__str__()
 
 
 class Leaf(models.Model):
@@ -1096,7 +1096,7 @@ class Appearance(models.Model):
         verbose_name=_("Habitus"),
     )
     sprout = models.OneToOneField(
-        to=Sprout,
+        to=PlantSprout,
         on_delete=models.CASCADE,
         related_name="appearance",
         verbose_name=_("Trieb"),
