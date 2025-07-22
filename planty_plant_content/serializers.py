@@ -1,5 +1,6 @@
 from solid_backend.media_object.serializers import MediaObjectSerializer
 from solid_backend.utils.serializers import SolidModelSerializer
+from drf_spectacular.utils import extend_schema_field
 
 from .models import (
     Appearance,
@@ -24,7 +25,7 @@ from .models import (
     PlantationAndCare,
     ReproductionAndProduction,
     Root,
-    Sprout,
+    PlantSprout,
     Taxonomy,
     Toxicity,
     Usability,
@@ -88,9 +89,9 @@ class HabitusSerializer(SolidModelSerializer):
         depth = 1
 
 
-class SproutSerializer(SolidModelSerializer):
+class PlantSproutSerializer(SolidModelSerializer):
     class Meta:
-        model = Sprout
+        model = PlantSprout
         fields = "__all__"
         depth = 1
 
@@ -132,7 +133,7 @@ class RootSerializer(SolidModelSerializer):
 
 class AppearanceSerializer(SolidModelSerializer):
     habitus = HabitusSerializer()
-    sprout = SproutSerializer()
+    sprout = PlantSproutSerializer()
     leaf = LeafSerializer()
     blossom = BlossomSerializer()
     fruit = FruitSerializer()
