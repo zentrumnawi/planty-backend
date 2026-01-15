@@ -1,4 +1,6 @@
 import logging
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 from .common import *  # noqa
 
@@ -41,10 +43,6 @@ ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
 # stored files.
 MEDIA_URL = env("DJANGO_CDN_URL")
 
-# Raven Sentry client
-# See https://docs.getsentry.com/hosted/clients/python/integrations/django/
-INSTALLED_APPS += ("raven.contrib.django.raven_compat",)
-
 # APPS
 INSTALLED_APPS += ("gunicorn",)
 
@@ -54,13 +52,14 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # Sentry Configuration
 SENTRY_DSN = env("DJANGO_SENTRY_DSN")
-SENTRY_CLIENT = env(
-    "DJANGO_SENTRY_CLIENT", default="raven.contrib.django.raven_compat.DjangoClient"
+sentry_sdk.init(
+    dsn=SENTRY_DSN, integrations=[DjangoIntegration()], send_default_pii=True
 )
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": True,
-    "root": {"level": "WARNING", "handlers": ["sentry"]},
+    "root": {"level": "WARNING", "handlers": ["console"]},
     "formatters": {
         "verbose": {
             "format": "%(levelname)s %(asctime)s %(module)s "
@@ -68,10 +67,6 @@ LOGGING = {
         },
     },
     "handlers": {
-        "sentry": {
-            "level": "ERROR",
-            "class": "raven.contrib.django.raven_compat.handlers.SentryHandler",
-        },
         "console": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
@@ -84,27 +79,12 @@ LOGGING = {
             "handlers": ["console"],
             "propagate": False,
         },
-        "raven": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        },
-        "sentry.errors": {
-            "level": "DEBUG",
-            "handlers": ["console"],
-            "propagate": False,
-        },
         "django.security.DisallowedHost": {
             "level": "ERROR",
-            "handlers": ["console", "sentry"],
+            "handlers": ["console"],
             "propagate": False,
         },
     },
-}
-SENTRY_CELERY_LOGLEVEL = env.int("DJANGO_SENTRY_LOG_LEVEL", logging.INFO)
-RAVEN_CONFIG = {
-    "CELERY_LOGLEVEL": env.int("DJANGO_SENTRY_LOG_LEVEL", logging.INFO),
-    "DSN": SENTRY_DSN,
 }
 
 # ADMIN URL
