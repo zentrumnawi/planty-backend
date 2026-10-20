@@ -849,6 +849,7 @@ class Blossom(models.Model):
     ).choices()
 
     MAIN_BLOOMING_CHOICES = (
+        ("", "--"),
         ("I", "I"),
         ("II", "II"),
         ("III", "III"),
