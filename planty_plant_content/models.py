@@ -1535,7 +1535,14 @@ class PlantationAndCare(models.Model):
 class ReproductionAndProduction(models.Model):
     REPRODUCTION_CHOICES = ChoiceEnum(
         "ReproductionChoices",
-        ("Aussaat", "Stecklingsvermehrung", "Brutknöllchen", "Ableger", "Veredlung"),
+        (
+            "Aussaat",
+            "Stecklingsvermehrung",
+            "Brutknöllchen",
+            "Ableger",
+            "Veredlung",
+            "Teilung",
+        ),
     ).choices()
     SPROUT_BEHAVIOR_CHOICES = ChoiceEnum(
         "SproutBehaviorChoices",
